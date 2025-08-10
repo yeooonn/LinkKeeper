@@ -41,7 +41,7 @@ const Content = ({ className, children, ...props }: CardProps) => {
 
 const Footer = ({ className, children, ...props }: CardProps) => {
   return (
-    <div className={cn("flex", className)} {...props}>
+    <div className={cn("flex gap-3", className)} {...props}>
       {children}
     </div>
   );
