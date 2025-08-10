@@ -24,7 +24,11 @@ const typoTypeMap: Record<
 
 const BaseTypography = ({ type, children, className }: BaseTypographyProps) => {
   const { className: style, tag: Tag } = typoTypeMap[type];
-  return <Tag className={cn(style, className)}>{children}</Tag>;
+  return (
+    <Tag className={cn(style, "text-gray-900 dark:text-white", className)}>
+      {children}
+    </Tag>
+  );
 };
 
 const Typography = {
@@ -32,7 +36,11 @@ const Typography = {
   P1: (props: TypographyProps) => <BaseTypography type="P1" {...props} />,
   P2: (props: TypographyProps) => <BaseTypography type="P2" {...props} />,
   Error: (props: TypographyProps) => (
-    <BaseTypography type="P2" className="text-red-500" {...props} />
+    <BaseTypography
+      type="P2"
+      className="text-red-500 dark:text-red-400"
+      {...props}
+    />
   ),
 };
 
