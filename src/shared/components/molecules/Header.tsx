@@ -4,7 +4,7 @@ import Typography from "../atoms/Typography";
 
 export const Header = () => {
   return (
-    <div className="w-full h-19 border-b border-gray-200 px-8 fixed">
+    <div className="w-full h-19 border-b border-gray-200 px-8 fixed bg-gray-50 dark:bg-gray-800 dark:border-b-gray-600">
       <div className="w-full h-full flex justify-between">
         <div className="flex h-full gap-2 items-center">
           <i className="bi bi-link text-5xl text-blue-500" />
@@ -17,7 +17,7 @@ export const Header = () => {
             <Typography.P1 className="text-white">링크 추가</Typography.P1>
           </Button.Blue>
           <Button.Gray>
-            <i className="bi bi-moon text-xl" />
+            <i className="bi bi-moon dark:bi-brightness-high text-xl dark:text-yellow-500" />
           </Button.Gray>
         </div>
       </div>
