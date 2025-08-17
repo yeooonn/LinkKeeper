@@ -3,17 +3,29 @@ import { InputHTMLAttributes, ReactNode } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
+  icon?: string;
 }
 
-const Input = ({ className, ...props }: InputProps) => {
+const Input = ({ className, icon, ...props }: InputProps) => {
   return (
-    <input
-      className={cn(
-        "px-4 py-2 w-80 rounded-lg border bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
-        className
+    <div className="relative ml-8">
+      {icon && (
+        <i
+          className={cn(
+            `bi bi-${icon}`,
+            "absolute left-3 top-4.5 transform -translate-y-1/2 w-4 h-4 text-gray-400"
+          )}
+        />
       )}
-      {...props}
-    />
+      <input
+        className={cn(
+          icon ? "px-9" : "px-4",
+          "py-2 w-80 rounded-lg border bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
+          className
+        )}
+        {...props}
+      />
+    </div>
   );
 };
 
