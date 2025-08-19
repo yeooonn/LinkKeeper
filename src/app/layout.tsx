@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/shared/styles/globals.css";
 import { Header } from "@/shared/components/molecules/Header";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Sidebar from "@/shared/components/molecules/Sidebar";
+import Sidebar from "@/features/navigation/ui/Sidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +20,7 @@ export default function RootLayout({
         <Header />
         <div className="flex">
           <Sidebar />
-          <main className="flex-1 p-6">{children}</main>
+          <main className="flex-1">{children}</main>
         </div>
       </body>
     </html>
