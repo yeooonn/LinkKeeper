@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@/shared/styles/globals.css";
 import { Header } from "@/shared/components/molecules/Header";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Sidebar from "@/features/navigation/ui/Sidebar";
+import Sidebar from "@/wedjets/Sidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
