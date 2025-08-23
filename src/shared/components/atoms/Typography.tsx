@@ -36,6 +36,7 @@ const Typography = {
   H1: (props: TypographyProps) => <BaseTypography type="H1" {...props} />,
   P1: (props: TypographyProps) => <BaseTypography type="P1" {...props} />,
   P2: (props: TypographyProps) => <BaseTypography type="P2" {...props} />,
+  P3: (props: TypographyProps) => <BaseTypography type="P3" {...props} />,
   Error: (props: TypographyProps) => (
     <BaseTypography
       type="P2"
