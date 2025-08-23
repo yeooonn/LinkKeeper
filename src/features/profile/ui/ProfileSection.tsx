@@ -1,6 +1,6 @@
 import Profile from "@/shared/components/atoms/Profile";
 import Typography from "@/shared/components/atoms/Typography";
-import { userDummyData } from "../lib/userData";
+import { userDummyData } from "@/features/profile/lib/userData";
 
 const ProfileSection = () => {
   const { profileImg, nickname } = userDummyData;

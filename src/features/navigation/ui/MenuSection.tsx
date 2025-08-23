@@ -1,8 +1,8 @@
 "use client";
 import Typography from "@/shared/components/atoms/Typography";
 import { MenuItem } from "@/shared/components/molecules/MenuItem";
-import { MENU_LIST } from "../lib/menuList";
-import { useSidebar } from "../model/useSidebar";
+import { MENU_LIST } from "@/features/navigation/lib/menuList";
+import { useSidebar } from "@/features/navigation/model/useSidebar";
 
 const MenuSection = () => {
   const { selectedMenu, setSelectedMenu, selectedColor, unSelectedColor } =

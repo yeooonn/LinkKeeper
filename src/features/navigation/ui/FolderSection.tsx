@@ -1,7 +1,7 @@
 "use client";
 import Typography from "@/shared/components/atoms/Typography";
-import { useSidebar } from "../model/useSidebar";
-import { FOLDER_LIST } from "../lib/folderList";
+import { useSidebar } from "@/features/navigation/model/useSidebar";
+import { FOLDER_LIST } from "@/features/navigation/lib/folderList";
 import { FolderItem } from "@/shared/components/molecules/FolderItem";
 
 const FolderSection = () => {
