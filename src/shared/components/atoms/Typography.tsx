@@ -2,7 +2,7 @@ import cn from "@/shared/utils/cn";
 import { ReactNode } from "react";
 import type { JSX } from "react";
 
-type TypoType = "H1" | "P1" | "P2";
+type TypoType = "H1" | "P1" | "P2" | "P3";
 
 interface TypographyProps {
   children: ReactNode;
@@ -19,7 +19,8 @@ const typoTypeMap: Record<
 > = {
   H1: { className: "text-2xl", tag: "h1" },
   P1: { className: "text-base", tag: "p" },
-  P2: { className: "text-xs", tag: "p" },
+  P2: { className: "text-lg", tag: "p" },
+  P3: { className: "text-xs", tag: "p" },
 };
 
 const BaseTypography = ({ type, children, className }: BaseTypographyProps) => {
