@@ -1,3 +1,4 @@
+"use client";
 import Typography from "@/shared/components/atoms/Typography";
 import { useSidebar } from "../model/useSidebar";
 import { FOLDER_LIST } from "../lib/folderList";

@@ -1,4 +1,3 @@
-"use client";
 import MenuSection from "@/features/navigation/ui/MenuSection";
 import FolderSection from "@/features/navigation/ui/FolderSection";
 import ProfileSection from "@/features/profile/ui/ProfileSection";
