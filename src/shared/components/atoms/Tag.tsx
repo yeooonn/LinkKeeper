@@ -17,7 +17,7 @@ const TagComponent = ({
 }: TagProps) => {
   const TagClass: Record<TagColor, string> = {
     Gray: "bg-gray-100 text-gray-500 border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600",
-    Blue: "bg-blue-100 text-blue-500 border-blue-300 dark:bg-blue-100 dark:text-blue-700 dark:border-blue-600",
+    Blue: "bg-blue-100 text-blue-500 border-blue-300 dark:bg-[#273351] dark:text-[#6D9FEE] dark:border-blue-600",
   };
 
   return (
