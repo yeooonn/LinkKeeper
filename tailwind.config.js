@@ -10,6 +10,10 @@ module.exports = {
         sans: "var(--font-sans)",
         mono: "var(--font-mono)",
       },
+      screens: {
+        laptop: { max: "1512px" }, // 노트북 (맥북 M1 프로 기준)
+        desktop: { min: "1513px" }, // 모니터
+      },
     },
   },
   plugins: [],
