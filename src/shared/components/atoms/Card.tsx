@@ -11,7 +11,7 @@ const Card = ({ className, children, ...props }: CardProps) => {
     <div
       className={cn(
         className,
-        "p-4 rounded-xl border bg-white cursor-pointer hover:border-gray-300 border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600"
+        "p-4 rounded-xl border bg-white cursor-pointer hover:border-blue-300 border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-blue-900"
       )}
       {...props}
     >
@@ -25,12 +25,12 @@ const ImageCard = ({ className, children, ...props }: CardProps) => {
     <div
       className={cn(
         className,
-        "p-4 rounded-xl border bg-white cursor-pointer hover:border-gray-300 border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600 flex gap-5"
+        "p-4 rounded-xl border bg-white cursor-pointer hover:border-blue-300 border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-blue-900 flex gap-5"
       )}
       {...props}
     >
       <div className="w-25 h-25 bg-gray-500 rounded-sm"></div>
-      <div>{children}</div>
+      <div className="w-full">{children}</div>
     </div>
   );
 };
