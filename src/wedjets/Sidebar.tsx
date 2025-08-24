@@ -6,7 +6,7 @@ const Sidebar = () => {
   return (
     <aside
       style={{ scrollbarWidth: "none" }}
-      className="w-80 h-screen overflow-y-auto dark:bg-gray-800 dark:border-gray-700 bg-white border-gray-300 border-r"
+      className="w-80 h-auto overflow-y-auto dark:bg-gray-800 dark:border-gray-700 bg-white border-gray-300 border-r"
     >
       <div className="px-4 pt-25 pb-5 border-b border-gray-200 dark:border-gray-600">
         <ProfileSection />
