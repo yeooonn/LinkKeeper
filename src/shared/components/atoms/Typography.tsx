@@ -17,10 +17,10 @@ const typoTypeMap: Record<
   TypoType,
   { className: string; tag: keyof JSX.IntrinsicElements }
 > = {
-  H1: { className: "text-2xl", tag: "h1" },
-  P1: { className: "text-base", tag: "p" },
-  P2: { className: "text-lg", tag: "p" },
-  P3: { className: "text-xs", tag: "p" },
+  H1: { className: "text-xl desktop:text-2xl", tag: "h1" },
+  P1: { className: "text-sm desktop:text-base", tag: "p" },
+  P2: { className: "text-base desktop:text-lg", tag: "p" },
+  P3: { className: "text-[10px] desktop:text-xs", tag: "p" },
 };
 
 const BaseTypography = ({ type, children, className }: BaseTypographyProps) => {
