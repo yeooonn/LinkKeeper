@@ -1,5 +1,4 @@
 import Button from "@/shared/components/atoms/Button";
-import Input from "@/shared/components/atoms/Input";
 import Typography from "@/shared/components/atoms/Typography";
 
 export const Header = () => {
@@ -9,7 +8,6 @@ export const Header = () => {
         <div className="flex h-full gap-2 items-center">
           <i className="bi bi-link text-5xl text-blue-500" />
           <Typography.H1 className="font-bold mr-15">LinkKeeper</Typography.H1>
-          <Input placeholder="링크 검색" icon="search" />
         </div>
         <div className="flex h-full items-center gap-3">
           <Button.Blue>

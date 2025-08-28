@@ -1,5 +1,7 @@
+import Button from "@/shared/components/atoms/Button";
 import Card from "@/shared/components/atoms/Card";
 import Icon from "@/shared/components/atoms/Icon";
+import Input from "@/shared/components/atoms/Input";
 import Tag from "@/shared/components/atoms/Tag";
 import Typography from "@/shared/components/atoms/Typography";
 import { LandingArticle } from "@/shared/mock/LandingDummyData";
@@ -36,7 +38,15 @@ const RenderCard = ({ data }: { data: LandingArticle }) => {
 const Landing = ({ LandingData }: { LandingData: LandingArticle[] }) => {
   return (
     <div>
-      <Typography.H1 className="font-bold mb-6">최근 링크</Typography.H1>
+      <div className="flex justify-between items-center mb-5">
+        <Typography.H1 className="font-bold">최근 링크</Typography.H1>
+        <div className="flex items-center gap-3">
+          <Input placeholder="링크 검색" icon="search" />
+          <Button.Gray className="py-0.5 px-2">
+            <i className="bi bi-filter text-[24px]" />
+          </Button.Gray>
+        </div>
+      </div>
       <div className="flex flex-col gap-2">
         {LandingData.map((list) => (
           <RenderCard key={list.link} data={list} />
