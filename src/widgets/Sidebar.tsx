@@ -1,8 +1,12 @@
+"use client";
 import MenuSection from "@/features/navigation/ui/MenuSection";
 import FolderSection from "@/features/navigation/ui/FolderSection";
 import ProfileSection from "@/features/profile/ui/ProfileSection";
+import { useNavigation } from "@/features/navigation/model/useNavigation";
 
 const Sidebar = () => {
+  const { selectedMenu, setSelectedMenu } = useNavigation();
+
   return (
     <aside
       style={{ scrollbarWidth: "none" }}
@@ -12,10 +16,16 @@ const Sidebar = () => {
         <ProfileSection />
       </div>
       <div className="pt-7 border-b border-gray-200 dark:border-gray-600">
-        <MenuSection />
+        <MenuSection
+          selectedMenu={selectedMenu}
+          setSelectedMenu={setSelectedMenu}
+        />
       </div>
       <div className="py-6">
-        <FolderSection />
+        <FolderSection
+          selectedMenu={selectedMenu}
+          setSelectedMenu={setSelectedMenu}
+        />
       </div>
     </aside>
   );

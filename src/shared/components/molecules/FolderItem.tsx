@@ -7,8 +7,8 @@ interface FolderItemProps {
   folder: FolderInterface;
   onClick: () => void;
   expandedFolders: string[];
-  selectedChildrenFolder: string;
-  setSelectedChildrenFolder: Dispatch<SetStateAction<string>>;
+  selectedMenu: string;
+  setSelectedMenu: Dispatch<SetStateAction<string>>;
   selectedColor?: string;
   unSelectedColor?: string;
 }
@@ -17,8 +17,8 @@ export const FolderItem = ({
   folder,
   onClick,
   expandedFolders,
-  selectedChildrenFolder,
-  setSelectedChildrenFolder,
+  selectedMenu,
+  setSelectedMenu,
   selectedColor,
   unSelectedColor,
 }: FolderItemProps) => {
@@ -47,12 +47,12 @@ export const FolderItem = ({
       {isOpenFolder &&
         folder.children &&
         folder.children.map((childrenFolder) => {
-          const isSelected = selectedChildrenFolder === childrenFolder.id;
+          const isSelected = selectedMenu === childrenFolder.id;
 
           return (
             <div key={childrenFolder.id} className="pl-9">
               <button
-                onClick={() => setSelectedChildrenFolder(childrenFolder.id)}
+                onClick={() => setSelectedMenu(childrenFolder.id)}
                 className={cn(
                   isSelected ? selectedColor : unSelectedColor,
                   "w-full flex gap-3 px-3 py-2 mb-2 rounded-lg cursor-pointer transition-all"

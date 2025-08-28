@@ -1,18 +1,19 @@
 "use client";
 import Typography from "@/shared/components/atoms/Typography";
-import { useSidebar } from "@/features/navigation/model/useSidebar";
+import { useNavigation } from "@/features/navigation/model/useNavigation";
 import { FOLDER_LIST } from "@/features/navigation/lib/folderList";
 import { FolderItem } from "@/shared/components/molecules/FolderItem";
+import { Dispatch, SetStateAction } from "react";
+import { useFolder } from "../model/useFolder";
 
-const FolderSection = () => {
-  const {
-    selectedChildrenFolder,
-    setSelectedChildrenFolder,
-    expandedFolders,
-    selectedColor,
-    unSelectedColor,
-    onClickFolder,
-  } = useSidebar();
+interface MenuSectionProps {
+  selectedMenu: string;
+  setSelectedMenu: Dispatch<SetStateAction<string>>;
+}
+
+const FolderSection = ({ selectedMenu, setSelectedMenu }: MenuSectionProps) => {
+  const { selectedColor, unSelectedColor } = useNavigation();
+  const { expandedFolders, onClickFolder } = useFolder();
 
   return (
     <>
@@ -27,8 +28,8 @@ const FolderSection = () => {
               folder={folder}
               onClick={() => onClickFolder(folder.id)}
               expandedFolders={expandedFolders}
-              selectedChildrenFolder={selectedChildrenFolder}
-              setSelectedChildrenFolder={setSelectedChildrenFolder}
+              selectedMenu={selectedMenu}
+              setSelectedMenu={setSelectedMenu}
               selectedColor={selectedColor}
               unSelectedColor={unSelectedColor}
             />

@@ -2,11 +2,16 @@
 import Typography from "@/shared/components/atoms/Typography";
 import { MenuItem } from "@/shared/components/molecules/MenuItem";
 import { MENU_LIST } from "@/features/navigation/lib/menuList";
-import { useSidebar } from "@/features/navigation/model/useSidebar";
+import { useNavigation } from "@/features/navigation/model/useNavigation";
+import { Dispatch, SetStateAction } from "react";
 
-const MenuSection = () => {
-  const { selectedMenu, setSelectedMenu, selectedColor, unSelectedColor } =
-    useSidebar();
+interface MenuSectionProps {
+  selectedMenu: string;
+  setSelectedMenu: Dispatch<SetStateAction<string>>;
+}
+
+const MenuSection = ({ selectedMenu, setSelectedMenu }: MenuSectionProps) => {
+  const { selectedColor, unSelectedColor } = useNavigation();
 
   return (
     <>
