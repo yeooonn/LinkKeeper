@@ -29,7 +29,7 @@ const ImageCard = ({ className, children, ...props }: CardProps) => {
       )}
       {...props}
     >
-      <div className="w-25 h-25 bg-gray-500 rounded-sm"></div>
+      <div className="w-25 h-25 bg-gray-100 rounded-sm"></div>
       <div className="w-full">{children}</div>
     </div>
   );
