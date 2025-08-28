@@ -22,7 +22,7 @@ export const MenuItem = ({
       onClick={onClick}
       className={cn(
         isSelected ? selectedColor : unSelectedColor,
-        "w-full flex gap-3 px-3 py-2 mb-2 rounded-lg cursor-pointer transition-all"
+        "w-full flex gap-3 px-3 py-2 mb-2 rounded-lg cursor-pointer transition-all items-center"
       )}
     >
       <i className={menu.icon} />
