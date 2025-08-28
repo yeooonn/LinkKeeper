@@ -1,5 +1,5 @@
 import { LandingDummyData } from "@/shared/mock/LandingDummyData";
-import Landing from "@/wedjets/Landing";
+import Landing from "@/widgets/Landing";
 
 export default function Home() {
   const LandingData = LandingDummyData;
