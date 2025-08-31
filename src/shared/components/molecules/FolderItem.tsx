@@ -41,7 +41,7 @@ export const FolderItem = ({
             <i className="bi bi-folder" />
           </div>
         )}
-        {folder.name}
+        <Typography.P1>{folder.name}</Typography.P1>
       </div>
 
       {isOpenFolder &&

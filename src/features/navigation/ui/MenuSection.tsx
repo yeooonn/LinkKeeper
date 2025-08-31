@@ -16,7 +16,7 @@ const MenuSection = ({ selectedMenu, setSelectedMenu }: MenuSectionProps) => {
   return (
     <>
       <div className="px-4">
-        <Typography.P1 className="font-semibold">빠른 필터</Typography.P1>
+        <Typography.P2 className="font-semibold">빠른 필터</Typography.P2>
       </div>
       <div className="p-3">
         {MENU_LIST.map((menu) => (
