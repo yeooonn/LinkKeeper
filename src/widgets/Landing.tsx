@@ -43,7 +43,7 @@ const Landing = ({ LandingData }: { LandingData: LandingArticle[] }) => {
         <div className="flex items-center gap-3">
           <Input placeholder="링크 검색" icon="search" />
           <Button.Gray className="py-0.5 px-2">
-            <i className="bi bi-filter text-[24px]" />
+            <i className="bi bi-filter text-[20px]" />
           </Button.Gray>
         </div>
       </div>
