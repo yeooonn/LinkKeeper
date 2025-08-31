@@ -8,7 +8,12 @@
   --font-mono: "Geist Mono", monospace;
 }
 
-@theme inline {
+@theme {
+  --breakpoint-mobile: 384px; /* 모바일 최소값 */
+  --breakpoint-tablet: 768px; /* 모바일 최소값 */
+  --breakpoint-laptop: 1024px; /* laptop 최소값 */
+  --breakpoint-desktop: 1513px; /* desktop 최소값 */
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
