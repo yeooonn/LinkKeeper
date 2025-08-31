@@ -6,7 +6,7 @@ export const Header = () => {
     <div className="w-full h-19 border-b border-gray-300 px-8 fixed dark:bg-gray-800 dark:border-gray-600 bg-white">
       <div className="w-full h-full flex justify-between">
         <div className="flex h-full gap-2 items-center">
-          <i className="bi bi-link text-5xl text-blue-500" />
+          <i className="bi bi-link text-4xl text-blue-500" />
           <Typography.H1 className="font-bold mr-15">LinkKeeper</Typography.H1>
         </div>
         <div className="flex h-full items-center gap-3">
