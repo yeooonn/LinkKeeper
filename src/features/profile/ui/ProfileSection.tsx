@@ -7,9 +7,14 @@ const ProfileSection = () => {
 
   return (
     <div className="flex gap-4 items-center">
-      <Profile width={60} height={60} src={profileImg} />
+      <Profile
+        src={profileImg}
+        className="desktop:w-14 desktop:h-14 laptop:w-13 laptop:h-13"
+      />
       <div className="w-full">
-        <Typography.P1 className="text-xl">{nickname}</Typography.P1>
+        <Typography.P1 className="desktop:text-xl text-base font-bold">
+          {nickname}
+        </Typography.P1>
         <div className="flex justify-between cursor-pointer">
           <Typography.P1>계정관리</Typography.P1>
           <i className="bi bi-chevron-right" />

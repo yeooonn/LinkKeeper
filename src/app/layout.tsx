@@ -17,11 +17,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <div className="flex">
-          <Sidebar />
-          <main className="flex-1">{children}</main>
-        </div>
+        <main>
+          <Header />
+          <div className="flex w-full desktop:py-19 laptop:py-15 py-15">
+            <Sidebar />
+            <div className="w-full flex-1 desktop:py-7 laptop:py-5 px-5 py-5 font-sans min-h-screen bg-[#F9FAFB] dark:bg-[#121826]">
+              {children}
+            </div>
+          </div>
+        </main>
       </body>
     </html>
   );

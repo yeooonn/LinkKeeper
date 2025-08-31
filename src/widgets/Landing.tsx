@@ -10,9 +10,9 @@ const RenderCard = ({ data }: { data: LandingArticle }) => {
   return (
     <Card.ImageCard>
       <Card.Header>
-        <div className="flex gap-2">
-          <Icon.BoxArrowUpRight />
+        <div className="flex gap-2 items-center">
           <Typography.P2 className="font-bold">{data.title}</Typography.P2>
+          <Icon.BoxArrowUpRight />
         </div>
 
         <div className="flex gap-4">
@@ -22,7 +22,7 @@ const RenderCard = ({ data }: { data: LandingArticle }) => {
         </div>
       </Card.Header>
       <Card.Content className="text-gray-700 dark:text-gray-300">
-        {data.link}
+        <Typography.P1 className="mb-1">{data.link}</Typography.P1>
       </Card.Content>
       <Card.Footer>
         <Tag.Gray>{data.filename}</Tag.Gray>
@@ -39,7 +39,7 @@ const Landing = ({ LandingData }: { LandingData: LandingArticle[] }) => {
   return (
     <div>
       <div className="flex justify-between items-center mb-5">
-        <Typography.H1 className="font-bold">최근 링크</Typography.H1>
+        <Typography.H1 className="font-bold">전체 링크</Typography.H1>
         <div className="flex items-center gap-3">
           <Input placeholder="링크 검색" icon="search" />
           <Button.Gray className="py-0.5 px-2">

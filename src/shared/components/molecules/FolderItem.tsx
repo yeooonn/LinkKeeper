@@ -28,17 +28,17 @@ export const FolderItem = ({
     <div key={folder.id}>
       <div
         onClick={onClick}
-        className="flex gap-3 px-3 py-2 mb-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-[#4d6080]"
+        className="flex gap-3 px-3 py-2 mb-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-[#4d6080] items-center"
       >
         {isOpenFolder ? (
           <div className="flex gap-2">
-            <i className="bi bi-chevron-down" />
-            <i className="bi bi-folder2-open" />
+            <i className="bi bi-chevron-down desktop:text-base text-xs" />
+            <i className="bi bi-folder2-open desktop:text-base text-xs" />
           </div>
         ) : (
           <div className="flex gap-2">
-            <i className="bi bi-chevron-right" />
-            <i className="bi bi-folder" />
+            <i className="bi bi-chevron-right desktop:text-base text-xs" />
+            <i className="bi bi-folder desktop:text-base text-xs" />
           </div>
         )}
         <Typography.P1>{folder.name}</Typography.P1>
@@ -55,10 +55,15 @@ export const FolderItem = ({
                 onClick={() => setSelectedMenu(childrenFolder.id)}
                 className={cn(
                   isSelected ? selectedColor : unSelectedColor,
-                  "w-full flex gap-3 px-3 py-2 mb-2 rounded-lg cursor-pointer transition-all"
+                  "w-full flex gap-3 desktop:px-3 desktop:py-2 px-2.5 py-1.5 mb-2 rounded-lg cursor-pointer transition-all items-center"
                 )}
               >
-                <i className="bi bi-folder text-sm" />
+                {isSelected ? (
+                  <i className="bi bi-folder2-open desktop:text-base text-xs" />
+                ) : (
+                  <i className="bi bi-folder desktop:text-base text-xs" />
+                )}
+
                 <Typography.P1
                   className={cn(isSelected ? "text-white" : "", "text-sm")}
                 >

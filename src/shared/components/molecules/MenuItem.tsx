@@ -22,10 +22,10 @@ export const MenuItem = ({
       onClick={onClick}
       className={cn(
         isSelected ? selectedColor : unSelectedColor,
-        "w-full flex gap-3 px-3 py-2 mb-2 rounded-lg cursor-pointer transition-all items-center"
+        "w-full flex gap-3 desktop:px-3 desktop:py-2 px-2.5 py-1.5 mb-2 rounded-lg cursor-pointer transition-all items-center"
       )}
     >
-      <i className={menu.icon} />
+      <i className={cn(menu.icon, "desktop:text-base text-xs")} />
       <Typography.P1 className={cn(isSelected ? "text-white" : "")}>
         {menu.text}
       </Typography.P1>

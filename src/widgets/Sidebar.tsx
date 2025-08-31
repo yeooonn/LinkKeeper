@@ -10,9 +10,9 @@ const Sidebar = () => {
   return (
     <aside
       style={{ scrollbarWidth: "none" }}
-      className="w-80 h-auto overflow-y-auto dark:bg-gray-800 dark:border-gray-700 bg-white border-gray-300 border-r"
+      className="desktop:w-80 laptop:w-70 tablet:w-0 mobile:w-0 h-auto overflow-y-auto dark:bg-gray-800 dark:border-gray-700 bg-white border-gray-300 border-r"
     >
-      <div className="px-4 pt-25 pb-5 border-b border-gray-200 dark:border-gray-600">
+      <div className="px-4 desktop:py-5.5 laptop:py-4 border-b border-gray-200 dark:border-gray-600">
         <ProfileSection />
       </div>
       <div className="pt-7 border-b border-gray-200 dark:border-gray-600">
@@ -27,6 +27,9 @@ const Sidebar = () => {
           setSelectedMenu={setSelectedMenu}
         />
       </div>
+      {/* <div className="mobile:bg-red-500 tablet:bg-orange-500 laptop:bg-blue-500 desktop:bg-green-500">
+        반응형 테스트
+      </div> */}
     </aside>
   );
 };
