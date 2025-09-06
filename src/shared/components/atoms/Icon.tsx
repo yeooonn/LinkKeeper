@@ -25,7 +25,9 @@ const Eye = ({ isActive }: { isActive: boolean }) => {
 };
 
 const BoxArrowUpRight = () => {
-  return <i className="bi bi-box-arrow-up-right text-gray-500"></i>;
+  return (
+    <i className="bi bi-box-arrow-up-right text-gray-500 tablet:inline mobile:hidden"></i>
+  );
 };
 
 const Copy = () => {

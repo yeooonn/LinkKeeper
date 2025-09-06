@@ -29,7 +29,7 @@ const ImageCard = ({ className, children, ...props }: CardProps) => {
       )}
       {...props}
     >
-      <div className="w-25 h-25 bg-gray-100 rounded-sm"></div>
+      <div className="w-25 h-25 bg-gray-100 rounded-sm mobile:hidden tablet:inline"></div>
       <div className="w-full">{children}</div>
     </div>
   );
@@ -45,7 +45,11 @@ const Header = ({ className, children, ...props }: CardProps) => {
 
 const Content = ({ className, children, ...props }: CardProps) => {
   return (
-    <div className={cn("pt-2 pb-3", className)} {...props}>
+    <div
+      className={cn("pt-2 pb-3 overflow-x-auto", className)}
+      style={{ scrollbarWidth: "none" }}
+      {...props}
+    >
       {children}
     </div>
   );

@@ -9,7 +9,7 @@
 }
 
 @theme {
-  --breakpoint-mobile: 384px; /* 모바일 최소값 */
+  --breakpoint-mobile: 360px; /* 모바일 최소값 */
   --breakpoint-tablet: 768px; /* 모바일 최소값 */
   --breakpoint-laptop: 1024px; /* laptop 최소값 */
   --breakpoint-desktop: 1513px; /* desktop 최소값 */

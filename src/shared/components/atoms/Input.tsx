@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input = ({ className, icon, ...props }: InputProps) => {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       {icon && (
         <i
           className={cn(
@@ -20,7 +20,7 @@ const Input = ({ className, icon, ...props }: InputProps) => {
       <input
         className={cn(
           icon ? "pl-9 pr-4" : "px-4",
-          "py-2 w-60 laptop:w-80 rounded-lg border bg-white border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
+          "py-2 w-60 laptop:w-80 mobile:w-full rounded-lg border bg-white border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
           className
         )}
         {...props}

@@ -23,7 +23,7 @@ const ButtonComponent = ({
   return (
     <button
       className={cn(
-        "desktop:px-4 desktop:py-2 laptop:px-3 laptop:py-1 px-3 py-1 rounded-lg flex items-center space-x-1 cursor-pointer transition-all",
+        "desktop:px-4 desktop:py-2 laptop:px-3 laptop:py-1 px-3 py-1 tablet:rounded-lg mobile:rounded-sm flex items-center space-x-1 cursor-pointer transition-all",
         ButtonColor[color],
         className
       )}

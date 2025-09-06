@@ -15,7 +15,7 @@ const RenderCard = ({ data }: { data: LandingArticle }) => {
           <Icon.BoxArrowUpRight />
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex tablet:gap-4 mobile:gap-2">
           <Icon.Bell isActive={data.alert} />
           <Icon.Star isActive={data.bookmark} />
           <Icon.Eye isActive={data.hasRead} />
@@ -24,9 +24,12 @@ const RenderCard = ({ data }: { data: LandingArticle }) => {
       <Card.Content className="text-gray-700 dark:text-gray-300">
         <Typography.P1 className="mb-1">{data.link}</Typography.P1>
       </Card.Content>
-      <Card.Footer>
+      <Card.Footer
+        className="overflow-x-auto"
+        style={{ scrollbarWidth: "none" }}
+      >
         <Tag.Gray>{data.filename}</Tag.Gray>
-        <Typography.P3>{data.time}</Typography.P3>
+        <Typography.P3 className="text-nowrap">{data.time}</Typography.P3>
         {data.tag.map((tag) => (
           <Tag.Blue key={tag}>#{tag}</Tag.Blue>
         ))}
@@ -38,9 +41,11 @@ const RenderCard = ({ data }: { data: LandingArticle }) => {
 const Landing = ({ LandingData }: { LandingData: LandingArticle[] }) => {
   return (
     <div>
-      <div className="flex justify-between items-center mb-5">
-        <Typography.H1 className="font-bold">전체 링크</Typography.H1>
-        <div className="flex items-center gap-3">
+      <div className="tablet:flex justify-between items-center mb-5">
+        <Typography.H1 className="font-bold mobile:mb-4 mb-0">
+          전체 링크
+        </Typography.H1>
+        <div className="flex tablet:items-center mobile:justify-between gap-3">
           <Input placeholder="링크 검색" icon="search" />
           <Button.Gray className="py-0.5 px-2">
             <i className="bi bi-filter text-[20px]" />
