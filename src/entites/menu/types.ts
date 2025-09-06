@@ -2,5 +2,6 @@
 export interface MenuInterface {
   id: string;
   icon: string;
+  selectedIcon?: string;
   text: string;
 }
