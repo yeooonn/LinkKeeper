@@ -3,6 +3,7 @@ import "@/shared/styles/globals.css";
 import { Header } from "@/shared/components/molecules/Header";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Sidebar from "@/widgets/Sidebar";
+import MobileMenu from "@/widgets/MobileMenu";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,15 +17,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <main>
+      <body className="min-h-screen">
+        <main className="flex flex-col min-h-screen">
           <Header />
-          <div className="flex w-full desktop:py-19 laptop:py-15 py-15">
+          <div className="flex w-full flex-1 desktop:pt-19 laptop:pt-15 pt-15">
             <Sidebar />
-            <div className="w-full flex-1 desktop:py-7 laptop:py-5 px-5 py-5 font-sans min-h-screen bg-[#F9FAFB] dark:bg-[#121826]">
+            <div className="w-full flex-1 desktop:pt-7 laptop:pt-5 px-5 pt-5 font-sans bg-[#F9FAFB] dark:bg-[#121826] laptop:pb-10 overflow-auto mobile:pb-28">
               {children}
             </div>
           </div>
+          <MobileMenu />
         </main>
       </body>
     </html>

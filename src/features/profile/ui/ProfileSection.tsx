@@ -9,7 +9,7 @@ const ProfileSection = () => {
     <div className="flex gap-4 items-center">
       <Profile
         src={profileImg}
-        className="desktop:w-14 desktop:h-14 laptop:w-13 laptop:h-13"
+        className="desktop:w-14 desktop:h-14 laptop:w-13 laptop:h-13 tablet:w-10 tablet:h-10"
       />
       <div className="w-full">
         <Typography.P1 className="desktop:text-xl text-base font-bold">
