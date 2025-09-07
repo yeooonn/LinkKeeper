@@ -6,10 +6,10 @@ const ProfileSection = () => {
   const { profileImg, nickname } = userDummyData;
 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-4 items-center mobile:my-3 tablet:mb-0">
       <Profile
         src={profileImg}
-        className="desktop:w-14 desktop:h-14 laptop:w-13 laptop:h-13 tablet:w-10 tablet:h-10"
+        className="desktop:w-14 desktop:h-14 laptop:w-13 laptop:h-13 tablet:w-10 tablet:h-10 mobile:w-14 mobile:h-14"
       />
       <div className="w-full">
         <Typography.P1 className="desktop:text-xl text-base font-bold">

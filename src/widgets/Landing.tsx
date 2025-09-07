@@ -42,7 +42,7 @@ const Landing = ({ LandingData }: { LandingData: LandingArticle[] }) => {
   return (
     <div>
       <div className="tablet:flex justify-between items-center mb-5">
-        <Typography.H1 className="font-bold mobile:mb-4 mb-0">
+        <Typography.H1 className="font-bold mobile:mb-4 mb-0 mobile:text-xl">
           전체 링크
         </Typography.H1>
         <div className="flex tablet:items-center mobile:justify-between gap-3">

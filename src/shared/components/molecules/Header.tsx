@@ -7,7 +7,7 @@ export const Header = () => {
       <div className="w-full h-full flex justify-between">
         <div className="flex h-full gap-2 items-center">
           <i className="bi bi-link text-4xl text-blue-500" />
-          <Typography.H1 className="font-bold tablet:mr-15 mobile:mr-10">
+          <Typography.H1 className="font-bold tablet:mr-15 mobile:mr-10 mobile:text-xl">
             LinkKeeper
           </Typography.H1>
         </div>
