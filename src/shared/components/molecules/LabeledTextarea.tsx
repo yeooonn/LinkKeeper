@@ -1,5 +1,4 @@
 import cn from "@/shared/utils/cn";
-import Input from "../atoms/Input";
 import Typography from "../atoms/Typography";
 import Textarea from "../atoms/Textarea";
 

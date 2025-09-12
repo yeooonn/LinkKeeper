@@ -19,14 +19,15 @@ const Modal = ({ className, children, onClose, ...props }: ModalProps) => {
 
   return (
     <div
-      className="modal fixed inset-0 flex items-center justify-center bg-black/30 z-999"
+      className="modal fixed inset-0 flex items-center justify-center bg-black/30 dark:bg-black/70 z-999"
       onClick={onClose}
     >
       <div
         className={cn(
-          "min-w-[400px] max-w-[700px] rounded-2xl bg-white px-7 py-5",
+          "desktop:min-w-[700px] tablet:min-w-[600px] mobile:min-w-[80%] mobile:max-h-[70%] overflow-y-scroll rounded-2xl bg-white dark:bg-[#121826] dark:border dark:border-gray-500 px-7 py-5",
           className
         )}
+        style={{ scrollbarWidth: "none" }}
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
         {...props}
       >
@@ -56,7 +57,7 @@ const Content = ({ children }: HTMLAttributes<HTMLDivElement>) => {
 };
 
 const Footer = ({ children }: HTMLAttributes<HTMLDivElement>) => {
-  return <div>{children}</div>;
+  return <div className="flex gap-2 justify-end pt-6">{children}</div>;
 };
 
 Modal.Header = Header;
