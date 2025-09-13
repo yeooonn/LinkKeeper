@@ -11,6 +11,8 @@ interface FolderItemProps {
   setSelectedMenu: Dispatch<SetStateAction<string>>;
   selectedColor?: string;
   unSelectedColor?: string;
+  showFolderSelectionHighlight?: boolean;
+  showChildFolderSelectionHighlight?: boolean;
 }
 
 export const FolderItem = ({
@@ -21,33 +23,54 @@ export const FolderItem = ({
   setSelectedMenu,
   selectedColor,
   unSelectedColor,
+  showFolderSelectionHighlight = false,
+  showChildFolderSelectionHighlight = true,
 }: FolderItemProps) => {
   const isOpenFolder = expandedFolders.includes(folder.id);
+  const isSelected =
+    showFolderSelectionHighlight && selectedMenu === folder.name;
 
   return (
     <div key={folder.id}>
       <div
-        onClick={onClick}
-        className="flex gap-3 px-3 py-2 mb-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-[#4d6080] items-center"
+        onClick={() => {
+          if (!showFolderSelectionHighlight) onClick();
+          setSelectedMenu(folder.name);
+        }}
+        className={cn(
+          isSelected ? selectedColor : unSelectedColor,
+          !isSelected && "hover:bg-gray-100 dark:hover:bg-[#4d6080]",
+          "flex gap-3 px-3 py-2 mb-2 rounded-lg cursor-pointer items-center"
+        )}
       >
         {isOpenFolder ? (
-          <div className="flex gap-2">
+          <div
+            className="flex gap-2"
+            onClick={showFolderSelectionHighlight ? onClick : () => {}}
+          >
             <i className="bi bi-chevron-down desktop:text-base text-xs" />
             <i className="bi bi-folder2-open desktop:text-base text-xs" />
           </div>
         ) : (
-          <div className="flex gap-2">
+          <div
+            className="flex gap-2"
+            onClick={showFolderSelectionHighlight ? onClick : () => {}}
+          >
             <i className="bi bi-chevron-right desktop:text-base text-xs" />
             <i className="bi bi-folder desktop:text-base text-xs" />
           </div>
         )}
-        <Typography.P1>{folder.name}</Typography.P1>
+        <Typography.P1 className={cn(isSelected ? "text-white" : "text-black")}>
+          {folder.name}
+        </Typography.P1>
       </div>
 
       {isOpenFolder &&
         folder.children &&
         folder.children.map((childrenFolder) => {
-          const isSelected = selectedMenu === childrenFolder.id;
+          const isSelected =
+            showChildFolderSelectionHighlight &&
+            selectedMenu === childrenFolder.id;
 
           return (
             <div key={childrenFolder.id} className="pl-9">
