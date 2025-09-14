@@ -1,6 +1,7 @@
 import { useNavigation } from "@/features/navigation/model/useNavigation";
 import FolderSection from "@/features/navigation/ui/FolderSection";
 import Button from "@/shared/components/atoms/Button";
+import Input from "@/shared/components/atoms/Input";
 import LineStepper from "@/shared/components/atoms/LineStepper";
 import Modal from "@/shared/components/atoms/Modal";
 import Typography from "@/shared/components/atoms/Typography";
@@ -8,7 +9,7 @@ import LabeledInput from "@/shared/components/molecules/LabeledInput";
 import LabeledTextarea from "@/shared/components/molecules/LabeledTextarea";
 import useLineStepper from "@/shared/hooks/useLineStepper";
 import cn from "@/shared/utils/cn";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface AddLinkModalProps {
   closeModal: () => void;
@@ -24,16 +25,13 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     handleClickNextButton,
     handleClickPrevButton,
   } = useLineStepper({ lineCount: lineCount });
-  const { selectedMenu, setSelectedMenu } = useNavigation();
+  const { selectedMenu, setSelectedMenu, selectedColor, unSelectedColor } =
+    useNavigation();
   const [showAddFolderInput, setShowAddFolderInput] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   if (selectedMenu) {
-  //     setShowAddFolderInput(false);
-  //   } else {
-  //     setShowAddFolderInput(true);
-  //   }
-  // }, [selectedMenu]);
+  const [newFolderName, setNewFolderName] = useState<string>("");
+  // 새로 추가한 폴더 선택 여부
+  const isSelectedNewFolder =
+    selectedMenu !== "" && selectedMenu === newFolderName;
 
   const handleClickNewFolderButton = () => {
     setShowAddFolderInput((prev) => !prev);
@@ -69,23 +67,23 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
                 {showAddFolderInput && (
                   <div
                     onClick={() => {
-                      // if (!showFolderSelectionHighlight) onClick();
-                      // setSelectedMenu(folder.name);
+                      setSelectedMenu(newFolderName);
                     }}
                     className={cn(
-                      // isSelected ? selectedColor : unSelectedColor,
-                      // !isSelected &&
-                      "group pl-2.5 flex gap-3 ml-3 mt-4 mr-3 pr-2 rounded-lg cursor-pointer  items-center dark:hover:bg-[#4d6080] hover:bg-gray-100"
+                      isSelectedNewFolder ? selectedColor : unSelectedColor,
+                      selectedMenu !== newFolderName &&
+                        "dark:hover:bg-[#4d6080] hover:bg-gray-100",
+                      "group pl-2.5 py-1 flex gap-3 ml-3 mt-4 mr-3 pr-2 rounded-lg cursor-pointer items-center "
                     )}
                   >
                     <div className="flex gap-2">
                       <i className="bi bi-chevron-right desktop:text-base text-xs" />
                       <i className="bi bi-folder desktop:text-base text-xs" />
                     </div>
-                    <LabeledInput
+                    <Input
+                      onChange={(e) => setNewFolderName(e.target.value)}
                       placeholder="폴더명 입력"
-                      className="h-8"
-                      inputClassName="h-8 border border-gray-300 bg-transparent mt-1.5 !group-focus-within:border-transparent"
+                      className="h-8 border border-gray-300 bg-transparent !group-focus-within:border-transparent"
                     />
                   </div>
                 )}
