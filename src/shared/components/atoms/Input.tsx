@@ -13,7 +13,7 @@ const Input = ({ className, icon, ...props }: InputProps) => {
         <i
           className={cn(
             `bi bi-${icon}`,
-            "absolute left-3 top-4.5 transform -translate-y-1/2 w-4 h-4 text-gray-400"
+            "absolute left-3 top-4 transform -translate-y-1/2 w-4 h-4 text-gray-400"
           )}
         />
       )}
