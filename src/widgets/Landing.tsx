@@ -8,7 +8,7 @@ import { LandingArticle } from "@/shared/mock/LandingDummyData";
 
 const RenderCard = ({ data }: { data: LandingArticle }) => {
   return (
-    <Card.ImageCard>
+    <Card.ImageCard className="hover:border-blue-300 dark:hover:border-blue-900 ">
       <Card.Header>
         <div className="flex gap-2 items-center">
           <Typography.P2 className="font-bold">{data.title}</Typography.P2>
