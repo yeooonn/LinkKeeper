@@ -3,13 +3,15 @@ import Input from "../atoms/Input";
 import Typography from "../atoms/Typography";
 
 interface LabeledInputProps {
-  title?: string;
+  isRequired?: boolean;
+  title: string;
   placeholder: string;
   className?: string;
   inputClassName?: string; // input(자식)용
 }
 
 const LabeledInput = ({
+  isRequired = false,
   title,
   placeholder,
   className,
@@ -17,7 +19,10 @@ const LabeledInput = ({
 }: LabeledInputProps) => {
   return (
     <div className={cn("mb-3", className)}>
-      {title && <Typography.P1 className="mb-1">{title}</Typography.P1>}
+      <Typography.P1 className="mb-1">
+        {title}
+        {isRequired && <span className="text-[tomato]">*</span>}
+      </Typography.P1>
       <Input
         className={cn("!w-full", inputClassName)}
         placeholder={placeholder}
