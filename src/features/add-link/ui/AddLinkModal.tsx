@@ -1,6 +1,7 @@
 import { useNavigation } from "@/features/navigation/model/useNavigation";
 import FolderSection from "@/features/navigation/ui/FolderSection";
 import Button from "@/shared/components/atoms/Button";
+import Card from "@/shared/components/atoms/Card";
 import Input from "@/shared/components/atoms/Input";
 import LineStepper from "@/shared/components/atoms/LineStepper";
 import Modal from "@/shared/components/atoms/Modal";
@@ -29,11 +30,11 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     useNavigation();
   const [showAddFolderInput, setShowAddFolderInput] = useState<boolean>(false);
   const [newFolderName, setNewFolderName] = useState<string>("");
-  // 새로 추가한 폴더 선택 여부
+  // 새로 추가한 폴더 선택(하이라이트 표시) 여부
   const isSelectedNewFolder =
     selectedMenu !== "" && selectedMenu === newFolderName;
 
-  const handleClickNewFolderButton = () => {
+  const handleClickAddFolderButton = () => {
     setShowAddFolderInput((prev) => !prev);
     setSelectedMenu("");
   };
@@ -48,22 +49,43 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
           <LineStepper lineCount={lineCount} step={step} />
           {step === 0 && (
             <>
-              <LabeledInput title="제목" placeholder="제목" />
-              <LabeledInput title="URL" placeholder="http://example.com" />
+              <LabeledInput title="제목" placeholder="제목" isRequired={true} />
+              <LabeledInput
+                title="URL"
+                placeholder="http://example.com"
+                isRequired={true}
+              />
               <LabeledInput title="태그" placeholder="#태그1  #태그2" />
               <LabeledTextarea title="메모" placeholder="메모" />
             </>
           )}
           {step === 1 && (
             <div>
+              <Card className="!py-1 mb-3">
+                <Card.Content className="flex justify-between !pb-2">
+                  <Typography.P1>링크 이름</Typography.P1>
+                  <Typography.P1>http://example.com</Typography.P1>
+                </Card.Content>
+              </Card>
+
               <div className="flex justify-between mb-3 items-center">
-                <Typography.P1>폴더 선택</Typography.P1>
-                <Button.OutlineBlue onClick={handleClickNewFolderButton}>
+                <Typography.P1>
+                  폴더 선택 <span className="text-[tomato]">*</span>
+                </Typography.P1>
+                <Button.OutlineBlue onClick={handleClickAddFolderButton}>
                   {showAddFolderInput ? "취소" : "폴더 추가"}
                 </Button.OutlineBlue>
               </div>
 
-              <div className="border border-gray-300 rounded-lg pt-2 ">
+              <div className="border border-gray-300 rounded-lg pt-2">
+                <div className="w-full ml-3 mt-1">
+                  <Input
+                    placeholder="폴더 검색"
+                    icon="search"
+                    className="!w-[95%]"
+                  />
+                  <span className="border-b border-gray-300 w-[95%] mt-3 block"></span>
+                </div>
                 {showAddFolderInput && (
                   <div
                     onClick={() => {
