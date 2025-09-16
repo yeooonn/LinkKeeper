@@ -2,8 +2,8 @@
 import Typography from "@/shared/components/atoms/Typography";
 import { MenuItem } from "@/shared/components/molecules/MenuItem";
 import { MENU_LIST } from "@/features/navigation/lib/menuList";
-import { useNavigation } from "@/features/navigation/model/useNavigation";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
 
 interface MenuSectionProps {
   selectedMenu: string;
@@ -11,8 +11,6 @@ interface MenuSectionProps {
 }
 
 const MenuSection = ({ selectedMenu, setSelectedMenu }: MenuSectionProps) => {
-  const { selectedColor, unSelectedColor } = useNavigation();
-
   return (
     <>
       <div className="px-4">
@@ -25,8 +23,8 @@ const MenuSection = ({ selectedMenu, setSelectedMenu }: MenuSectionProps) => {
             menu={menu}
             onClick={() => setSelectedMenu(menu.text)}
             isSelected={selectedMenu === menu.text}
-            selectedColor={selectedColor}
-            unSelectedColor={unSelectedColor}
+            selectedColor={SELECTED_COLOR}
+            unSelectedColor={UNSELECTED_COLOR}
           />
         ))}
       </div>

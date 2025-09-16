@@ -2,10 +2,10 @@
 import MenuSection from "@/features/navigation/ui/MenuSection";
 import FolderSection from "@/features/navigation/ui/FolderSection";
 import ProfileSection from "@/features/profile/ui/ProfileSection";
-import { useNavigation } from "@/features/navigation/model/useNavigation";
+import { useState } from "react";
 
 const Sidebar = () => {
-  const { selectedMenu, setSelectedMenu } = useNavigation();
+  const [selectedItem, setSelectedItem] = useState<string>("전체");
 
   return (
     <aside
@@ -17,14 +17,14 @@ const Sidebar = () => {
       </div>
       <div className="pt-7 border-b border-gray-200 dark:border-gray-600">
         <MenuSection
-          selectedMenu={selectedMenu}
-          setSelectedMenu={setSelectedMenu}
+          selectedMenu={selectedItem}
+          setSelectedMenu={setSelectedItem}
         />
       </div>
       <div className="py-6">
         <FolderSection
-          selectedMenu={selectedMenu}
-          setSelectedMenu={setSelectedMenu}
+          selectedMenu={selectedItem}
+          setSelectedMenu={setSelectedItem}
         />
       </div>
       {/* <div className="mobile:bg-red-500 tablet:bg-orange-500 laptop:bg-blue-500 desktop:bg-green-500">

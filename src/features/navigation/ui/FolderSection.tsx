@@ -1,10 +1,10 @@
 "use client";
 import Typography from "@/shared/components/atoms/Typography";
-import { useNavigation } from "@/features/navigation/model/useNavigation";
 import { FOLDER_LIST } from "@/features/navigation/lib/folderList";
 import { FolderItem } from "@/shared/components/molecules/FolderItem";
 import { Dispatch, SetStateAction } from "react";
 import { useFolder } from "../model/useFolder";
+import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
 
 interface MenuSectionProps {
   showTitle?: boolean;
@@ -21,7 +21,6 @@ const FolderSection = ({
   showFolderSelectionHighlight = false,
   showChildFolderSelectionHighlight = true,
 }: MenuSectionProps) => {
-  const { selectedColor, unSelectedColor } = useNavigation();
   const { expandedFolders, onClickFolder } = useFolder();
 
   return (
@@ -41,8 +40,8 @@ const FolderSection = ({
               expandedFolders={expandedFolders}
               selectedMenu={selectedMenu}
               setSelectedMenu={setSelectedMenu}
-              selectedColor={selectedColor}
-              unSelectedColor={unSelectedColor}
+              selectedColor={SELECTED_COLOR}
+              unSelectedColor={UNSELECTED_COLOR}
               showFolderSelectionHighlight={showFolderSelectionHighlight}
               showChildFolderSelectionHighlight={
                 showChildFolderSelectionHighlight

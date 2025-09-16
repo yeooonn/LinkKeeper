@@ -1,10 +1,10 @@
 "use client";
 import { MENU_LIST } from "@/features/navigation/lib/menuList";
-import { useNavigation } from "@/features/navigation/model/useNavigation";
 import Typography from "@/shared/components/atoms/Typography";
 import cn from "@/shared/utils/cn";
 import ProfileSection from "@/features/profile/ui/ProfileSection";
 import FolderSection from "@/features/navigation/ui/FolderSection";
+import { useState } from "react";
 
 interface RenderMobileMenuButtonType {
   icon: string;
@@ -47,20 +47,20 @@ const RenderMobileMenuButton = ({
 };
 
 const MobileMenu = () => {
-  const { selectedMenu, setSelectedMenu } = useNavigation();
-  const isSelected = selectedMenu === "카테고리";
+  const [selectedItem, setSelectedItem] = useState<string>("");
+  const isSelected = selectedItem === "카테고리";
 
   return (
     <>
-      {selectedMenu === "카테고리" && (
+      {selectedItem === "카테고리" && (
         <div className="dark:bg-[#121826] fixed top-15 left-0 w-full h-full z-99 px-4 pb-40 bg-white">
           <div className="px-4 border-b border-gray-200 dark:border-gray-600">
             <ProfileSection />
           </div>
           <div className="py-6">
             <FolderSection
-              selectedMenu={selectedMenu}
-              setSelectedMenu={setSelectedMenu}
+              selectedMenu={selectedItem}
+              setSelectedMenu={setSelectedItem}
             />
           </div>
         </div>
@@ -72,11 +72,11 @@ const MobileMenu = () => {
             icon="bi bi-list"
             buttonText="카테고리"
             isSelected={isSelected}
-            onclick={() => setSelectedMenu("카테고리")}
+            onclick={() => setSelectedItem("카테고리")}
           />
 
           {MENU_LIST.map((menu) => {
-            const isSelected = selectedMenu === menu.text;
+            const isSelected = selectedItem === menu.text;
             return (
               <RenderMobileMenuButton
                 key={menu.text}
@@ -84,7 +84,7 @@ const MobileMenu = () => {
                 selectedIcon={menu.selectedIcon}
                 buttonText={menu.text}
                 isSelected={isSelected}
-                onclick={() => setSelectedMenu(menu.text)}
+                onclick={() => setSelectedItem(menu.text)}
               />
             );
           })}

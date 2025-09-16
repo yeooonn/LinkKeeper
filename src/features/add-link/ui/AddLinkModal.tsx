@@ -1,4 +1,3 @@
-import { useNavigation } from "@/features/navigation/model/useNavigation";
 import FolderSection from "@/features/navigation/ui/FolderSection";
 import Button from "@/shared/components/atoms/Button";
 import Card from "@/shared/components/atoms/Card";
@@ -8,6 +7,7 @@ import Modal from "@/shared/components/atoms/Modal";
 import Typography from "@/shared/components/atoms/Typography";
 import LabeledInput from "@/shared/components/molecules/LabeledInput";
 import LabeledTextarea from "@/shared/components/molecules/LabeledTextarea";
+import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
 import useLineStepper from "@/shared/hooks/useLineStepper";
 import cn from "@/shared/utils/cn";
 import { useState } from "react";
@@ -26,17 +26,16 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     handleClickNextButton,
     handleClickPrevButton,
   } = useLineStepper({ lineCount: lineCount });
-  const { selectedMenu, setSelectedMenu, selectedColor, unSelectedColor } =
-    useNavigation();
+  const [selectedItem, setSelectedItem] = useState<string>("");
   const [showAddFolderInput, setShowAddFolderInput] = useState<boolean>(false);
   const [newFolderName, setNewFolderName] = useState<string>("");
   // 새로 추가한 폴더 선택(하이라이트 표시) 여부
   const isSelectedNewFolder =
-    selectedMenu !== "" && selectedMenu === newFolderName;
+    selectedItem !== "" && selectedItem === newFolderName;
 
   const handleClickAddFolderButton = () => {
     setShowAddFolderInput((prev) => !prev);
-    setSelectedMenu("");
+    setSelectedItem("");
   };
 
   return (
@@ -60,7 +59,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
             </>
           )}
           {step === 1 && (
-            <div>
+            <>
               <Card className="!py-1 mb-3">
                 <Card.Content className="flex justify-between !pb-2">
                   <Typography.P1>링크 이름</Typography.P1>
@@ -84,16 +83,16 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
                     icon="search"
                     className="!w-[95%]"
                   />
-                  <span className="border-b border-gray-300 w-[95%] mt-3 block"></span>
+                  <hr className="border-gray-300 w-[95%] mt-3" />
                 </div>
                 {showAddFolderInput && (
                   <div
                     onClick={() => {
-                      setSelectedMenu(newFolderName);
+                      setSelectedItem(newFolderName);
                     }}
                     className={cn(
-                      isSelectedNewFolder ? selectedColor : unSelectedColor,
-                      selectedMenu !== newFolderName &&
+                      isSelectedNewFolder ? SELECTED_COLOR : UNSELECTED_COLOR,
+                      selectedItem !== newFolderName &&
                         "dark:hover:bg-[#4d6080] hover:bg-gray-100",
                       "group pl-2.5 py-1 flex gap-3 ml-3 mt-4 mr-3 pr-2 rounded-lg cursor-pointer items-center "
                     )}
@@ -113,11 +112,11 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
                   showTitle={false}
                   showFolderSelectionHighlight={true}
                   showChildFolderSelectionHighlight={false}
-                  selectedMenu={selectedMenu}
-                  setSelectedMenu={setSelectedMenu}
+                  selectedMenu={selectedItem}
+                  setSelectedMenu={setSelectedItem}
                 />
               </div>
-            </div>
+            </>
           )}
           {step === 2 && <p>알림설정</p>}
         </Modal.Content>
