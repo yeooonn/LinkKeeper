@@ -20,7 +20,7 @@ const Input = ({ className, icon, ...props }: InputProps) => {
       <input
         className={cn(
           icon ? "pl-9 pr-4" : "px-4",
-          "py-2 w-60 laptop:w-80 mobile:w-full rounded-lg border bg-background-secondary border-border-primary placeholder:text-foreground-secondary focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm",
+          "py-2 w-60 laptop:w-80 mobile:w-full rounded-lg border bg-background-secondary border-border-primary placeholder:text-foreground-secondary focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm transition-all",
           className
         )}
         {...props}
