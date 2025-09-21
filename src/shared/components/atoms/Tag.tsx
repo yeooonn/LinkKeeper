@@ -23,7 +23,7 @@ const TagComponent = ({
   return (
     <div
       className={cn(
-        "box-border flex items-center rounded-[20px] text-[12px] px-3 py-1 text-nowrap",
+        "box-border flex items-center rounded-[20px] text-[12px] px-3 py-1 text-nowrap transition-all",
         TagClass[color],
         className
       )}
