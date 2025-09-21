@@ -16,10 +16,10 @@ const ButtonComponent = ({
   ...props
 }: ButtonProps) => {
   const ButtonColor: Record<ButtonColor, string> = {
-    Gray: "bg-gray-200 hover:bg-gray-300 text-gray-800 border-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 dark:border-gray-500",
-    Blue: "bg-blue-500 hover:bg-blue-600 text-white border-blue-400 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-white",
+    Gray: "bg-button-gray-bg hover:bg-button-gray-hover-bg text-button-gray-text border-button-gray-border",
+    Blue: "bg-button-blue-bg hover:button-blue-hover-bg text-button-blue-text border-button-blue-border",
     OutlineBlue:
-      "text-blue-400 hover:text-blue-500 border border-blue-400 hover:border-blue-500 dark:border-blue-500 dark:hover:border-blue-600 dark:text-blue-400",
+      "text-button-outline-blue-text hover:text-button-outline-blue-hover-text border border-button-outline-blue-border hover:border-button-outline-blue-hover-border",
   };
 
   return (

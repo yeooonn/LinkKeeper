@@ -26,7 +26,9 @@ const typoTypeMap: Record<
 const BaseTypography = ({ type, children, className }: BaseTypographyProps) => {
   const { className: style, tag: Tag } = typoTypeMap[type];
   return (
-    <Tag className={cn(style, "text-gray-900 dark:text-white", className)}>
+    <Tag
+      className={cn(style, "text-foreground-primary transition-all", className)}
+    >
       {children}
     </Tag>
   );

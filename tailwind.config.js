@@ -1,11 +1,11 @@
 module.exports = {
   darkMode: "class",
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}", // src 하위 모든 파일 포함
+  ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--color-background)", // 기본 배경색
-        foreground: "var(--color-foreground)", // 글자, 아이콘 등 전경 요소의 기본 색상
-      },
+      colors: {},
       fontFamily: {
         sans: "var(--font-sans)",
         mono: "var(--font-mono)",

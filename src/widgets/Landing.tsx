@@ -8,7 +8,7 @@ import { LandingArticle } from "@/shared/mock/LandingDummyData";
 
 const RenderCard = ({ data }: { data: LandingArticle }) => {
   return (
-    <Card.ImageCard className="hover:border-blue-300 dark:hover:border-blue-900 ">
+    <Card.ImageCard className="hover:border-blue-300">
       <Card.Header>
         <div className="flex gap-2 items-center">
           <Typography.P2 className="font-bold">{data.title}</Typography.P2>
@@ -21,18 +21,22 @@ const RenderCard = ({ data }: { data: LandingArticle }) => {
           <Icon.Eye isActive={data.hasRead} />
         </div>
       </Card.Header>
-      <Card.Content className="text-gray-700 dark:text-gray-300">
-        <Typography.P1 className="mb-1">{data.link}</Typography.P1>
+      <Card.Content>
+        <Typography.P1 className="mb-1 !text-foreground-secondary">
+          {data.link}
+        </Typography.P1>
       </Card.Content>
       <Card.Footer
-        className="overflow-x-auto"
+        className="overflow-x-auto !justify-between"
         style={{ scrollbarWidth: "none" }}
       >
-        <Tag.Gray>{data.filename}</Tag.Gray>
+        <div className="flex gap-3">
+          <Tag.Gray>{data.filename}</Tag.Gray>
+          {data.tag.map((tag) => (
+            <Tag.Blue key={tag}>#{tag}</Tag.Blue>
+          ))}
+        </div>
         <Typography.P3 className="text-nowrap">{data.time}</Typography.P3>
-        {data.tag.map((tag) => (
-          <Tag.Blue key={tag}>#{tag}</Tag.Blue>
-        ))}
       </Card.Footer>
     </Card.ImageCard>
   );
@@ -47,8 +51,8 @@ const Landing = ({ LandingData }: { LandingData: LandingArticle[] }) => {
         </Typography.H1>
         <div className="flex tablet:items-center mobile:justify-between gap-3">
           <Input placeholder="링크 검색" icon="search" />
-          <Button.Gray className="py-0.5 px-2">
-            <i className="bi bi-filter text-[20px]" />
+          <Button.Gray>
+            <i className="bi bi-filter" />
           </Button.Gray>
         </div>
       </div>

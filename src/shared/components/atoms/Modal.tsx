@@ -19,12 +19,12 @@ const Modal = ({ className, children, onClose, ...props }: ModalProps) => {
 
   return (
     <div
-      className="modal fixed inset-0 flex items-center justify-center bg-black/30 dark:bg-black/70 z-999"
+      className="modal fixed inset-0 flex items-center justify-center bg-overlay-black z-999 transition-all"
       onClick={onClose}
     >
       <div
         className={cn(
-          "desktop:min-w-[700px] tablet:min-w-[600px] mobile:min-w-[80%] mobile:max-h-[70%] overflow-y-scroll rounded-2xl bg-white dark:bg-[#121826] dark:border dark:border-gray-500 px-7 py-5",
+          "desktop:min-w-[700px] tablet:min-w-[600px] mobile:min-w-[80%] mobile:max-h-[70%] overflow-y-scroll rounded-2xl bg-background-trtiary border border-border-secondary px-7 py-5 transition-all",
           className
         )}
         style={{ scrollbarWidth: "none" }}

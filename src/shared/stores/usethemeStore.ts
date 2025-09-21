@@ -2,21 +2,28 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 type ThemeState = {
-  theme: 'light' | 'dark',
-  toggleTheme: () => void,
-}
+  isDark: boolean;
+  theme: "light" | "dark";
+  toggleTheme: () => void;
+};
 
-export const useThemeStore = create<ThemeState>() (
+export const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
-      theme: 'light',
-      toggleTheme: () => set((state) => ({
-        theme: state.theme === 'light' ? 'dark' : 'light',
-      })),
+      isDark: false,
+      theme: "light",
+      toggleTheme: () =>
+        set((state) => {
+          const newTheme = state.theme === "light" ? "dark" : "light";
+          return {
+            theme: newTheme,
+            isDark: newTheme === "dark",
+          };
+        }),
     }),
     {
-      name: 'theme-storage',
+      name: "theme-storage",
       storage: createJSONStorage(() => localStorage),
     }
   )
-)
+);

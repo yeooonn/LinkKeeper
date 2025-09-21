@@ -39,7 +39,7 @@ export const FolderItem = ({
         }}
         className={cn(
           isSelected ? selectedColor : unSelectedColor,
-          !isSelected && "hover:bg-gray-100 dark:hover:bg-[#4d6080]",
+          !isSelected && "hover:bg-background-hover",
           "flex gap-3 px-3 py-2 mb-2 rounded-lg cursor-pointer items-center"
         )}
       >
@@ -60,7 +60,9 @@ export const FolderItem = ({
             <i className="bi bi-folder desktop:text-base text-xs" />
           </div>
         )}
-        <Typography.P1 className={cn(isSelected ? "text-white" : "text-black")}>
+        <Typography.P1
+          className={cn(isSelected ? "text-white" : "text-foreground-primary")}
+        >
           {folder.name}
         </Typography.P1>
       </div>

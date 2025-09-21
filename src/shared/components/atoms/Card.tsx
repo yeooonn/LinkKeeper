@@ -11,7 +11,7 @@ const Card = ({ className, children, ...props }: CardProps) => {
     <div
       className={cn(
         className,
-        "p-4 rounded-xl border bg-white cursor-pointer border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-blue-900"
+        "p-4 rounded-xl border bg-background-secondary cursor-pointer border-border-primary transition-all"
       )}
       {...props}
     >
@@ -25,7 +25,7 @@ const ImageCard = ({ className, children, ...props }: CardProps) => {
     <div
       className={cn(
         className,
-        "p-4 rounded-xl border bg-white cursor-pointer border-gray-200 dark:bg-gray-800 dark:border-gray-700 flex gap-5"
+        "p-4 rounded-xl border bg-background-secondary cursor-pointer border-border-primary flex gap-5 transition-all"
       )}
       {...props}
     >

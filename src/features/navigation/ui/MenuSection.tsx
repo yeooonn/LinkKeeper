@@ -2,7 +2,7 @@
 import Typography from "@/shared/components/atoms/Typography";
 import { MenuItem } from "@/shared/components/molecules/MenuItem";
 import { MENU_LIST } from "@/features/navigation/lib/menuList";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
 
 interface MenuSectionProps {

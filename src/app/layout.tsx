@@ -4,6 +4,7 @@ import { Header } from "@/shared/components/molecules/Header";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Sidebar from "@/widgets/Sidebar";
 import MobileMenu from "@/widgets/MobileMenu";
+import { ThemeProvider } from "./providers/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,18 +18,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen">
-        <main className="flex flex-col min-h-screen">
-          <Header />
-          <div className="flex w-full flex-1 desktop:pt-19 laptop:pt-15 pt-15">
-            <Sidebar />
-            <div className="w-full flex-1 desktop:pt-7 laptop:pt-5 px-5 pt-5 font-sans bg-[#F9FAFB] dark:bg-[#121826] laptop:pb-10 overflow-auto mobile:pb-28">
-              {children}
+      <ThemeProvider>
+        <body className="min-h-screen">
+          <main className="flex flex-col min-h-screen">
+            <Header />
+            <div className="flex w-full flex-1 desktop:pt-19 laptop:pt-15 pt-15">
+              <Sidebar />
+              <div className="w-full flex-1 desktop:pt-7 laptop:pt-5 px-5 pt-5 font-sans bg-background-primary laptop:pb-10 overflow-auto mobile:pb-28 transition-all">
+                {children}
+              </div>
             </div>
-          </div>
-          <MobileMenu />
-        </main>
-      </body>
+            <MobileMenu />
+          </main>
+        </body>
+      </ThemeProvider>
     </html>
   );
 }

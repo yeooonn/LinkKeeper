@@ -10,12 +10,12 @@ const Sidebar = () => {
   return (
     <aside
       style={{ scrollbarWidth: "none" }}
-      className="desktop:w-80 laptop:w-70 tablet:inline tablet:w-50 mobile:hidden h-auto overflow-y-auto dark:bg-gray-800 dark:border-gray-700 bg-white border-gray-300 border-r"
+      className="desktop:w-80 laptop:w-70 tablet:inline tablet:w-50 mobile:hidden h-auto overflow-y-auto bg-background-secondary border-border-primary border-r transition-all"
     >
-      <div className="px-4 desktop:py-5.5 tablet:py-4 border-b border-gray-200 dark:border-gray-600">
+      <div className="px-4 desktop:py-5.5 tablet:py-4 border-b border-border-primary">
         <ProfileSection />
       </div>
-      <div className="pt-7 border-b border-gray-200 dark:border-gray-600">
+      <div className="pt-7 border-b border-border-primary">
         <MenuSection
           selectedMenu={selectedItem}
           setSelectedMenu={setSelectedItem}

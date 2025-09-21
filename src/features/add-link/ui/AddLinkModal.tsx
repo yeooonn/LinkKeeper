@@ -93,7 +93,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
                     className={cn(
                       isSelectedNewFolder ? SELECTED_COLOR : UNSELECTED_COLOR,
                       selectedItem !== newFolderName &&
-                        "dark:hover:bg-[#4d6080] hover:bg-gray-100",
+                        "dark:hover:bg-background-hover",
                       "group pl-2.5 py-1 flex gap-3 ml-3 mt-4 mr-3 pr-2 rounded-lg cursor-pointer items-center "
                     )}
                   >
