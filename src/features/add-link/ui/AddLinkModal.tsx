@@ -11,10 +11,29 @@ import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
 import useLineStepper from "@/shared/hooks/useLineStepper";
 import cn from "@/shared/utils/cn";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 interface AddLinkModalProps {
   closeModal: () => void;
 }
+
+interface FormData {
+  title: string;
+  url: string;
+  tags: string;
+  memo: string;
+}
+
+const LinkPreview = () => {
+  return (
+    <Card className="!py-1 mb-3">
+      <Card.Content className="flex justify-between !pb-2">
+        <Typography.P1>링크 이름</Typography.P1>
+        <Typography.P1>http://example.com</Typography.P1>
+      </Card.Content>
+    </Card>
+  );
+};
 
 const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
   const lineCount = 3;
@@ -38,6 +57,34 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     setSelectedItem("");
   };
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<FormData>({
+    defaultValues: {
+      title: "",
+      url: "",
+      tags: "",
+      memo: "",
+    },
+    mode: "onChange",
+  });
+
+  const onSubmit = (data: FormData) => {
+    console.log("Form Data:", {
+      ...data,
+      folder: selectedItem || newFolderName,
+    });
+    closeModal();
+  };
+
+  const isFirstNextActive = watch("title") && watch("url") && step === 0;
+  const isSecondNextActive = (selectedItem || newFolderName) && step === 1;
+  const showNextBtn =
+    showNextButton && !isFirstNextActive && !isSecondNextActive;
+
   return (
     <>
       <Modal onClose={closeModal}>
@@ -48,25 +95,37 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
           <LineStepper lineCount={lineCount} step={step} />
           {step === 0 && (
             <>
-              <LabeledInput title="제목" placeholder="제목" isRequired={true} />
+              <LabeledInput
+                title="제목"
+                placeholder="제목"
+                isRequired={true}
+                register={register("title", { required: "제목은 필수입니다." })}
+                error={errors.title}
+              />
               <LabeledInput
                 title="URL"
                 placeholder="http://example.com"
                 isRequired={true}
+                register={register("url", { required: "URL은 필수입니다." })}
+                error={errors.url}
               />
-              <LabeledInput title="태그" placeholder="#태그1  #태그2" />
-              <LabeledTextarea title="메모" placeholder="메모" />
+              <LabeledInput
+                title="태그"
+                placeholder="#태그1  #태그2"
+                register={register("tags")}
+                error={errors.tags}
+              />
+              <LabeledTextarea
+                title="메모"
+                placeholder="메모"
+                register={register("memo")}
+                error={errors.memo}
+              />
             </>
           )}
           {step === 1 && (
             <>
-              <Card className="!py-1 mb-3">
-                <Card.Content className="flex justify-between !pb-2">
-                  <Typography.P1>링크 이름</Typography.P1>
-                  <Typography.P1>http://example.com</Typography.P1>
-                </Card.Content>
-              </Card>
-
+              {LinkPreview()}
               <div className="flex justify-between mb-3 items-center">
                 <Typography.P1>
                   폴더 선택 <span className="text-[tomato]">*</span>
@@ -75,7 +134,6 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
                   {showAddFolderInput ? "취소" : "폴더 추가"}
                 </Button.OutlineBlue>
               </div>
-
               <div className="border border-gray-300 rounded-lg pt-2">
                 <div className="w-full ml-3 mt-1">
                   <Input
@@ -118,17 +176,28 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
               </div>
             </>
           )}
-          {step === 2 && <p>알림설정</p>}
+          {step === 2 && (
+            <>
+              {LinkPreview()}
+              <p>알림설정</p>
+            </>
+          )}
         </Modal.Content>
         <Modal.Footer>
           <Button.Gray onClick={closeModal}>취소</Button.Gray>
           {showPrevButton && (
             <Button.Gray onClick={handleClickPrevButton}>이전</Button.Gray>
           )}
-          {showNextButton && (
-            <Button.Gray onClick={handleClickNextButton}>다음</Button.Gray>
+
+          {isFirstNextActive || isSecondNextActive ? (
+            <Button.Blue onClick={handleClickNextButton}>다음</Button.Blue>
+          ) : showNextBtn ? (
+            <Button.Gray isDisabled>다음</Button.Gray>
+          ) : null}
+
+          {showAddButton && (
+            <Button.Blue onClick={handleSubmit(onSubmit)}>추가</Button.Blue>
           )}
-          {showAddButton && <Button.Blue>추가</Button.Blue>}
         </Modal.Footer>
       </Modal>
     </>
