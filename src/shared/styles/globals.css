@@ -1,37 +1,161 @@
 @import "tailwindcss";
 
+/* 라이트 모드 색상 */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* 배경 색상 */
+  --background-primary: #f9fafb; /* 기본 페이지 배경, Tailwind: gray-50 */
+  --background-secondary: #fff; /* 보조 배경, Tailwind: white */
+  --background-trtiary: #fff; /* 3차 배경, Tailwind: white */
+
+  --background-hover: #f3f4f6; /* hover 시 배경, Tailwind: gray-100 */
+
+  --background-gray-tag: #f3f4f6; /* 회색 태그 배경, Tailwind: gray-100 */
+  --background-blue-tag: #dbeafe; /* 파란색 태그 배경, Tailwind: blue-100 */
+
+  /* 텍스트 색상 */
+  --foreground-primary: #171717; /* 기본 텍스트, Tailwind: neutral-900 */
+  --foreground-secondary: #364153; /* 보조 텍스트, Tailwind: gray-700 */
+
+  --foreground-gray-tag: #6a7282; /* 회색 태그 텍스트, Tailwind: gray-500 */
+  --foreground-blue-tag: #3b82f6; /* 파란색 태그 텍스트, Tailwind: blue-500 */
+
+  /* 테두리 색상 */
+  --border-primary: #e5e7eb; /* 기본 테두리, Tailwind: gray-200 */
+  --border-secondary: #e5e7eb; /* gray-200 */
+
+  --border-gray-tag: #d1d5dc; /* 회색 태그 테두리, Tailwind: gray-300 */
+  --border-blue-tag: #93c5fd; /* 파란색 태그 테두리, Tailwind: blue-300 */
+
+  /* 폰트 */
   --font-sans: "Geist Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "Geist Mono", monospace;
+    Roboto, "Helvetica Neue", Arial, sans-serif; /* 산세리프 폰트 */
+  --font-mono: "Geist Mono", monospace; /* 모노스페이스 폰트 */
+
+  /* Gray 버튼 */
+  --button-gray-bg: #e5e7eb; /* bg-gray-200 */
+  --button-gray-hover-bg: #d1d5dc; /* hover:bg-gray-300 */
+  --button-gray-text: #1f2937; /* text-gray-800 */
+  --button-gray-border: #d1d5dc; /* border-gray-300 */
+
+  /* Blue 버튼 */
+  --button-blue-bg: #3b82f6; /* bg-blue-500 */
+  --button-blue-hover-bg: #2563eb; /* hover:bg-blue-600 */
+  --button-blue-text: #ffffff; /* text-white */
+  --button-blue-border: #60a5fa; /* border-blue-400 */
+
+  /* Outline Blue 버튼 */
+  --button-outline-blue-text: #60a5fa; /* text-blue-400 */
+  --button-outline-blue-hover-text: #3b82f6; /* hover:text-blue-500 */
+  --button-outline-blue-border: #60a5fa; /* border-blue-400 */
+  --button-outline-blue-hover-border: #3b82f6; /* hover:border-blue-500 */
+
+  /* 모달 뒷배경 */
+  --overlay-black: rgba(0, 0, 0, 0.3); /* bg-black/30 */
+}
+
+/* 다크 모드 색상 */
+:root.dark {
+  /* 배경 */
+  --background-primary: #101828; /* gray-900 */
+  --background-secondary: #1e2939; /* gray-800 */
+  --background-trtiary: #121826; /* gray-900 (보조) */
+
+  --background-hover: #4d6080; /* blue-gray-600 */
+
+  --background-gray-tag: #364153; /* gray-700 */
+  --background-blue-tag: #2d3d67; /* blue-900 */
+
+  /* 텍스트 */
+  --foreground-primary: #fff; /* white */
+  --foreground-secondary: #d1d5dc; /* gray-300 */
+
+  --foreground-gray-tag: #f3f4f6; /* gray-100 */
+  --foreground-blue-tag: #6d9fee; /* blue-400 */
+
+  /* 테두리 */
+  --border-primary: #4a5565; /* gray-600 */
+  --border-secondary: #6a7282; /* gray-500 */
+  --border-gray-tag: #4a5565; /* gray-600 */
+  --border-blue-tag: #2563eb; /* blue-600 */
+
+  /* Gray 버튼 */
+  --button-gray-bg: #374151; /* bg-gray-700 */
+  --button-gray-hover-bg: #4b5563; /* hover:bg-gray-600 */
+  --button-gray-text: #e5e7eb; /* text-gray-200 */
+  --button-gray-border: #6b7280; /* border-gray-500 */
+
+  /* Blue 버튼 */
+  --button-blue-bg: #3b82f6; /* bg-blue-500 */
+  --button-blue-hover-bg: #2563eb; /* hover:bg-blue-600 */
+  --button-blue-text: #ffffff; /* text-white */
+  --button-blue-border: #3b82f6; /* border-blue-500 */
+
+  /* Outline Blue 버튼 */
+  --button-outline-blue-text: #60a5fa; /* text-blue-400 */
+  --button-outline-blue-hover-text: #3b82f6; /* hover:text-blue-500 */
+  --button-outline-blue-border: #3b82f6; /* border-blue-500 */
+  --button-outline-blue-hover-border: #2563eb; /* hover:border-blue-600 */
+
+  /* 모달 뒷배경 */
+  --overlay-black: rgba(0, 0, 0, 0.7); /* dark:bg-black/70 */
 }
 
 @theme {
+  /* 브레이크포인트 */
   --breakpoint-mobile: 360px; /* 모바일 최소값 */
-  --breakpoint-tablet: 768px; /* 모바일 최소값 */
-  --breakpoint-laptop: 1024px; /* laptop 최소값 */
-  --breakpoint-desktop: 1513px; /* desktop 최소값 */
+  --breakpoint-tablet: 768px; /* 태블릿 최소값 */
+  --breakpoint-laptop: 1024px; /* 랩탑 최소값 */
+  --breakpoint-desktop: 1513px; /* 데스크탑 최소값 */
 
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* 색상 연결 */
+  --color-background-primary: var(--background-primary);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-trtiary: var(--background-trtiary);
+  --color-background-hover: var(--background-hover);
+  --color-background-gray-tag: var(--background-gray-tag);
+  --color-background-blue-tag: var(--background-blue-tag);
+
+  --color-foreground-primary: var(--foreground-primary);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-gray-tag: var(--foreground-gray-tag);
+  --color-foreground-blue-tag: var(--foreground-blue-tag);
+
+  --color-border-primary: var(--border-primary);
+  --color-border-secondary: var(--border-secondary);
+  --color-border-gray-tag: var(--border-gray-tag);
+  --color-border-blue-tag: var(--border-blue-tag);
+
+  /* 버튼 색상 연결 */
+  --color-button-gray-bg: var(--button-gray-bg);
+  --color-button-gray-hover-bg: var(--button-gray-hover-bg);
+  --color-button-gray-text: var(--button-gray-text);
+  --color-button-gray-border: var(--button-gray-border);
+
+  --color-button-blue-bg: var(--button-blue-bg);
+  --color-button-blue-hover-bg: var(--button-blue-hover-bg);
+  --color-button-blue-text: var(--button-blue-text);
+  --color-button-blue-border: var(--button-blue-border);
+
+  --color-button-outline-blue-text: var(--button-outline-blue-text);
+  --color-button-outline-blue-hover-text: var(--button-outline-blue-hover-text);
+  --color-button-outline-blue-border: var(--button-outline-blue-border);
+  --color-button-outline-blue-hover-border: var(
+    --button-outline-blue-hover-border
+  );
+
+  /* 폰트 */
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* 모달 뒷배경 */
+  --color-overlay-black: var(--overlay-black);
 }
 
 body {
-  font-family: var(--font-sans); /* 사용자 정의 폰트 변수 사용 */
-  min-height: 100vh;
+  font-family: var(--font-sans); /* 사용자 정의 산세리프 폰트 */
+  min-height: 100vh; /* 최소 높이 100vh */
   display: flex;
   flex-direction: column;
-  background-color: var(--color-background); /* 배경색 변수 사용 */
-  color: var(--color-foreground); /* 전경색 변수 사용 */
+  background-color: var(--background-primary); /* 기본 배경 */
+  color: var(--foreground-secondary); /* 기본 텍스트 색상 */
 }
