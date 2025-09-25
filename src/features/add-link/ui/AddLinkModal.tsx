@@ -6,7 +6,9 @@ import LineStepper from "@/shared/components/atoms/LineStepper";
 import Modal from "@/shared/components/atoms/Modal";
 import Typography from "@/shared/components/atoms/Typography";
 import LabeledInput from "@/shared/components/molecules/LabeledInput";
+import LabeledSelectbox from "@/shared/components/molecules/LabeledSelectbox";
 import LabeledTextarea from "@/shared/components/molecules/LabeledTextarea";
+import { ALERT_OPTION } from "@/shared/constants/alertOption";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
 import useLineStepper from "@/shared/hooks/useLineStepper";
 import cn from "@/shared/utils/cn";
@@ -22,6 +24,9 @@ interface FormData {
   url: string;
   tags: string;
   memo: string;
+  alert?: string;
+  date?: string;
+  time?: string;
 }
 
 const LinkPreview = () => {
@@ -48,6 +53,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
   const [selectedItem, setSelectedItem] = useState<string>("");
   const [showAddFolderInput, setShowAddFolderInput] = useState<boolean>(false);
   const [newFolderName, setNewFolderName] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>("");
   // 새로 추가한 폴더 선택(하이라이트 표시) 여부
   const isSelectedNewFolder =
     selectedItem !== "" && selectedItem === newFolderName;
@@ -68,6 +74,9 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
       url: "",
       tags: "",
       memo: "",
+      alert: "",
+      date: "",
+      time: "",
     },
     mode: "onChange",
   });
@@ -179,7 +188,28 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
           {step === 2 && (
             <>
               {LinkPreview()}
-              <p>알림설정</p>
+              <LabeledSelectbox
+                title="알림설정"
+                options={ALERT_OPTION}
+                register={register("alert")}
+              />
+
+              {watch("alert") === "사용자 정의" && (
+                <div className="flex gap-2">
+                  <LabeledInput
+                    type="date"
+                    title="날짜"
+                    className="w-full"
+                    register={register("date")}
+                  />
+                  <LabeledInput
+                    type="time"
+                    title="시간"
+                    className="w-full"
+                    register={register("time")}
+                  />
+                </div>
+              )}
             </>
           )}
         </Modal.Content>
