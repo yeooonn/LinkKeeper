@@ -1,10 +1,10 @@
 "use client";
-import { MENU_LIST } from "@/features/navigation/lib/menuList";
 import Typography from "@/shared/components/atoms/Typography";
 import cn from "@/shared/utils/cn";
 import ProfileSection from "@/features/profile/ui/ProfileSection";
 import FolderSection from "@/features/navigation/ui/FolderSection";
 import { useState } from "react";
+import { MENU_LIST } from "@/shared/constants/menuList";
 
 interface RenderMobileMenuButtonType {
   icon: string;
