@@ -1,10 +1,10 @@
 "use client";
 import Typography from "@/shared/components/atoms/Typography";
-import { FOLDER_LIST } from "@/features/navigation/lib/folderList";
 import { FolderItem } from "@/shared/components/molecules/FolderItem";
 import { Dispatch, SetStateAction } from "react";
-import { useFolder } from "../model/useFolder";
+import { useFolder } from "@/features/navigation/model/useFolder";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
+import { FOLDER_LIST } from "@/shared/constants/folderList";
 
 interface MenuSectionProps {
   showTitle?: boolean;
