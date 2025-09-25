@@ -4,9 +4,10 @@ import Typography from "../atoms/Typography";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 interface LabeledInputProps {
+  type?: string;
   isRequired?: boolean;
   title: string;
-  placeholder: string;
+  placeholder?: string;
   className?: string;
   inputClassName?: string; // input(자식)용
   error?: FieldError | string; // 에러 메시지 또는 객체
@@ -14,6 +15,7 @@ interface LabeledInputProps {
 }
 
 const LabeledInput = ({
+  type = "text",
   isRequired = false,
   title,
   placeholder,
@@ -29,6 +31,7 @@ const LabeledInput = ({
         {isRequired && <span className="text-[tomato]">*</span>}
       </Typography.P1>
       <Input
+        type={type}
         className={cn("!w-full", inputClassName)}
         placeholder={placeholder}
         {...register}
