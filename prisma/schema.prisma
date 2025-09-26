@@ -6,3 +6,13 @@ datasource db {
   provider = "sqlite" // 어떤 DB를 사용할건지
   url      = env("DATABASE_URL") // DB 위치
 }
+
+
+model User {
+  id Int @id @default(autoincrement())
+  userName String @unique
+  userEmail String? @unique
+  password String?
+  github_id String? @unique
+  avatar String? @default("@/shared/assets/img/defaultProfile.png")
+}
