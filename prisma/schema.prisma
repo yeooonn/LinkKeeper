@@ -16,3 +16,30 @@ model User {
   github_id String? @unique
   avatar String? @default("@/shared/assets/img/defaultProfile.png")
 }
+
+model Link {
+  id Int @id @default(autoincrement())
+  title String
+  link String
+  filename String
+  time String
+  tag Tag[]
+  alert Boolean
+  bookmark Boolean
+  hasRead Boolean
+}
+
+model Tag {
+  id     Int    @id @default(autoincrement())
+  name   String
+  linkId Int
+  link   Link   @relation(fields: [linkId], references: [id])
+}
+
+model Folder {
+  id        String   @id
+  name      String
+  parentId  String?  
+  parent    Folder?  @relation("FolderToSubfolders", fields: [parentId], references: [id])
+  children  Folder[] @relation("FolderToSubfolders")
+}
