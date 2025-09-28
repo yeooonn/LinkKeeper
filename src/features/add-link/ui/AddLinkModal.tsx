@@ -12,22 +12,17 @@ import { ALERT_OPTION } from "@/shared/constants/alertOption";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
 import useLineStepper from "@/shared/hooks/useLineStepper";
 import cn from "@/shared/utils/cn";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { addLinkFormSchema } from "../model/addLink.schema";
+import z from "zod";
 
 interface AddLinkModalProps {
   closeModal: () => void;
 }
 
-interface FormData {
-  title: string;
-  url: string;
-  tags: string;
-  memo: string;
-  alert?: string;
-  date?: string;
-  time?: string;
-}
+type FormData = z.infer<typeof addLinkFormSchema>;
 
 const LinkPreview = () => {
   return (
@@ -53,7 +48,6 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
   const [selectedItem, setSelectedItem] = useState<string>("");
   const [showAddFolderInput, setShowAddFolderInput] = useState<boolean>(false);
   const [newFolderName, setNewFolderName] = useState<string>("");
-  const [selectedOption, setSelectedOption] = useState<string>("");
   // 새로 추가한 폴더 선택(하이라이트 표시) 여부
   const isSelectedNewFolder =
     selectedItem !== "" && selectedItem === newFolderName;
@@ -69,12 +63,13 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     formState: { errors },
     watch,
   } = useForm<FormData>({
+    resolver: zodResolver(addLinkFormSchema),
     defaultValues: {
       title: "",
       url: "",
       tags: "",
       memo: "",
-      alert: "",
+      alert: "미등록",
       date: "",
       time: "",
     },
@@ -91,6 +86,9 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
 
   const isFirstNextActive = watch("title") && watch("url") && step === 0;
   const isSecondNextActive = (selectedItem || newFolderName) && step === 1;
+  const isAddbuttonActive =
+    watch("alert") === "사용자 정의" ? watch("date") && watch("time") : true;
+
   const showNextBtn =
     showNextButton && !isFirstNextActive && !isSecondNextActive;
 
@@ -109,26 +107,26 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
                 placeholder="제목"
                 isRequired={true}
                 register={register("title", { required: "제목은 필수입니다." })}
-                error={errors.title}
+                error={errors.title?.message}
               />
               <LabeledInput
                 title="URL"
                 placeholder="http://example.com"
                 isRequired={true}
                 register={register("url", { required: "URL은 필수입니다." })}
-                error={errors.url}
+                error={errors.url?.message}
               />
               <LabeledInput
                 title="태그"
                 placeholder="#태그1  #태그2"
                 register={register("tags")}
-                error={errors.tags}
+                error={errors.tags?.message}
               />
               <LabeledTextarea
                 title="메모"
                 placeholder="메모"
                 register={register("memo")}
-                error={errors.memo}
+                error={errors.memo?.message}
               />
             </>
           )}
@@ -201,12 +199,14 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
                     title="날짜"
                     className="w-full"
                     register={register("date")}
+                    error={errors.date?.message}
                   />
                   <LabeledInput
                     type="time"
                     title="시간"
                     className="w-full"
                     register={register("time")}
+                    error={errors.time?.message}
                   />
                 </div>
               )}
@@ -225,9 +225,12 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
             <Button.Gray isDisabled>다음</Button.Gray>
           ) : null}
 
-          {showAddButton && (
-            <Button.Blue onClick={handleSubmit(onSubmit)}>추가</Button.Blue>
-          )}
+          {showAddButton &&
+            (isAddbuttonActive ? (
+              <Button.Blue onClick={handleSubmit(onSubmit)}>추가</Button.Blue>
+            ) : (
+              <Button.Gray isDisabled>추가</Button.Gray>
+            ))}
         </Modal.Footer>
       </Modal>
     </>
