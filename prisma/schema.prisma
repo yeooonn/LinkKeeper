@@ -1,45 +1,59 @@
 generator client {
-  provider = "prisma-client-js" // 로컬 DB
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite" // 어떤 DB를 사용할건지
-  url      = env("DATABASE_URL") // DB 위치
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-
 model User {
-  id Int @id @default(autoincrement())
-  userName String @unique
-  userEmail String? @unique
-  password String?
-  github_id String? @unique
-  avatar String? @default("@/shared/assets/img/defaultProfile.png")
+  userName  String    @unique
+  userEmail String?   @unique
+  password  String?
+  github_id String?   @unique
+  avatar    String?   @default("@/shared/assets/img/defaultProfile.png")
+  userId    String    @id
+  links     Link[]
+  LinkTag   LinkTag[]
 }
 
 model Link {
-  id Int @id @default(autoincrement())
-  title String
-  link String
+  id       Int       @id @default(autoincrement())
+  title    String
+  link     String
   filename String
-  time String
-  tag Tag[]
-  alert Boolean
+  time     String
+  alert    Boolean
   bookmark Boolean
-  hasRead Boolean
+  hasRead  Boolean
+  userId   String
+  user     User      @relation(fields: [userId], references: [userId])
+  linkTags LinkTag[]
 }
 
 model Tag {
-  id     Int    @id @default(autoincrement())
-  name   String
+  id       Int       @id @default(autoincrement())
+  name     String
+  linkTags LinkTag[]
+}
+
+model LinkTag {
   linkId Int
-  link   Link   @relation(fields: [linkId], references: [id])
+  tagId  Int
+  userId String
+  link   Link   @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [userId])
+
+  @@id([linkId, tagId])
 }
 
 model Folder {
-  id        String   @id
-  name      String
-  parentId  String?  
-  parent    Folder?  @relation("FolderToSubfolders", fields: [parentId], references: [id])
-  children  Folder[] @relation("FolderToSubfolders")
+  id       String   @id
+  name     String
+  parentId String?
+  parent   Folder?  @relation("FolderToSubfolders", fields: [parentId], references: [id])
+  children Folder[] @relation("FolderToSubfolders")
 }
