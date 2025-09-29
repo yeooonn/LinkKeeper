@@ -1,8 +1,8 @@
-import { LandingDummyData } from "@/shared/mock/LandingDummyData";
+import fetchLinks from "@/features/landing/api/fetchLinks.service";
 import Landing from "@/widgets/Landing";
-// import "@/shared/lib/db";
 
-export default function Home() {
-  const LandingData = LandingDummyData;
-  return <Landing LandingData={LandingData} />;
+export default async function Home() {
+  const landingData = await fetchLinks();
+
+  return <Landing LandingData={landingData} />;
 }

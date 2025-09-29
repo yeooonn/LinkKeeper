@@ -1,12 +1,12 @@
+import { LinkResponse } from "@/features/landing/model/link.type";
 import Button from "@/shared/components/atoms/Button";
 import Card from "@/shared/components/atoms/Card";
 import Icon from "@/shared/components/atoms/Icon";
 import Input from "@/shared/components/atoms/Input";
 import Tag from "@/shared/components/atoms/Tag";
 import Typography from "@/shared/components/atoms/Typography";
-import { LandingArticle } from "@/shared/mock/LandingDummyData";
 
-const RenderCard = ({ data }: { data: LandingArticle }) => {
+const RenderCard = ({ data }: { data: LinkResponse }) => {
   return (
     <Card.ImageCard className="hover:border-blue-300">
       <Card.Header>
@@ -32,8 +32,8 @@ const RenderCard = ({ data }: { data: LandingArticle }) => {
       >
         <div className="flex gap-3">
           <Tag.Gray>{data.filename}</Tag.Gray>
-          {data.tag.map((tag) => (
-            <Tag.Blue key={tag}>#{tag}</Tag.Blue>
+          {data.linkTags.map((tag) => (
+            <Tag.Blue key={tag.tag.id}>#{tag.tag.name}</Tag.Blue>
           ))}
         </div>
         <Typography.P3 className="text-nowrap">{data.time}</Typography.P3>
@@ -42,7 +42,7 @@ const RenderCard = ({ data }: { data: LandingArticle }) => {
   );
 };
 
-const Landing = ({ LandingData }: { LandingData: LandingArticle[] }) => {
+const Landing = ({ LandingData }: { LandingData: LinkResponse[] }) => {
   return (
     <div>
       <div className="tablet:flex justify-between items-center mb-5">
