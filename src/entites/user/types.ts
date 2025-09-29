@@ -5,3 +5,12 @@ export interface UserInterface {
   profileImg: StaticImageData;
   nickname: string;
 }
+
+export interface User {
+  userId: string;
+  userName: string;
+  userEmail?: string;
+  password?: string;
+  github_id?: string;
+  avatar: string;
+}
