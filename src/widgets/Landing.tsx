@@ -43,6 +43,23 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
 };
 
 const Landing = ({ LandingData }: { LandingData: LinkResponse[] }) => {
+  if (LandingData.length === 0) {
+    return (
+      <div className="w-full h-full flex flex-col justify-center items-center gap-4 rounded-4xl">
+        <div className="w-16 h-16 flex justify-center items-center rounded-xl bg-blue-100">
+          <i className="bi bi-link text-4xl text-blue-500" />
+        </div>
+        <Typography.H1 className="font-bold mobile:text-xl text-center">
+          링크를 추가해 주세요.
+        </Typography.H1>
+        <Typography.P1 className="text-center">
+          중요한 링크를 저장하고 체계적으로 관리하세요. <br />
+          폴더와 태그로 쉽게 정리할 수 있습니다.
+        </Typography.P1>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="tablet:flex justify-between items-center mb-5">
