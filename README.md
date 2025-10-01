@@ -4,11 +4,11 @@
 
 ---
 
-## 🚧 프로젝트 진행 현황
+🚧 프로젝트 진행 현황
 - 현재 **진행 중(Work in Progress)** 인 프로젝트입니다.  
 - `main` 브랜치에 머지될 경우 **자동으로 배포**됩니다.  
 
 ---
 
-## 🌐 배포 링크
+🌐 배포 링크
 🔗 [https://link-keeper-mocha.vercel.app/](https://link-keeper-mocha.vercel.app/)
