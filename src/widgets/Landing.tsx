@@ -5,40 +5,50 @@ import Icon from "@/shared/components/atoms/Icon";
 import Input from "@/shared/components/atoms/Input";
 import Tag from "@/shared/components/atoms/Tag";
 import Typography from "@/shared/components/atoms/Typography";
+import { formatTimeAgo } from "@/shared/utils/formatTimeAgo";
 
 const RenderCard = ({ data }: { data: LinkResponse }) => {
   return (
-    <Card.ImageCard className="hover:border-blue-300">
-      <Card.Header>
-        <div className="flex gap-2 items-center">
-          <Typography.P2 className="font-bold">{data.title}</Typography.P2>
-          <Icon.BoxArrowUpRight />
-        </div>
+    <a
+      href={data.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={data.url}
+    >
+      <Card.ImageCard className="hover:border-blue-300">
+        <Card.Header>
+          <div className="flex gap-2 items-center">
+            <Typography.P2 className="font-bold">{data.title}</Typography.P2>
+            <Icon.BoxArrowUpRight />
+          </div>
 
-        <div className="flex tablet:gap-4 mobile:gap-2">
-          <Icon.Bell isActive={data.isAlert} />
-          <Icon.Star isActive={data.isBookmark} />
-          <Icon.Eye isActive={data.isRead} />
-        </div>
-      </Card.Header>
-      <Card.Content>
-        <Typography.P1 className="mb-1 !text-foreground-secondary">
-          {data.url}
-        </Typography.P1>
-      </Card.Content>
-      <Card.Footer
-        className="overflow-x-auto !justify-between"
-        style={{ scrollbarWidth: "none" }}
-      >
-        <div className="flex gap-3">
-          <Tag.Gray>{data.filename}</Tag.Gray>
-          {data.linkTags.map((tag) => (
-            <Tag.Blue key={tag.tag.id}>#{tag.tag.name}</Tag.Blue>
-          ))}
-        </div>
-        <Typography.P3 className="text-nowrap">{data.createdAt}</Typography.P3>
-      </Card.Footer>
-    </Card.ImageCard>
+          <div className="flex tablet:gap-4 mobile:gap-2">
+            <Icon.Bell isActive={data.isAlert} />
+            <Icon.Star isActive={data.isBookmark} />
+            <Icon.Eye isActive={data.isRead} />
+          </div>
+        </Card.Header>
+        <Card.Content>
+          <Typography.P1 className="mb-1 !text-foreground-secondary">
+            {data.memo}
+          </Typography.P1>
+        </Card.Content>
+        <Card.Footer
+          className="overflow-x-auto !justify-between"
+          style={{ scrollbarWidth: "none" }}
+        >
+          <div className="flex gap-3">
+            <Tag.Gray>{data.filename}</Tag.Gray>
+            {data.linkTags.map((tag) => (
+              <Tag.Blue key={tag.tag.id}>#{tag.tag.name}</Tag.Blue>
+            ))}
+          </div>
+          <Typography.P3 className="text-nowrap">
+            {formatTimeAgo(data.createdAt)}
+          </Typography.P3>
+        </Card.Footer>
+      </Card.ImageCard>
+    </a>
   );
 };
 
