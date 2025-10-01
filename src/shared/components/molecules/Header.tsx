@@ -5,8 +5,10 @@ import useModal from "@/shared/hooks/useModal";
 import AddLinkModal from "@/features/add-link/ui/AddLinkModal";
 import { useThemeStore } from "@/shared/stores/usethemeStore";
 import cn from "@/shared/utils/cn";
+import { useRouter } from "next/navigation";
 
 export const Header = () => {
+  const navigator = useRouter();
   const { showModal, openModal, closeModal } = useModal();
   const { isDark, toggleTheme } = useThemeStore();
 
@@ -19,7 +21,10 @@ export const Header = () => {
       {showModal && <AddLinkModal closeModal={closeModal} />}
       <div className="w-full desktop:h-19 laptop:h-15 h-15 border-b border-border-primary px-4 fixed bg-background-secondary z-999 transition-all">
         <div className="w-full h-full flex justify-between">
-          <div className="flex h-full gap-2 items-center">
+          <div
+            className="flex h-full gap-2 items-center cursor-pointer"
+            onClick={() => navigator.push("/")}
+          >
             <i className="bi bi-link text-4xl text-blue-500" />
             <Typography.H1 className="font-bold tablet:mr-15 mobile:mr-10 mobile:text-xl">
               LinkKeeper
