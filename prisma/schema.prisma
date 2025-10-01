@@ -23,6 +23,7 @@ model Link {
   id         Int       @id @default(autoincrement())
   title      String
   url        String
+  memo       String?
   filename   String
   createdAt  DateTime  @default(now()) // UTC 저장
   isAlert    Boolean
