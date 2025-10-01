@@ -16,14 +16,14 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
         </div>
 
         <div className="flex tablet:gap-4 mobile:gap-2">
-          <Icon.Bell isActive={data.alert} />
-          <Icon.Star isActive={data.bookmark} />
-          <Icon.Eye isActive={data.hasRead} />
+          <Icon.Bell isActive={data.isAlert} />
+          <Icon.Star isActive={data.isBookmark} />
+          <Icon.Eye isActive={data.isRead} />
         </div>
       </Card.Header>
       <Card.Content>
         <Typography.P1 className="mb-1 !text-foreground-secondary">
-          {data.link}
+          {data.url}
         </Typography.P1>
       </Card.Content>
       <Card.Footer
@@ -36,7 +36,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
             <Tag.Blue key={tag.tag.id}>#{tag.tag.name}</Tag.Blue>
           ))}
         </div>
-        <Typography.P3 className="text-nowrap">{data.time}</Typography.P3>
+        <Typography.P3 className="text-nowrap">{data.createdAt}</Typography.P3>
       </Card.Footer>
     </Card.ImageCard>
   );
@@ -75,7 +75,7 @@ const Landing = ({ LandingData }: { LandingData: LinkResponse[] }) => {
       </div>
       <div className="flex flex-col gap-2">
         {LandingData.map((list) => (
-          <RenderCard key={list.link} data={list} />
+          <RenderCard key={list.url} data={list} />
         ))}
       </div>
     </div>

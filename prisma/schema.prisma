@@ -20,17 +20,17 @@ model User {
 }
 
 model Link {
-  id       Int       @id @default(autoincrement())
-  title    String
-  link     String
-  filename String
-  time     String
-  alert    Boolean
-  bookmark Boolean
-  hasRead  Boolean
-  userId   String
-  user     User      @relation(fields: [userId], references: [userId])
-  linkTags LinkTag[]
+  id         Int       @id @default(autoincrement())
+  title      String
+  url        String
+  filename   String
+  createdAt  DateTime  @default(now()) // UTC 저장
+  isAlert    Boolean
+  isBookmark Boolean
+  isRead     Boolean
+  userId     String
+  user       User      @relation(fields: [userId], references: [userId])
+  linkTags   LinkTag[]
 }
 
 model Tag {

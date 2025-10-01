@@ -8,12 +8,11 @@ export interface LinkTag {
 export interface Link {
   id: number;
   title: string;
-  link: string;
+  url: string;
   filename: string;
-  time: string;
-  alert: boolean;
-  bookmark: boolean;
-  hasRead: boolean;
+  createdAt: string;
+  isAlert: boolean;
+  isBookmark: boolean;
+  isRead: boolean;
   userId: string;
 }
-
