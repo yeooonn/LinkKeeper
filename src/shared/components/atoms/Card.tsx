@@ -44,7 +44,7 @@ const ImageCard = ({
         }
         style={{ backgroundColor: imgBgColor }}
       >
-        <FolderIcon className="w-8 h-8" color={imgColor} />
+        <FolderIcon className="w-7 h-7" color={imgColor} />
       </div>
       <div className="w-full">{children}</div>
     </div>
