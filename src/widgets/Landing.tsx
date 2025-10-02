@@ -1,5 +1,4 @@
 import { LinkResponse } from "@/features/landing/model/link.type";
-import { FolderIcon } from "@/shared/assets/svg/folder";
 import Button from "@/shared/components/atoms/Button";
 import Card from "@/shared/components/atoms/Card";
 import Icon from "@/shared/components/atoms/Icon";
