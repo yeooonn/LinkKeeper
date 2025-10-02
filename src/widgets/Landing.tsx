@@ -1,4 +1,5 @@
 import { LinkResponse } from "@/features/landing/model/link.type";
+import { FolderIcon } from "@/shared/assets/svg/folder";
 import Button from "@/shared/components/atoms/Button";
 import Card from "@/shared/components/atoms/Card";
 import Icon from "@/shared/components/atoms/Icon";
@@ -15,9 +16,14 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
       rel="noopener noreferrer"
       title={data.url}
     >
-      <Card.ImageCard className="hover:border-blue-300">
+      <Card.ImageCard
+        className="hover:border-blue-300"
+        imgColor="#3B82F6"
+        imgBgColor="#EFF6FF"
+      >
         <Card.Header>
           <div className="flex gap-2 items-center">
+            <Tag.Gray>{data.filename}</Tag.Gray>
             <Typography.P2 className="font-bold">{data.title}</Typography.P2>
             <Icon.BoxArrowUpRight />
           </div>
@@ -28,8 +34,8 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
             <Icon.Eye isActive={data.isRead} />
           </div>
         </Card.Header>
-        <Card.Content>
-          <Typography.P1 className="mb-1 !text-foreground-secondary">
+        <Card.Content className="pb-2">
+          <Typography.P1 className="!text-foreground-secondary">
             {data.memo}
           </Typography.P1>
         </Card.Content>
@@ -38,9 +44,10 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
           style={{ scrollbarWidth: "none" }}
         >
           <div className="flex gap-3">
-            <Tag.Gray>{data.filename}</Tag.Gray>
             {data.linkTags.map((tag) => (
-              <Tag.Blue key={tag.tag.id}>#{tag.tag.name}</Tag.Blue>
+              <Typography.P3 key={tag.tag.id} className="text-blue-400">
+                #{tag.tag.name}
+              </Typography.P3>
             ))}
           </div>
           <Typography.P3 className="text-nowrap">

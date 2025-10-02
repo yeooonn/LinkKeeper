@@ -1,9 +1,12 @@
+import { FolderIcon } from "@/shared/assets/svg/folder";
 import cn from "@/shared/utils/cn";
 import { HTMLAttributes, ReactNode } from "react";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   children: ReactNode;
+  imgColor?: string;
+  imgBgColor?: string;
 }
 
 const Card = ({ className, children, ...props }: CardProps) => {
@@ -20,7 +23,13 @@ const Card = ({ className, children, ...props }: CardProps) => {
   );
 };
 
-const ImageCard = ({ className, children, ...props }: CardProps) => {
+const ImageCard = ({
+  className,
+  children,
+  imgColor,
+  imgBgColor,
+  ...props
+}: CardProps) => {
   return (
     <div
       className={cn(
@@ -29,7 +38,14 @@ const ImageCard = ({ className, children, ...props }: CardProps) => {
       )}
       {...props}
     >
-      <div className="w-25 h-25 bg-gray-100 rounded-sm mobile:hidden tablet:inline"></div>
+      <div
+        className={
+          "flex-shrink-0 w-15 h-15 rounded-lg bg-blue-50 flex items-center justify-center"
+        }
+        style={{ backgroundColor: imgBgColor }}
+      >
+        <FolderIcon className="w-8 h-8" color={imgColor} />
+      </div>
       <div className="w-full">{children}</div>
     </div>
   );
