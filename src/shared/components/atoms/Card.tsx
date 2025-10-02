@@ -40,7 +40,7 @@ const ImageCard = ({
     >
       <div
         className={
-          "flex-shrink-0 w-15 h-15 rounded-lg bg-blue-50 flex items-center justify-center"
+          "flex-shrink-0 w-15 h-15 rounded-lg bg-blue-50 flex items-center justify-center mobile:hidden tablet:flex"
         }
         style={{ backgroundColor: imgBgColor }}
       >

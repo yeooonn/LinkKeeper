@@ -23,7 +23,9 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
         <Card.Header>
           <div className="flex gap-2 items-center">
             <Tag.Gray>{data.filename}</Tag.Gray>
-            <Typography.P2 className="font-bold">{data.title}</Typography.P2>
+            <Typography.P2 className="font-bold line-clamp-1">
+              {data.title}
+            </Typography.P2>
             <Icon.BoxArrowUpRight />
           </div>
 
@@ -33,8 +35,8 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
             <Icon.Eye isActive={data.isRead} />
           </div>
         </Card.Header>
-        <Card.Content className="pb-2">
-          <Typography.P1 className="!text-foreground-secondary">
+        <Card.Content className="pb-2" title={data.memo}>
+          <Typography.P1 className="!text-foreground-secondary line-clamp-2">
             {data.memo}
           </Typography.P1>
         </Card.Content>
