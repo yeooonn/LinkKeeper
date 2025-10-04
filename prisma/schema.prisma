@@ -24,19 +24,21 @@ model Link {
   title      String
   url        String
   memo       String?
-  filename   String
-  createdAt  DateTime  @default(now()) // UTC 저장
+  createdAt  DateTime  @default(now())
   isAlert    Boolean
   isBookmark Boolean
   isRead     Boolean
   userId     String
   user       User      @relation(fields: [userId], references: [userId])
   linkTags   LinkTag[]
+
+  foldername   String?
+  folder     Folder?   @relation(fields: [foldername], references: [name])
 }
 
 model Tag {
   id       Int       @id @default(autoincrement())
-  name     String
+  name     String    @unique
   linkTags LinkTag[]
 }
 
@@ -52,9 +54,11 @@ model LinkTag {
 }
 
 model Folder {
-  id       String   @id
-  name     String
+  id       String   @id @default(uuid())
+  name     String   @unique
   parentId String?
   parent   Folder?  @relation("FolderToSubfolders", fields: [parentId], references: [id])
   children Folder[] @relation("FolderToSubfolders")
+
+  links    Link[]
 }
