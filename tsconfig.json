@@ -27,7 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/shared/stores/usethemeStore.tsㅌ"
+    "src/shared/stores/usethemeStore.ts",
+    "src/app/api/create/link/route.ts",
+    "src/shared/utils/apiClient.ts"
   ],
   "exclude": ["node_modules"]
 }
