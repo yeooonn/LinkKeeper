@@ -17,6 +17,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { addLinkFormSchema } from "../model/addLink.schema";
 import z from "zod";
+import { apiClient } from "@/shared/utils/apiClient";
+import { LinkResponse } from "@/features/landing/model/link.type";
+import fetchLinks from "@/features/landing/api/fetchLinks.service";
 
 interface AddLinkModalProps {
   closeModal: () => void;
@@ -62,6 +65,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(addLinkFormSchema),
     defaultValues: {
@@ -76,17 +80,47 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     mode: "onChange",
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form Data:", {
+  const onSubmit = async (data: FormData) => {
+    // tags 문자열 분리
+    const tagNames = data.tags
+      ? data.tags
+          .split(" ")
+          .map((t: string) => t.trim())
+          .filter(Boolean)
+      : [];
+
+    const requestData = {
       ...data,
-      folder: selectedItem || newFolderName,
-    });
+      tag: tagNames,
+      foldername: selectedItem || newFolderName,
+      isAlert: data.alert !== "미등록",
+      isBookmark: false,
+      isRead: false,
+      userId: "yeooonn",
+    };
+
+    const response = await apiClient<LinkResponse, FormData>(
+      "/api/create/link",
+      {
+        method: "POST",
+        body: requestData,
+        revalidate: 0, // 즉시 캐시 무효화
+      }
+    );
+
+    if (!response) {
+      console.log("링크 생성에 실패했습니다.");
+      return;
+    }
+    console.log("링크가 성공적으로 생성되었습니다!");
+    reset(); // 폼 초기화
     closeModal();
+    await fetchLinks(0); // 링크 목록 새로고침
   };
 
   const isFirstNextActive = watch("title") && watch("url") && step === 0;
   const isSecondNextActive = (selectedItem || newFolderName) && step === 1;
-  const isAddbuttonActive =
+  const isAddButtonActive =
     watch("alert") === "사용자 정의" ? watch("date") && watch("time") : true;
 
   const showNextBtn =
@@ -226,7 +260,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
           ) : null}
 
           {showAddButton &&
-            (isAddbuttonActive ? (
+            (isAddButtonActive ? (
               <Button.Blue onClick={handleSubmit(onSubmit)}>추가</Button.Blue>
             ) : (
               <Button.Gray isDisabled>추가</Button.Gray>
