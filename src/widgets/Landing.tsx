@@ -22,7 +22,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
       >
         <Card.Header>
           <div className="flex gap-2 items-center">
-            <Tag.Gray>{data.filename}</Tag.Gray>
+            <Tag.Gray>{data.foldername}</Tag.Gray>
             <Typography.P2 className="font-bold line-clamp-1">
               {data.title}
             </Typography.P2>
@@ -93,7 +93,7 @@ const Landing = ({ LandingData }: { LandingData: LinkResponse[] }) => {
       </div>
       <div className="flex flex-col gap-2">
         {LandingData.map((list) => (
-          <RenderCard key={list.url} data={list} />
+          <RenderCard key={list.id} data={list} />
         ))}
       </div>
     </div>

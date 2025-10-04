@@ -1,6 +1,6 @@
 export interface LinkTag {
   linkId: number;
-  tag: { id: number; name: string };
+  tag: { id: number; name: string};
   tagId: number;
   userId: string;
 }
@@ -10,7 +10,7 @@ export interface Link {
   title: string;
   url: string;
   memo: string;
-  filename: string;
+  foldername: string;
   createdAt: string;
   isAlert: boolean;
   isBookmark: boolean;
