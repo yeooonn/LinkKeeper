@@ -1,4 +1,5 @@
 interface FetchOptions<T> {
+  method: "GET" | "POST" | "PUT" | "DELETE";
   body?: T;
   revalidate?: number;
   headers?: Record<string, string>;
@@ -8,13 +9,14 @@ export async function apiClient<ResponseType, BodyType = unknown>(
   endpoint: string,
   options: FetchOptions<BodyType>
 ): Promise<ResponseType | null> {
-  const { body, revalidate = 10, headers = {} } = options;
+  const { method = "GET", body, revalidate = 10, headers = {} } = options;
 
   // 캐시 테스트용 콘솔
   console.log(`[apiClient] ${endpoint} 호출:`, new Date().toISOString());
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${endpoint}`, {
+      method,
       headers: {
         "Content-Type": "application/json",
         ...headers,
