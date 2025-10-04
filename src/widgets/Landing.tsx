@@ -47,7 +47,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
           <div className="flex gap-3">
             {data.linkTags.map((tag) => (
               <Typography.P3 key={tag.tag.id} className="text-blue-400">
-                #{tag.tag.name}
+                {tag.tag.name}
               </Typography.P3>
             ))}
           </div>
