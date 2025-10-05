@@ -5,6 +5,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import Sidebar from "@/widgets/Sidebar";
 import MobileMenu from "@/widgets/MobileMenu";
 import { ThemeProvider } from "./providers/ThemeProvider";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,6 +22,18 @@ export default function RootLayout({
     <html lang="en">
       <ThemeProvider>
         <body className="min-h-screen">
+          <ToastContainer
+            position="top-right" // 오른쪽 상단
+            autoClose={3000} // 3초 후 자동 닫힘
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            transition={Slide}
+          />
           <main className="flex flex-col min-h-screen">
             <Header />
             <div className="flex w-full flex-1 desktop:pt-19 laptop:pt-15 pt-15">
