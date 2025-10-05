@@ -7,6 +7,7 @@ import MobileMenu from "@/widgets/MobileMenu";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import QueryProvider from "./providers/QueryClientProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,28 +23,30 @@ export default function RootLayout({
     <html lang="en">
       <ThemeProvider>
         <body className="min-h-screen">
-          <ToastContainer
-            position="top-right" // 오른쪽 상단
-            autoClose={3000} // 3초 후 자동 닫힘
-            hideProgressBar={false}
-            newestOnTop={true}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            transition={Slide}
-          />
-          <main className="flex flex-col min-h-screen">
-            <Header />
-            <div className="flex w-full flex-1 desktop:pt-19 laptop:pt-15 pt-15">
-              <Sidebar />
-              <div className="w-full flex-1 desktop:pt-7 laptop:pt-5 px-5 pt-5 font-sans bg-background-primary laptop:pb-10 overflow-auto mobile:pb-28 transition-all">
-                {children}
+          <QueryProvider>
+            <ToastContainer
+              position="top-right" // 오른쪽 상단
+              autoClose={3000} // 3초 후 자동 닫힘
+              hideProgressBar={false}
+              newestOnTop={true}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              transition={Slide}
+            />
+            <main className="flex flex-col min-h-screen">
+              <Header />
+              <div className="flex w-full flex-1 desktop:pt-19 laptop:pt-15 pt-15">
+                <Sidebar />
+                <div className="w-full flex-1 desktop:pt-7 laptop:pt-5 px-5 pt-5 font-sans bg-background-primary laptop:pb-10 overflow-auto mobile:pb-28 transition-all">
+                  {children}
+                </div>
               </div>
-            </div>
-            <MobileMenu />
-          </main>
+              <MobileMenu />
+            </main>
+          </QueryProvider>
         </body>
       </ThemeProvider>
     </html>
