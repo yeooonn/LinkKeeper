@@ -29,7 +29,7 @@
     ".next/types/**/*.ts",
     "src/shared/stores/usethemeStore.ts",
     "src/app/api/create/link/route.ts",
-    "src/shared/utils/apiClient.ts"
+    "src/shared/utils/fetchAPI.ts"
   ],
   "exclude": ["node_modules"]
 }
