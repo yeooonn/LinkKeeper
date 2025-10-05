@@ -1,11 +1,10 @@
 import Typography from "@/shared/components/atoms/Typography";
-import { Folder, ChevronRight } from "lucide-react";
 
 const FolderSkeletonItem = () => {
   return (
     <div className="flex items-center gap-2 px-3 py-2 mb-3 rounded-lg animate-pulse">
-      <ChevronRight className="w-5 h-5 text-gray-300" />
-      <Folder className="w-5 h-5 text-gray-300" />
+      <i className="bi bi-chevron-right text-gray-300" />
+      <i className="bi bi-folder text-gray-300" />
       <div className="h-4 bg-gray-200 rounded w-20"></div>
     </div>
   );
