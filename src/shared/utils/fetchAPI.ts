@@ -5,7 +5,7 @@ interface FetchOptions<T> {
   headers?: Record<string, string>;
 }
 
-export async function apiClient<ResponseType, BodyType = unknown>(
+export async function fetchAPI<ResponseType, BodyType = unknown>(
   endpoint: string,
   options: FetchOptions<BodyType>
 ): Promise<ResponseType | null> {
