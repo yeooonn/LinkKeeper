@@ -4,10 +4,7 @@ import z from "zod";
 export const addLinkFormSchema = z.object({
   title: z.string().min(1, { message: "제목은 필수입니다." }),
   url: z.url({ message: "유효한 URL 형식이어야 합니다." }),
-  tags:  z
-  .string()
-  .regex(/^#\S+( #\S+)*$/, "태그는 반드시 #으로 시작해야 하며, 공백으로 구분됩니다.")
-  .optional(), // 태그는 선택적, 공백 허용
+  tags: z.string().optional(), // 태그는 선택적, 공백 허용
   memo: z.string().optional(), // 메모는 선택적
   alert: z
     .enum(["미등록", "1시간", "1일", "1주일", "사용자 정의"] as const)

@@ -20,6 +20,7 @@ import z from "zod";
 import { fetchAPI } from "@/shared/utils/fetchAPI";
 import { LinkResponse } from "@/features/landing/model/link.type";
 import { updateLinks } from "@/shared/utils/actions";
+import { toast } from "react-toastify";
 
 interface AddLinkModalProps {
   closeModal: () => void;
@@ -80,6 +81,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
   });
 
   const onSubmit = async (data: FormData) => {
+    console.log("??");
     // tags 문자열 분리
     const tagNames = data.tags
       ? data.tags
@@ -114,16 +116,15 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     console.log("링크가 성공적으로 생성되었습니다!");
     reset(); // 폼 초기화
     closeModal();
+    toast.success("링크가 추가되었습니다.");
+
     await updateLinks(); // 링크 목록 새로고침
   };
 
-  const isFirstNextActive =
-    !!watch("title")?.trim() && !!watch("url")?.trim() && step === 0;
-  const isSecondNextActive =
-    (!!selectedItem?.trim() || !!newFolderName?.trim()) && step === 1;
+  const isFirstNextActive = watch("title") && watch("url") && step === 0;
+  const isSecondNextActive = (selectedItem || newFolderName) && step === 1;
   const isAddButtonActive =
     watch("alert") === "사용자 정의" ? watch("date") && watch("time") : true;
-
   const showNextBtn =
     showNextButton && !isFirstNextActive && !isSecondNextActive;
 
@@ -152,11 +153,15 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
                 error={errors.url?.message}
               />
               <LabeledInput
+                className="mb-1"
                 title="태그"
                 placeholder="#태그1  #태그2"
                 register={register("tags")}
                 error={errors.tags?.message}
               />
+              <Typography.P3 className="text-gray-500 mb-2">
+                태그는 반드시 #으로 시작해야 하며, 공백으로 구분됩니다.
+              </Typography.P3>
               <LabeledTextarea
                 title="메모"
                 placeholder="메모"
