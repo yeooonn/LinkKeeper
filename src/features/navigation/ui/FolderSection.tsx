@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from "react";
 import { useFolder } from "@/features/navigation/model/useFolder";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
 import { useGetFolderList } from "../model/folder.queries";
+import FolderSkeletonUI from "./FolderSkeletonUI";
 
 interface MenuSectionProps {
   showTitle?: boolean;
@@ -22,7 +23,11 @@ const FolderSection = ({
   showChildFolderSelectionHighlight = true,
 }: MenuSectionProps) => {
   const { expandedFolders, onClickFolder } = useFolder();
-  const { data: folderList } = useGetFolderList();
+  const { data: folderList, isLoading } = useGetFolderList();
+
+  if (isLoading) {
+    return <FolderSkeletonUI />;
+  }
 
   if (folderList === undefined || folderList.length === 0) {
     return (
