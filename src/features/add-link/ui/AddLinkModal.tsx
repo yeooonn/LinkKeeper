@@ -21,6 +21,7 @@ import { fetchAPI } from "@/shared/utils/fetchAPI";
 import { LinkResponse } from "@/features/landing/model/link.type";
 import { updateLinks } from "@/shared/utils/actions";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface AddLinkModalProps {
   closeModal: () => void;
@@ -39,6 +40,7 @@ const LinkPreview = ({ title }: { title: string }) => {
 };
 
 const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
+  const queryClient = useQueryClient();
   const lineCount = 3;
   const {
     step,
@@ -117,6 +119,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     reset(); // 폼 초기화
     closeModal();
     toast.success("링크가 추가되었습니다.");
+    queryClient.invalidateQueries({ queryKey: ["folders"] }); // 폴더 목록 새로고침
 
     await updateLinks(); // 링크 목록 새로고침
   };
