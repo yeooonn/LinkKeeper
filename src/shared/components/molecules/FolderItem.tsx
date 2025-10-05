@@ -1,10 +1,10 @@
-import { FolderInterface } from "@/entites/folder/types";
+import { FolderResponse } from "@/features/navigation/model/folder.type";
 import Typography from "@/shared/components/atoms/Typography";
 import cn from "@/shared/utils/cn";
 import { Dispatch, SetStateAction } from "react";
 
 interface FolderItemProps {
-  folder: FolderInterface;
+  folder: FolderResponse;
   onClick: () => void;
   expandedFolders: string[];
   selectedMenu: string;
@@ -68,16 +68,16 @@ export const FolderItem = ({
       </div>
 
       {isOpenFolder &&
-        folder.children &&
-        folder.children.map((childrenFolder) => {
+        folder.links &&
+        folder.links.map((childrenFolder) => {
           const isSelected =
             showChildFolderSelectionHighlight &&
-            selectedMenu === childrenFolder.id;
+            selectedMenu === childrenFolder.title;
 
           return (
             <div key={childrenFolder.id} className="pl-9">
               <button
-                onClick={() => setSelectedMenu(childrenFolder.id)}
+                onClick={() => setSelectedMenu(childrenFolder.title)}
                 className={cn(
                   isSelected ? selectedColor : unSelectedColor,
                   "w-full flex gap-3 desktop:px-3 desktop:py-2 px-2.5 py-1.5 mb-2 rounded-lg cursor-pointer transition-all items-center"
@@ -92,7 +92,7 @@ export const FolderItem = ({
                 <Typography.P1
                   className={cn(isSelected ? "text-white" : "", "text-sm")}
                 >
-                  {childrenFolder.name}
+                  {childrenFolder.title}
                 </Typography.P1>
               </button>
             </div>

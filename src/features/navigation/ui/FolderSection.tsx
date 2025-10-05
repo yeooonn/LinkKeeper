@@ -4,7 +4,7 @@ import { FolderItem } from "@/shared/components/molecules/FolderItem";
 import { Dispatch, SetStateAction } from "react";
 import { useFolder } from "@/features/navigation/model/useFolder";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
-import { FOLDER_LIST } from "@/shared/constants/folderList";
+import { useGetFolderList } from "../model/folder.queries";
 
 interface MenuSectionProps {
   showTitle?: boolean;
@@ -22,6 +22,28 @@ const FolderSection = ({
   showChildFolderSelectionHighlight = true,
 }: MenuSectionProps) => {
   const { expandedFolders, onClickFolder } = useFolder();
+  const { data: folderList } = useGetFolderList();
+
+  if (folderList === undefined || folderList.length === 0) {
+    return (
+      <>
+        <div className="px-4">
+          <Typography.P2 className="font-semibold">폴더</Typography.P2>
+        </div>
+        <div className="flex flex-col items-center justify-center py-12 px-4">
+          <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+            <i className="bi bi-folder text-2xl text-gray-400" />
+          </div>
+          <p className="text-gray-600 text-center mb-1 font-medium">
+            생성된 폴더가 없습니다
+          </p>
+          <p className="text-gray-400 text-center text-sm">
+            새로운 폴더를 만들어보세요
+          </p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -31,7 +53,7 @@ const FolderSection = ({
         </div>
       )}
       <div className="p-3">
-        {FOLDER_LIST.map((folder) => {
+        {folderList.map((folder) => {
           return (
             <FolderItem
               key={folder.id}
