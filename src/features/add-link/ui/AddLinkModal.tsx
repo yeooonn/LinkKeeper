@@ -17,9 +17,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { addLinkFormSchema } from "../model/addLink.schema";
 import z from "zod";
-import { apiClient } from "@/shared/utils/apiClient";
+import { fetchAPI } from "@/shared/utils/fetchAPI";
 import { LinkResponse } from "@/features/landing/model/link.type";
-import fetchLinks from "@/features/landing/api/fetchLinks.service";
+import { updateLinks } from "@/shared/utils/actions";
 
 interface AddLinkModalProps {
   closeModal: () => void;
@@ -27,12 +27,11 @@ interface AddLinkModalProps {
 
 type FormData = z.infer<typeof addLinkFormSchema>;
 
-const LinkPreview = () => {
+const LinkPreview = ({ title }: { title: string }) => {
   return (
     <Card className="!py-1 mb-3">
-      <Card.Content className="flex justify-between !pb-2">
-        <Typography.P1>링크 이름</Typography.P1>
-        <Typography.P1>http://example.com</Typography.P1>
+      <Card.Content>
+        <Typography.P1>{title}</Typography.P1>
       </Card.Content>
     </Card>
   );
@@ -99,7 +98,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
       userId: "yeooonn",
     };
 
-    const response = await apiClient<LinkResponse, FormData>(
+    const response = await fetchAPI<LinkResponse, FormData>(
       "/api/create/link",
       {
         method: "POST",
@@ -115,11 +114,13 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     console.log("링크가 성공적으로 생성되었습니다!");
     reset(); // 폼 초기화
     closeModal();
-    await fetchLinks(0); // 링크 목록 새로고침
+    await updateLinks(); // 링크 목록 새로고침
   };
 
-  const isFirstNextActive = watch("title") && watch("url") && step === 0;
-  const isSecondNextActive = (selectedItem || newFolderName) && step === 1;
+  const isFirstNextActive =
+    !!watch("title")?.trim() && !!watch("url")?.trim() && step === 0;
+  const isSecondNextActive =
+    (!!selectedItem?.trim() || !!newFolderName?.trim()) && step === 1;
   const isAddButtonActive =
     watch("alert") === "사용자 정의" ? watch("date") && watch("time") : true;
 
@@ -166,7 +167,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
           )}
           {step === 1 && (
             <>
-              {LinkPreview()}
+              <LinkPreview title={watch("title")} />
               <div className="flex justify-between mb-3 items-center">
                 <Typography.P1>
                   폴더 선택 <span className="text-[tomato]">*</span>
@@ -219,7 +220,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
           )}
           {step === 2 && (
             <>
-              {LinkPreview()}
+              <LinkPreview title={watch("title")} />
               <LabeledSelectbox
                 title="알림설정"
                 options={ALERT_OPTION}
