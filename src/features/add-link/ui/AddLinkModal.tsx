@@ -19,7 +19,7 @@ import { addLinkFormSchema } from "../model/addLink.schema";
 import z from "zod";
 import { fetchAPI } from "@/shared/utils/fetchAPI";
 import { LinkResponse } from "@/features/landing/model/link.type";
-import { updateLinks } from "@/shared/utils/actions";
+import { revalidateHome } from "@/shared/utils/actions";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -121,7 +121,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     toast.success("링크가 추가되었습니다.");
     queryClient.invalidateQueries({ queryKey: ["folders"] }); // 폴더 목록 새로고침
 
-    await updateLinks(); // 링크 목록 새로고침
+    await revalidateHome(); // 링크 목록 새로고침
   };
 
   const isFirstNextActive = watch("title") && watch("url") && step === 0;
