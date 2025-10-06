@@ -3,7 +3,7 @@ import Typography from "@/shared/components/atoms/Typography";
 import { MenuItem } from "@/shared/components/molecules/MenuItem";
 import { Dispatch, SetStateAction } from "react";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
-import { MENU_LIST } from "@/shared/constants/menuList";
+import { FILTER_LIST } from "@/shared/constants/fiterList";
 
 interface MenuSectionProps {
   selectedMenu: string;
@@ -17,7 +17,7 @@ const MenuSection = ({ selectedMenu, setSelectedMenu }: MenuSectionProps) => {
         <Typography.P2 className="font-semibold">빠른 필터</Typography.P2>
       </div>
       <div className="p-3">
-        {MENU_LIST.map((menu) => (
+        {FILTER_LIST.map((menu) => (
           <MenuItem
             key={menu.id}
             menu={menu}

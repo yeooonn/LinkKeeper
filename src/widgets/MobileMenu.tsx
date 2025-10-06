@@ -4,7 +4,7 @@ import cn from "@/shared/utils/cn";
 import ProfileSection from "@/features/profile/ui/ProfileSection";
 import FolderSection from "@/features/navigation/ui/FolderSection";
 import { useState } from "react";
-import { MENU_LIST } from "@/shared/constants/menuList";
+import { FILTER_LIST } from "@/shared/constants/fiterList";
 
 interface RenderMobileMenuButtonType {
   icon: string;
@@ -75,7 +75,7 @@ const MobileMenu = () => {
             onclick={() => setSelectedItem("카테고리")}
           />
 
-          {MENU_LIST.map((menu) => {
+          {FILTER_LIST.map((menu) => {
             const isSelected = selectedItem === menu.text;
             return (
               <RenderMobileMenuButton
