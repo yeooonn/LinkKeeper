@@ -1,6 +1,7 @@
 import { FolderResponse } from "@/features/navigation/model/folder.type";
 import Typography from "@/shared/components/atoms/Typography";
 import cn from "@/shared/utils/cn";
+import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 
 interface FolderItemProps {
@@ -26,6 +27,7 @@ export const FolderItem = ({
   showFolderSelectionHighlight = false,
   showChildFolderSelectionHighlight = true,
 }: FolderItemProps) => {
+  const router = useRouter();
   const isOpenFolder = expandedFolders.includes(folder.id);
   const isSelected =
     showFolderSelectionHighlight && selectedMenu === folder.name;
@@ -77,7 +79,10 @@ export const FolderItem = ({
           return (
             <div key={childrenFolder.id} className="pl-9">
               <button
-                onClick={() => setSelectedMenu(childrenFolder.title)}
+                onClick={() => {
+                  setSelectedMenu(childrenFolder.title);
+                  router.push(`/links/${childrenFolder.title}`);
+                }}
                 className={cn(
                   isSelected ? selectedColor : unSelectedColor,
                   "w-full flex gap-3 desktop:px-3 desktop:py-2 px-2.5 py-1.5 mb-2 rounded-lg cursor-pointer transition-all items-center"
