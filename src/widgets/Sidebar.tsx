@@ -2,10 +2,17 @@
 import MenuSection from "@/features/navigation/ui/MenuSection";
 import FolderSection from "@/features/navigation/ui/FolderSection";
 import ProfileSection from "@/features/profile/ui/ProfileSection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const [selectedItem, setSelectedItem] = useState<string>("전체");
+  const pathName = usePathname();
+  const item = decodeURIComponent(pathName).split("/")[2];
+
+  useEffect(() => {
+    setSelectedItem(item);
+  }, [item]);
 
   return (
     <aside
