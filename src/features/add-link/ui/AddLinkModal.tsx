@@ -184,8 +184,8 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
                   {showAddFolderInput ? "취소" : "폴더 추가"}
                 </Button.OutlineBlue>
               </div>
-              <div className="border border-gray-300 rounded-lg pt-2">
-                <div className="w-full ml-3 mt-1">
+              <div className="border border-gray-300 rounded-lg max-h-100 overflow-y-scroll overflow-x-hidden">
+                <div className="w-full ml-3 sticky top-0 bg-white z-10 pb-2  pt-3">
                   <Input
                     placeholder="폴더 검색"
                     icon="search"
@@ -193,36 +193,38 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
                   />
                   <hr className="border-gray-300 w-[95%] mt-3" />
                 </div>
-                {showAddFolderInput && (
-                  <div
-                    onClick={() => {
-                      setSelectedItem(newFolderName);
-                    }}
-                    className={cn(
-                      isSelectedNewFolder ? SELECTED_COLOR : UNSELECTED_COLOR,
-                      selectedItem !== newFolderName &&
-                        "dark:hover:bg-background-hover",
-                      "group pl-2.5 py-1 flex gap-3 ml-3 mt-4 mr-3 pr-2 rounded-lg cursor-pointer items-center "
-                    )}
-                  >
-                    <div className="flex gap-2">
-                      <i className="bi bi-chevron-right desktop:text-base text-xs" />
-                      <i className="bi bi-folder desktop:text-base text-xs" />
+
+                <div className="overflow-y-scroll overflow-x-hidden max-h-[calc(100%-60px)]">
+                  {showAddFolderInput && (
+                    <div
+                      onClick={() => setSelectedItem(newFolderName)}
+                      className={cn(
+                        isSelectedNewFolder ? SELECTED_COLOR : UNSELECTED_COLOR,
+                        selectedItem !== newFolderName &&
+                          "dark:hover:bg-background-hover",
+                        "group pl-2.5 py-1 flex gap-3 ml-3 mt-4 mr-3 pr-2 rounded-lg cursor-pointer items-center "
+                      )}
+                    >
+                      <div className="flex gap-2">
+                        <i className="bi bi-chevron-right desktop:text-base text-xs" />
+                        <i className="bi bi-folder desktop:text-base text-xs" />
+                      </div>
+                      <Input
+                        onChange={(e) => setNewFolderName(e.target.value)}
+                        placeholder="폴더명 입력"
+                        className="h-8 border border-gray-300 bg-transparent !group-focus-within:border-transparent"
+                      />
                     </div>
-                    <Input
-                      onChange={(e) => setNewFolderName(e.target.value)}
-                      placeholder="폴더명 입력"
-                      className="h-8 border border-gray-300 bg-transparent !group-focus-within:border-transparent"
-                    />
-                  </div>
-                )}
-                <FolderSection
-                  showTitle={false}
-                  showFolderSelectionHighlight={true}
-                  showChildFolderSelectionHighlight={false}
-                  selectedMenu={selectedItem}
-                  setSelectedMenu={setSelectedItem}
-                />
+                  )}
+
+                  <FolderSection
+                    showTitle={false}
+                    showFolderSelectionHighlight={true}
+                    showChildFolderSelectionHighlight={false}
+                    selectedMenu={selectedItem}
+                    setSelectedMenu={setSelectedItem}
+                  />
+                </div>
               </div>
             </>
           )}
