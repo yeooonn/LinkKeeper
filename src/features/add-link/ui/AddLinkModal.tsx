@@ -22,6 +22,7 @@ import { LinkResponse } from "@/features/landing/model/link.type";
 import { revalidateHome } from "@/shared/utils/actions";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 interface AddLinkModalProps {
   closeModal: () => void;
@@ -40,6 +41,7 @@ const LinkPreview = ({ title }: { title: string }) => {
 };
 
 const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const lineCount = 3;
   const {
@@ -119,9 +121,11 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     reset(); // 폼 초기화
     closeModal();
     toast.success("링크가 추가되었습니다.");
+    router.push("/links/전체");
+
     queryClient.invalidateQueries({ queryKey: ["folders"] }); // 폴더 목록 새로고침
 
-    await revalidateHome(); // 링크 목록 새로고침
+    await revalidateHome(); // 페이지 새로고침
   };
 
   const isFirstNextActive = watch("title") && watch("url") && step === 0;
