@@ -16,6 +16,11 @@ export const Header = () => {
     openModal();
   };
 
+  const handleClickLogo = () => {
+    navigator.push("/links/전체");
+    localStorage.removeItem("searchValue");
+  };
+
   return (
     <>
       {showModal && <AddLinkModal closeModal={closeModal} />}
@@ -23,7 +28,7 @@ export const Header = () => {
         <div className="w-full h-full flex justify-between">
           <div
             className="flex h-full gap-2 items-center cursor-pointer"
-            onClick={() => navigator.push("/links/전체")}
+            onClick={handleClickLogo}
           >
             <i className="bi bi-link text-4xl text-blue-500" />
             <Typography.H1 className="font-bold tablet:mr-15 mobile:mr-10 mobile:text-xl">

@@ -21,7 +21,10 @@ const MenuSection = ({ selectedMenu, setSelectedMenu }: MenuSectionProps) => {
           <MenuItem
             key={menu.id}
             menu={menu}
-            onClick={() => setSelectedMenu(menu.text)}
+            onClick={() => {
+              setSelectedMenu(menu.text);
+              localStorage.removeItem("searchValue");
+            }}
             isSelected={selectedMenu === menu.text}
             selectedColor={SELECTED_COLOR}
             unSelectedColor={UNSELECTED_COLOR}

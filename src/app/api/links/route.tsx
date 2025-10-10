@@ -6,9 +6,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const filename = searchParams.get("filename");
   const filter = searchParams.get("filter");
+  const searchValue = searchParams.get("url");
 
-  // filter 는 완전 일치
-  // search 는 부분 일치
   const returnWhereClause = () => {
     // 파일명 조회
     if (filename) {
@@ -29,6 +28,11 @@ export async function GET(request: Request) {
       if (filter === "알림 설정") {
         return { isAlert: true };
       }
+    }
+
+    // url 검색
+    else if (searchValue) {
+      return { url: { equals: searchValue } };
     }
 
     // 전체 조회

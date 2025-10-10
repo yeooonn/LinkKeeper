@@ -82,6 +82,7 @@ export const FolderItem = ({
                 onClick={() => {
                   setSelectedMenu(childrenFolder.title);
                   router.push(`/links/${childrenFolder.title}`);
+                  localStorage.removeItem("searchValue");
                 }}
                 className={cn(
                   isSelected ? selectedColor : unSelectedColor,

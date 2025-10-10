@@ -1,8 +1,9 @@
 import { LinkResponse } from "@/features/landing/model/link.type";
+import SearchInfoText from "@/features/search-link/ui/SearchInfoText";
+import SearchInput from "@/features/search-link/ui/SearchInput";
 import Button from "@/shared/components/atoms/Button";
 import Card from "@/shared/components/atoms/Card";
 import Icon from "@/shared/components/atoms/Icon";
-import Input from "@/shared/components/atoms/Input";
 import Tag from "@/shared/components/atoms/Tag";
 import Typography from "@/shared/components/atoms/Typography";
 import { formatTimeAgo } from "@/shared/utils/formatTimeAgo";
@@ -63,17 +64,31 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
 const Landing = ({ LandingData }: { LandingData: LinkResponse[] }) => {
   if (LandingData.length === 0) {
     return (
-      <div className="w-full h-full flex flex-col justify-center items-center gap-4 rounded-4xl">
-        <div className="w-16 h-16 flex justify-center items-center rounded-xl bg-blue-100">
-          <i className="bi bi-link text-4xl text-blue-500" />
+      <div className="w-full h-full flex flex-col gap-4">
+        <div className="tablet:flex justify-between items-center mb-1">
+          <Typography.H1 className="font-bold mobile:mb-4 mb-0 mobile:text-xl">
+            전체 링크
+          </Typography.H1>
+          <div className="flex tablet:items-center mobile:justify-between gap-3">
+            <SearchInput />
+            <Button.Gray>
+              <i className="bi bi-filter" />
+            </Button.Gray>
+          </div>
         </div>
-        <Typography.H1 className="font-bold mobile:text-xl text-center">
-          링크를 추가해 주세요.
-        </Typography.H1>
-        <Typography.P1 className="text-center">
-          중요한 링크를 저장하고 체계적으로 관리하세요. <br />
-          폴더와 태그로 쉽게 정리할 수 있습니다.
-        </Typography.P1>
+        <SearchInfoText />
+        <div className="w-full h-full flex flex-col justify-center items-center gap-4 rounded-4xl">
+          <div className="w-16 h-16 flex justify-center items-center rounded-xl bg-blue-100">
+            <i className="bi bi-link text-4xl text-blue-500" />
+          </div>
+          <Typography.H1 className="font-bold mobile:text-xl text-center">
+            링크를 추가해 주세요.
+          </Typography.H1>
+          <Typography.P1 className="text-center">
+            중요한 링크를 저장하고 체계적으로 관리하세요. <br />
+            폴더와 태그로 쉽게 정리할 수 있습니다.
+          </Typography.P1>
+        </div>
       </div>
     );
   }
@@ -85,13 +100,14 @@ const Landing = ({ LandingData }: { LandingData: LinkResponse[] }) => {
           전체 링크
         </Typography.H1>
         <div className="flex tablet:items-center mobile:justify-between gap-3">
-          <Input placeholder="링크 검색" icon="search" />
+          <SearchInput />
           <Button.Gray>
             <i className="bi bi-filter" />
           </Button.Gray>
         </div>
       </div>
       <div className="flex flex-col gap-2">
+        <SearchInfoText />
         {LandingData.map((list) => (
           <RenderCard key={list.id} data={list} />
         ))}
