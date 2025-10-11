@@ -3,14 +3,15 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { linkId: string } }
 ) {
   try {
-    const linkId = Number(params.linkId);
+    // URL에서 linkId 추출
+    const url = new URL(req.url);
+    const linkId = url.pathname.split("/").at(-2); 
 
     // DB에 해당 링크가 존재하는지 체크
     const link = await db.link.findUnique({
-      where: { id: linkId },
+      where: { id: Number(linkId) },
       select: { isBookmark: true },
     });
 
@@ -24,7 +25,7 @@ export async function PATCH(
 
     // 존재하면 업데이트
     const updated = await db.link.update({
-      where: { id: linkId },
+      where: { id: Number(linkId) },
       data: { isBookmark: !link.isBookmark },
     });
 
