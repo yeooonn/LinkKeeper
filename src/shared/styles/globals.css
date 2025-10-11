@@ -15,6 +15,7 @@
   /* 텍스트 색상 */
   --foreground-primary: #171717; /* 기본 텍스트, Tailwind: neutral-900 */
   --foreground-secondary: #364153; /* 보조 텍스트, Tailwind: gray-700 */
+  --foreground-trtiary: #99a1af; /* 보조 텍스트, Tailwind: gray-400 */
 
   --foreground-gray-tag: #6a7282; /* 회색 태그 텍스트, Tailwind: gray-500 */
   --foreground-blue-tag: #3b82f6; /* 파란색 태그 텍스트, Tailwind: blue-500 */
@@ -68,6 +69,7 @@
   /* 텍스트 */
   --foreground-primary: #fff; /* white */
   --foreground-secondary: #d1d5dc; /* gray-300 */
+  --foreground-trtiary: #f3f4f6; /* gray-100 */
 
   --foreground-gray-tag: #f3f4f6; /* gray-100 */
   --foreground-blue-tag: #6d9fee; /* blue-400 */
@@ -117,6 +119,7 @@
 
   --color-foreground-primary: var(--foreground-primary);
   --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-trtiary: var(--foreground-trtiary);
   --color-foreground-gray-tag: var(--foreground-gray-tag);
   --color-foreground-blue-tag: var(--foreground-blue-tag);
 

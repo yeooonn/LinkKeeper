@@ -1,7 +1,7 @@
 import cn from "@/shared/utils/cn";
 import { ReactNode } from "react";
 
-type ButtonColor = "Gray" | "Blue" | "OutlineBlue";
+type ButtonColor = "Gray" | "Blue" | "Red" | "OutlineBlue" | "OutlineGray";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
@@ -26,10 +26,19 @@ const ButtonComponent = ({
       "bg-button-blue-bg text-button-blue-text border-button-blue-border",
       !isDisabled && "hover:button-blue-hover-bg"
     ),
+    Red: cn(
+      "bg-[tomato] text-white",
+      !isDisabled && "hover:button-blue-hover-bg"
+    ),
     OutlineBlue: cn(
       "text-button-outline-blue-text border border-button-outline-blue-border",
       !isDisabled &&
         "hover:text-button-outline-blue-hover-text hover:border-button-outline-blue-hover-border"
+    ),
+    OutlineGray: cn(
+      "text-gray-400 border border-gray-400",
+      !isDisabled &&
+        "hover:text-button-gray-text border hover:border-button-gray-text"
     ),
   };
 
@@ -52,8 +61,12 @@ const ButtonComponent = ({
 const Button = {
   Gray: (props: ButtonProps) => <ButtonComponent {...props} color="Gray" />,
   Blue: (props: ButtonProps) => <ButtonComponent {...props} color="Blue" />,
+  Red: (props: ButtonProps) => <ButtonComponent {...props} color="Red" />,
   OutlineBlue: (props: ButtonProps) => (
     <ButtonComponent {...props} color="OutlineBlue" />
+  ),
+  OutlineGray: (props: ButtonProps) => (
+    <ButtonComponent {...props} color="OutlineGray" />
   ),
 };
 
