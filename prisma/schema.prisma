@@ -17,6 +17,7 @@ model User {
   userId    String    @id
   links     Link[]
   LinkTag   LinkTag[]
+  LinkRead  LinkRead[]
 }
 
 model Link {
@@ -27,7 +28,7 @@ model Link {
   createdAt  DateTime  @default(now())
   isAlert    Boolean
   isBookmark Boolean
-  isRead     Boolean
+  linkReads  LinkRead[] 
   userId     String
   user       User      @relation(fields: [userId], references: [userId])
   linkTags   LinkTag[]
@@ -61,4 +62,16 @@ model Folder {
   children Folder[] @relation("FolderToSubfolders")
 
   links    Link[]
+}
+
+model LinkRead {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  linkId    Int
+  readAt    DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  link      Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, linkId])
 }
