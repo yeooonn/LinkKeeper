@@ -31,7 +31,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
             <Icon.BoxArrowUpRight />
           </div>
 
-          <div className="flex tablet:gap-4 mobile:gap-2">
+          <div className="flex items-center tablet:gap-4 mobile:gap-2">
             <Icon.Bell isActive={data.isAlert} />
             <ToggleBookmarkButton isActive={data.isBookmark} linkId={data.id} />
             <Icon.Eye isActive={data.isRead} />
