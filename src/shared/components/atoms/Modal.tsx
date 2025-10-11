@@ -1,4 +1,5 @@
 import cn from "@/shared/utils/cn";
+import { stopEvent } from "@/shared/utils/stopEvent";
 import { HTMLAttributes, useEffect } from "react";
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -20,7 +21,12 @@ const Modal = ({ className, children, onClose, ...props }: ModalProps) => {
   return (
     <div
       className="modal fixed inset-0 flex items-center justify-center bg-overlay-black z-999 transition-all"
-      onClick={onClose}
+      onClick={(e) => {
+        stopEvent(e);
+        if (onClose) {
+          onClose();
+        }
+      }}
     >
       <div
         className={cn(
@@ -47,7 +53,13 @@ const Header = ({ children, onClose }: HeaderProps) => {
   return (
     <div className="flex justify-between items-center mb-4">
       {children}
-      <i className="bi bi-x-lg justify-end flex" onClick={onClose} />
+      <i
+        className="bi bi-x-lg justify-end flex"
+        onClick={(e) => {
+          stopEvent(e);
+          onClose();
+        }}
+      />
     </div>
   );
 };
