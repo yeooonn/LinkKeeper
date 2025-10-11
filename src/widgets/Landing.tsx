@@ -1,6 +1,7 @@
 import { LinkResponse } from "@/features/landing/model/link.type";
 import SearchInfoText from "@/features/search-link/ui/SearchInfoText";
 import SearchInput from "@/features/search-link/ui/SearchInput";
+import ToggleBookmarkButton from "@/features/toggle-bookmark/ui/ToggleBookmarkButton";
 import Button from "@/shared/components/atoms/Button";
 import Card from "@/shared/components/atoms/Card";
 import Icon from "@/shared/components/atoms/Icon";
@@ -32,7 +33,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
 
           <div className="flex tablet:gap-4 mobile:gap-2">
             <Icon.Bell isActive={data.isAlert} />
-            <Icon.Star isActive={data.isBookmark} />
+            <ToggleBookmarkButton isActive={data.isBookmark} linkId={data.id} />
             <Icon.Eye isActive={data.isRead} />
           </div>
         </Card.Header>

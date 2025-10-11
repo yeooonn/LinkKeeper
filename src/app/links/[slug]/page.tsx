@@ -23,8 +23,6 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
     query = `?filename=${slug}`;
   }
 
-  console.log("query", query);
-
   const landingData = await fetchLinks(10, query);
 
   return <Landing LandingData={landingData} />;
