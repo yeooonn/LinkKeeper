@@ -8,15 +8,17 @@ import Icon from "@/shared/components/atoms/Icon";
 import Tag from "@/shared/components/atoms/Tag";
 import Typography from "@/shared/components/atoms/Typography";
 import { formatTimeAgo } from "@/shared/utils/formatTimeAgo";
+import LinkWrapper from "../features/read-link/ui/LinkWrapper";
 
 const RenderCard = ({ data }: { data: LinkResponse }) => {
+  const isRead =
+    data.linkReads.length > 0 &&
+    data.linkReads.map((item) => item.userId === "yeooonn")
+      ? true
+      : false;
+
   return (
-    <a
-      href={data.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      title={data.url}
-    >
+    <LinkWrapper url={data.url} linkId={data.id}>
       <Card.ImageCard
         className="hover:border-blue-300"
         imgColor="#3B82F6"
@@ -34,7 +36,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
           <div className="flex items-center tablet:gap-4 mobile:gap-2">
             <Icon.Bell isActive={data.isAlert} />
             <ToggleBookmarkButton isActive={data.isBookmark} linkId={data.id} />
-            <Icon.Eye isActive={data.isRead} />
+            <Icon.Eye isActive={isRead} />
           </div>
         </Card.Header>
         <Card.Content className="pb-2" title={data.memo}>
@@ -58,7 +60,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
           </Typography.P3>
         </Card.Footer>
       </Card.ImageCard>
-    </a>
+    </LinkWrapper>
   );
 };
 
