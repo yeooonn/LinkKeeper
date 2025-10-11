@@ -9,6 +9,8 @@ import Tag from "@/shared/components/atoms/Tag";
 import Typography from "@/shared/components/atoms/Typography";
 import { formatTimeAgo } from "@/shared/utils/formatTimeAgo";
 import LinkWrapper from "../features/read-link/ui/LinkWrapper";
+import DeleteLinkButton from "@/features/delete-link/ui/DeleteLinkButton";
+import UpdateLinkButton from "@/features/update-link/ui/UpdateLinkButton";
 
 const RenderCard = ({ data }: { data: LinkResponse }) => {
   const isRead =
@@ -30,19 +32,29 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
             <Typography.P2 className="font-bold line-clamp-1">
               {data.title}
             </Typography.P2>
-            <Icon.BoxArrowUpRight />
           </div>
 
           <div className="flex items-center tablet:gap-4 mobile:gap-2">
             <Icon.Bell isActive={data.isAlert} />
             <ToggleBookmarkButton isActive={data.isBookmark} linkId={data.id} />
             <Icon.Eye isActive={isRead} />
+
+            <div className="h-6 w-px bg-gray-300"></div>
+
+            <UpdateLinkButton />
+            <DeleteLinkButton />
           </div>
         </Card.Header>
         <Card.Content className="pb-2" title={data.memo}>
-          <Typography.P1 className="!text-foreground-secondary line-clamp-2">
-            {data.memo}
-          </Typography.P1>
+          {data.memo ? (
+            <Typography.P1 className="!text-foreground-secondary line-clamp-2">
+              {data.memo}
+            </Typography.P1>
+          ) : (
+            <Typography.P1 className="!text-foreground-trtiary line-clamp-2">
+              등록된 메모가 없습니다.
+            </Typography.P1>
+          )}
         </Card.Content>
         <Card.Footer
           className="overflow-x-auto !justify-between"
@@ -55,9 +67,11 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
               </Typography.P3>
             ))}
           </div>
-          <Typography.P3 className="text-nowrap">
-            {formatTimeAgo(data.createdAt)}
-          </Typography.P3>
+          <div className="flex gap-1 items-center">
+            <Typography.P3 className="text-nowrap">
+              {formatTimeAgo(data.createdAt)}
+            </Typography.P3>
+          </div>
         </Card.Footer>
       </Card.ImageCard>
     </LinkWrapper>
