@@ -19,7 +19,7 @@ import { addLinkFormSchema } from "../model/addLink.schema";
 import z from "zod";
 import { fetchAPI } from "@/shared/utils/fetchAPI";
 import { LinkResponse } from "@/features/landing/model/link.type";
-import { revalidateHome } from "@/shared/utils/actions";
+import { revalidateLink } from "@/shared/utils/actions";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -125,7 +125,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
 
     queryClient.invalidateQueries({ queryKey: ["folders"] }); // 폴더 목록 새로고침
 
-    await revalidateHome(); // 페이지 새로고침
+    await revalidateLink(); // 페이지 새로고침
   };
 
   const isFirstNextActive = watch("title") && watch("url") && step === 0;

@@ -1,5 +1,8 @@
 interface FetchOptions<T> {
-  method: "GET" | "POST" | "PUT" | "DELETE";
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+  next?: {
+    tags?: string[];
+  };
   body?: T;
   revalidate?: number;
   headers?: Record<string, string>;
@@ -9,7 +12,7 @@ export async function fetchAPI<ResponseType, BodyType = unknown>(
   endpoint: string,
   options: FetchOptions<BodyType>
 ): Promise<ResponseType | null> {
-  const { method = "GET", body, revalidate = 10, headers = {} } = options;
+  const { method = "GET", next, body, revalidate = 10, headers = {} } = options;
 
   // 캐시 테스트용 콘솔
   console.log(`[apiClient] ${endpoint} 호출:`, new Date().toISOString());
@@ -22,7 +25,7 @@ export async function fetchAPI<ResponseType, BodyType = unknown>(
         ...headers,
       },
       body: body ? JSON.stringify(body) : undefined,
-      next: { revalidate },
+      next: next ?? { revalidate },
     });
 
     if (!res.ok) {

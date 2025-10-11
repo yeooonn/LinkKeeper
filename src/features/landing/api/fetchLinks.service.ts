@@ -5,7 +5,8 @@ import { fetchAPI } from "@/shared/utils/fetchAPI";
 async function fetchLinks(revalidateTime: number = 10, query?: string): Promise<LinkResponse[]> {
   const res = await fetchAPI<LinkResponse[]>(`/api/links${query}`, {
     method: "GET",
-    revalidate: revalidateTime, // 10초마다 캐시 재검증
+    revalidate: revalidateTime,
+    next: { tags: [ "link" ] },
   });
 
   return res ?? [];

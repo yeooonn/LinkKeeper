@@ -1,7 +1,6 @@
 "use server";
-import { revalidatePath } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 
-export async function revalidateHome() {
-  revalidatePath('/')
-  revalidatePath(`/links/${encodeURIComponent("전체")}`)
+export async function revalidateLink() {
+  revalidateTag("link")
 }
