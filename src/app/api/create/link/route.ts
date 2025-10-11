@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       userId,
       isAlert = false,
       isBookmark = false,
-      isRead = false,
+      linkReads = [],
       tag = [], // 문자열로 태그 전달
     } = body;
 
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
         memo,
         isAlert,
         isBookmark,
-        isRead,
+        linkReads,
         user: { connect: { userId } },
         folder: {
           connectOrCreate: {

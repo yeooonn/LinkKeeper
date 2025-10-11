@@ -1,7 +1,14 @@
 export interface LinkTag {
   linkId: number;
-  tag: { id: number; name: string};
+  tag: { id: number; name: string };
   tagId: number;
+  userId: string;
+}
+
+export interface LinkReads {
+  id: number;
+  linkId: number;
+  readAt: string;
   userId: string;
 }
 
@@ -14,6 +21,6 @@ export interface Link {
   createdAt: string;
   isAlert: boolean;
   isBookmark: boolean;
-  isRead: boolean;
   userId: string;
+  linkReads: LinkReads[];
 }

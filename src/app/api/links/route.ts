@@ -20,7 +20,7 @@ export async function GET(request: Request) {
         return {};
       }
       if (filter === "읽지 않음") {
-        return { isRead: true };
+        return { linkReads: { none: { userId: "yeooonn" } } };
       }
       if (filter === "즐겨찾기") {
         return { isBookmark: true };
@@ -50,6 +50,7 @@ export async function GET(request: Request) {
           },
         },
         folder: false,
+        linkReads: true
       },
       orderBy: {
         id: "desc",

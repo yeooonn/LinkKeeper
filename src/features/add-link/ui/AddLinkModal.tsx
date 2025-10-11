@@ -100,7 +100,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
       foldername: selectedItem || newFolderName,
       isAlert: data.alert !== "미등록",
       isBookmark: false,
-      isRead: false,
+      linkReads: [],
       userId: "yeooonn",
     };
 
