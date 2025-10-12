@@ -1,6 +1,7 @@
 import cn from "@/shared/utils/cn";
 import { stopEvent } from "@/shared/utils/stopEvent";
 import { HTMLAttributes, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -18,9 +19,9 @@ const Modal = ({ className, children, onClose, ...props }: ModalProps) => {
     };
   }, []);
 
-  return (
+  return createPortal(
     <div
-      className="modal fixed inset-0 flex items-center justify-center bg-overlay-black z-999 transition-all"
+      className="modal fixed inset-0 flex items-center justify-center bg-overlay-black transition-all"
       onClick={(e) => {
         stopEvent(e);
         if (onClose) {
@@ -39,7 +40,8 @@ const Modal = ({ className, children, onClose, ...props }: ModalProps) => {
       >
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
