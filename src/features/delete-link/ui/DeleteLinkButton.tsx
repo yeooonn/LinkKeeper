@@ -5,43 +5,57 @@ import Modal from "@/shared/components/atoms/Modal";
 import Typography from "@/shared/components/atoms/Typography";
 import useModal from "@/shared/hooks/useModal";
 import { stopEvent } from "@/shared/utils/stopEvent";
+import { useDeleteLink } from "../model/useDeleteLink";
 
-const DeleteLinkButton = () => {
+const DeleteLinkButton = ({ linkId }: { linkId: number }) => {
   const { showModal, openModal, closeModal } = useModal();
+  const { handleDelete, isDeleting } = useDeleteLink(closeModal);
 
   const handleOpenDeleteModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     stopEvent(e);
-
     openModal();
   };
 
   const handleCancelButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     stopEvent(e);
-
     closeModal();
   };
 
-  const handleDeleteButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleDeleteButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
     stopEvent(e);
 
-    console.log("삭제 버튼 클릭");
-    // 삭제 로직 구현 예정
+    handleDelete(linkId);
   };
+
   return (
     <>
       {showModal && (
         <Modal className="!min-w-[400px]" onClose={closeModal}>
           <Modal.Header onClose={closeModal}>
-            <Typography.H1>삭제 확인</Typography.H1>
+            <Typography.H1>링크를 삭제하시겠습니까?</Typography.H1>
           </Modal.Header>
           <Modal.Content>
-            <Typography.P1>정말 삭제하시겠습니까?</Typography.P1>
+            <Typography.P1>
+              삭제 버튼을 누르시면 해당 링크가 삭제됩니다.
+            </Typography.P1>
           </Modal.Content>
           <Modal.Footer>
             <Button.OutlineGray onClick={handleCancelButton}>
               취소
             </Button.OutlineGray>
-            <Button.Red onClick={handleDeleteButton}>삭제</Button.Red>
+            {isDeleting ? (
+              <Button.Gray
+                onClick={handleDeleteButton}
+                disabled={isDeleting}
+                isDisabled={true}
+              >
+                삭제
+              </Button.Gray>
+            ) : (
+              <Button.Red onClick={handleDeleteButton} disabled={isDeleting}>
+                삭제
+              </Button.Red>
+            )}
           </Modal.Footer>
         </Modal>
       )}

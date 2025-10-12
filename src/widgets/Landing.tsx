@@ -42,7 +42,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
             <div className="h-6 w-px bg-gray-300"></div>
 
             <UpdateLinkButton />
-            <DeleteLinkButton />
+            <DeleteLinkButton linkId={data.id} />
           </div>
         </Card.Header>
         <Card.Content className="pb-2" title={data.memo}>
