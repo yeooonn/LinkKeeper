@@ -44,13 +44,7 @@ const DeleteLinkButton = ({ linkId }: { linkId: number }) => {
               취소
             </Button.OutlineGray>
             {isDeleting ? (
-              <Button.Gray
-                onClick={handleDeleteButton}
-                disabled={isDeleting}
-                isDisabled={true}
-              >
-                삭제
-              </Button.Gray>
+              <Button.Gray isDisabled={true}>삭제</Button.Gray>
             ) : (
               <Button.Red onClick={handleDeleteButton} disabled={isDeleting}>
                 삭제
