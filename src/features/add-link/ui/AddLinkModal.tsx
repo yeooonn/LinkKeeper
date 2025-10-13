@@ -15,7 +15,7 @@ import cn from "@/shared/utils/cn";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { addLinkFormSchema } from "../model/addLink.schema";
+import { linkFormSchema } from "../../form-link/model/linkForm.schema";
 import z from "zod";
 import { fetchAPI } from "@/shared/utils/fetchAPI";
 import { LinkResponse } from "@/features/landing/model/link.type";
@@ -28,7 +28,7 @@ interface AddLinkModalProps {
   closeModal: () => void;
 }
 
-type FormData = z.infer<typeof addLinkFormSchema>;
+type FormData = z.infer<typeof linkFormSchema>;
 
 const LinkPreview = ({ title }: { title: string }) => {
   return (
@@ -71,7 +71,7 @@ const AddLinkModal = ({ closeModal }: AddLinkModalProps) => {
     watch,
     reset,
   } = useForm<FormData>({
-    resolver: zodResolver(addLinkFormSchema),
+    resolver: zodResolver(linkFormSchema),
     defaultValues: {
       title: "",
       url: "",

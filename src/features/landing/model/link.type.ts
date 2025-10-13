@@ -1,4 +1,4 @@
-import { Link, LinkTag } from "@/entites/link/model/types";
+import { Link, LinkTag } from "@/entites/link/types";
 
 export interface LinkResponse extends Link {
   linkTags: LinkTag[];

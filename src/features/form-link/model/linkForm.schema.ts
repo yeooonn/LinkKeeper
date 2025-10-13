@@ -1,7 +1,7 @@
 import z from "zod";
 
 // 링크 추가 폼 zod 스키마 정의
-export const addLinkFormSchema = z.object({
+export const linkFormSchema = z.object({
   title: z.string().min(1, { message: "제목은 필수입니다." }),
   url: z.url({ message: "유효한 URL 형식이어야 합니다." }),
   tags: z.string().optional(), // 태그는 선택적, 공백 허용
