@@ -23,8 +23,9 @@ const ButtonComponent = ({
       !isDisabled && "hover:bg-button-gray-hover-bg"
     ),
     Blue: cn(
-      "bg-button-blue-bg text-button-blue-text border-button-blue-border",
-      !isDisabled && "hover:button-blue-hover-bg"
+      isDisabled
+        ? "bg-button-gray-bg text-button-gray-text border-button-gray-border"
+        : "bg-button-blue-bg text-button-blue-text border-button-blue-border hover:button-blue-hover-bg"
     ),
     Red: cn(
       "bg-[tomato] text-white",

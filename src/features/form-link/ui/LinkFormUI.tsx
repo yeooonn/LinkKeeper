@@ -11,7 +11,9 @@ import { ALERT_OPTION } from "@/shared/constants/alertOption";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
 import cn from "@/shared/utils/cn";
 import { Dispatch, SetStateAction, useState } from "react";
-import { FieldError, useFormContext } from "react-hook-form";
+import { FieldError, useFormContext, UseFormReturn } from "react-hook-form";
+import z from "zod";
+import { linkFormSchema } from "../model/linkForm.schema";
 
 interface LinkFormUI {
   step: number;
@@ -21,7 +23,25 @@ interface LinkFormUI {
   setNewFolderName: Dispatch<SetStateAction<string>>;
 }
 
-const LinkFormUI = ({
+type FormData = z.infer<typeof linkFormSchema>;
+
+interface ButtonPropsInterface {
+  buttonProps: {
+    closeModal: () => void;
+    handleClickPrevButton: () => void;
+    handleClickNextButton: () => void;
+    onSubmit: (data: FormData) => Promise<void>;
+    step: number;
+    selectedItem: string;
+    newFolderName: string;
+    showPrevButton: boolean;
+    showNextButton: boolean;
+    showAddButton: boolean;
+    methods: UseFormReturn<FormData>;
+  };
+}
+
+export const LinkFormUI = ({
   step,
   selectedItem,
   setSelectedItem,
@@ -167,4 +187,53 @@ const LinkFormUI = ({
   }
 };
 
-export default LinkFormUI;
+export const LinkFormButton = ({ buttonProps }: ButtonPropsInterface) => {
+  const {
+    closeModal,
+    handleClickPrevButton,
+    handleClickNextButton,
+    onSubmit,
+    step,
+    selectedItem,
+    newFolderName,
+    showPrevButton,
+    showNextButton,
+    showAddButton,
+    methods,
+  } = buttonProps;
+
+  const isFirstNextActive =
+    methods.watch("title") && methods.watch("url") && step === 0;
+  const isSecondNextActive = (selectedItem || newFolderName) && step === 1;
+  const isAddButtonActive =
+    methods.watch("alert") === "사용자 정의"
+      ? methods.watch("date") !== "" && methods.watch("time") !== ""
+      : true;
+  const showNextBtn =
+    showNextButton && !isFirstNextActive && !isSecondNextActive;
+
+  return (
+    <>
+      <Button.Gray onClick={closeModal}>취소</Button.Gray>
+
+      {showPrevButton && (
+        <Button.Gray onClick={handleClickPrevButton}>이전</Button.Gray>
+      )}
+
+      {showNextButton && (
+        <Button.Blue onClick={handleClickNextButton} isDisabled={showNextBtn}>
+          다음
+        </Button.Blue>
+      )}
+
+      {showAddButton && (
+        <Button.Blue
+          onClick={methods.handleSubmit(onSubmit)}
+          isDisabled={!isAddButtonActive}
+        >
+          추가
+        </Button.Blue>
+      )}
+    </>
+  );
+};

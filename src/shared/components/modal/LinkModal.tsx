@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { linkFormSchema } from "@/features/form-link/model/linkForm.schema";
 import useLinkForm from "@/features/form-link/model/useLinkForm";
 import { AddLink } from "@/features/add-link/api/addLink.service";
-import LinkFormUI from "@/features/form-link/ui/LinkFormUI";
+import { LinkFormButton, LinkFormUI } from "@/features/form-link/ui/LinkFormUI";
 
 interface AddLinkModalProps {
   closeModal: () => void;
@@ -49,18 +49,20 @@ const LinkModal = ({ closeModal }: AddLinkModalProps) => {
 
   const { methods } = useLinkForm();
 
-  const onSubmit = async (data: FormData) => {
-    // tags 문자열 분리
-    const tagNames = data.tags
-      ? data.tags
+  // tags 문자열 분리
+  const formatTags = (tags: string | undefined) => {
+    tags
+      ? tags
           .split(" ")
           .map((t: string) => t.trim())
           .filter(Boolean)
       : [];
+  };
 
+  const onSubmit = async (data: FormData) => {
     const requestData = {
       ...data,
-      tag: tagNames,
+      tag: formatTags(data.tags),
       foldername: selectedItem || newFolderName,
       isAlert: data.alert !== "미등록",
       isBookmark: false,
@@ -68,6 +70,7 @@ const LinkModal = ({ closeModal }: AddLinkModalProps) => {
       userId: "yeooonn",
     };
 
+    // 링크 추가 API 호출
     const response = await AddLink(requestData);
 
     if (!response) {
@@ -85,57 +88,41 @@ const LinkModal = ({ closeModal }: AddLinkModalProps) => {
     await revalidateLink(); // 페이지 새로고침
   };
 
-  const isFirstNextActive =
-    methods.watch("title") && methods.watch("url") && step === 0;
-  const isSecondNextActive = (selectedItem || newFolderName) && step === 1;
-  const isAddButtonActive =
-    methods.watch("alert") === "사용자 정의"
-      ? methods.watch("date") && methods.watch("time")
-      : true;
-  const showNextBtn =
-    showNextButton && !isFirstNextActive && !isSecondNextActive;
+  const buttonProps = {
+    closeModal: closeModal,
+    handleClickPrevButton: handleClickPrevButton,
+    handleClickNextButton: handleClickNextButton,
+    onSubmit: onSubmit,
+    step: step,
+    selectedItem: selectedItem,
+    newFolderName: newFolderName,
+    showPrevButton: showPrevButton,
+    showNextButton: showNextButton,
+    showAddButton: showAddButton,
+    methods: methods,
+  };
 
   return (
-    <>
-      <Modal onClose={closeModal}>
-        <Modal.Header onClose={closeModal}>
-          <Typography.P2 className="font-bold">새 링크 추가</Typography.P2>
-        </Modal.Header>
-        <Modal.Content>
-          <LineStepper lineCount={lineCount} step={step} />
-          <FormProvider {...methods}>
-            <LinkFormUI
-              step={step}
-              selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
-              newFolderName={newFolderName}
-              setNewFolderName={setNewFolderName}
-            ></LinkFormUI>
-          </FormProvider>
-        </Modal.Content>
-        <Modal.Footer>
-          <Button.Gray onClick={closeModal}>취소</Button.Gray>
-          {showPrevButton && (
-            <Button.Gray onClick={handleClickPrevButton}>이전</Button.Gray>
-          )}
-
-          {isFirstNextActive || isSecondNextActive ? (
-            <Button.Blue onClick={handleClickNextButton}>다음</Button.Blue>
-          ) : showNextBtn ? (
-            <Button.Gray isDisabled>다음</Button.Gray>
-          ) : null}
-
-          {showAddButton &&
-            (isAddButtonActive ? (
-              <Button.Blue onClick={methods.handleSubmit(onSubmit)}>
-                추가
-              </Button.Blue>
-            ) : (
-              <Button.Gray isDisabled>추가</Button.Gray>
-            ))}
-        </Modal.Footer>
-      </Modal>
-    </>
+    <Modal onClose={closeModal}>
+      <Modal.Header onClose={closeModal}>
+        <Typography.P2 className="font-bold">새 링크 추가</Typography.P2>
+      </Modal.Header>
+      <Modal.Content>
+        <LineStepper lineCount={lineCount} step={step} />
+        <FormProvider {...methods}>
+          <LinkFormUI
+            step={step}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+            newFolderName={newFolderName}
+            setNewFolderName={setNewFolderName}
+          ></LinkFormUI>
+        </FormProvider>
+      </Modal.Content>
+      <Modal.Footer>
+        <LinkFormButton buttonProps={buttonProps} />
+      </Modal.Footer>
+    </Modal>
   );
 };
 

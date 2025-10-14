@@ -2,10 +2,10 @@
 import Button from "@/shared/components/atoms/Button";
 import Typography from "@/shared/components/atoms/Typography";
 import useModal from "@/shared/hooks/useModal";
-import AddLinkModal from "@/features/add-link/ui/AddLinkModal";
 import { useThemeStore } from "@/shared/stores/usethemeStore";
 import cn from "@/shared/utils/cn";
 import { useRouter } from "next/navigation";
+import LinkModal from "../modal/LinkModal";
 
 export const Header = () => {
   const navigator = useRouter();
@@ -23,7 +23,7 @@ export const Header = () => {
 
   return (
     <>
-      {showModal && <AddLinkModal closeModal={closeModal} />}
+      {showModal && <LinkModal closeModal={closeModal} />}
       <div className="w-full desktop:h-19 laptop:h-15 h-15 border-b border-border-primary px-4 fixed bg-background-secondary z-999 transition-all">
         <div className="w-full h-full flex justify-between">
           <div
