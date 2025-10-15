@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/shared/styles/globals.css";
-import { Header } from "@/shared/components/molecules/Header";
+import { Header } from "@/widgets/Header";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Sidebar from "@/widgets/Sidebar";
 import MobileMenu from "@/widgets/MobileMenu";

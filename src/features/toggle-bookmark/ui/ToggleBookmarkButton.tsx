@@ -1,6 +1,6 @@
 "use client";
 import Icon from "@/shared/components/atoms/Icon";
-import patchBookMark from "../api/toggleBookmark.service";
+import patchBookMark from "@/features/toggle-bookmark/api/toggleBookmark.service";
 import { revalidateLink } from "@/shared/utils/actions";
 import { stopEvent } from "@/shared/utils/stopEvent";
 

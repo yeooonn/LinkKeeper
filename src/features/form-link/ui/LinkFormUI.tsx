@@ -1,9 +1,8 @@
 "use client";
-import FolderSection from "@/features/navigation/ui/FolderSection";
+import FolderSection from "@/entites/folder/ui/FolderSection";
 import Button from "@/shared/components/atoms/Button";
 import Input from "@/shared/components/atoms/Input";
 import Typography from "@/shared/components/atoms/Typography";
-import { LinkPreview } from "@/shared/components/modal/LinkModal";
 import LabeledInput from "@/shared/components/molecules/LabeledInput";
 import LabeledSelectbox from "@/shared/components/molecules/LabeledSelectbox";
 import LabeledTextarea from "@/shared/components/molecules/LabeledTextarea";
@@ -13,7 +12,8 @@ import cn from "@/shared/utils/cn";
 import { Dispatch, SetStateAction, useState } from "react";
 import { FieldError, useFormContext, UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { linkFormSchema } from "../model/linkForm.schema";
+import { linkFormSchema } from "@/shared/lib/linkForm.schema";
+import Card from "@/shared/components/atoms/Card";
 
 interface LinkFormUI {
   step: number;
@@ -40,6 +40,16 @@ interface ButtonPropsInterface {
     methods: UseFormReturn<FormData>;
   };
 }
+
+const LinkPreview = ({ title }: { title: string }) => {
+  return (
+    <Card className="!py-1 mb-3">
+      <Card.Content>
+        <Typography.P1>{title}</Typography.P1>
+      </Card.Content>
+    </Card>
+  );
+};
 
 export const LinkFormUI = ({
   step,

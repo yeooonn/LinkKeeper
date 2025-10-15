@@ -1,5 +1,5 @@
-import { linkFormSchema } from "@/features/form-link/model/linkForm.schema";
-import { LinkResponse } from "@/features/landing/model/link.type";
+import { LinkResponse } from "@/entites/link/types";
+import { linkFormSchema } from "@/shared/lib/linkForm.schema";
 import { fetchAPI } from "@/shared/utils/fetchAPI";
 import z from "zod";
 

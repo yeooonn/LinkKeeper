@@ -1,6 +1,6 @@
 import cn from "@/shared/utils/cn";
 import Typography from "@/shared/components/atoms/Typography";
-import { MenuInterface } from "@/entites/menu/types";
+import { MenuInterface } from "@/entites/menu/model/types";
 import { useRouter } from "next/navigation";
 
 interface MenuItemProps {

@@ -1,6 +1,6 @@
 "use client";
 import Typography from "@/shared/components/atoms/Typography";
-import useSearchInput from "../model/useSearchInput";
+import useSearchInput from "@/features/search-link/model/useSearchInput";
 
 const SearchInfoText = () => {
   const { searchValue, onClickResetButton } = useSearchInput();

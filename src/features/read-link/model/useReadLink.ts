@@ -1,5 +1,5 @@
 import { revalidateLink } from "@/shared/utils/actions";
-import postReadLink from "../api/readLink.service";
+import postReadLink from "@/features/read-link/api/readLink.service";
 
 const useReadLink = (linkId: number) => {
   const handleReadLink = async () => {
@@ -10,7 +10,7 @@ const useReadLink = (linkId: number) => {
     }
   };
 
-  return { handleReadLink }
-}
+  return { handleReadLink };
+};
 
-export default useReadLink
+export default useReadLink;

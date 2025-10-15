@@ -1,17 +1,15 @@
-import Button from "@/shared/components/atoms/Button";
-import Card from "@/shared/components/atoms/Card";
+import { useState } from "react";
+import { FormProvider } from "react-hook-form";
+import z from "zod";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 import LineStepper from "@/shared/components/atoms/LineStepper";
 import Modal from "@/shared/components/atoms/Modal";
 import Typography from "@/shared/components/atoms/Typography";
 import useLineStepper from "@/shared/hooks/useLineStepper";
-import { useState } from "react";
-import { FormProvider } from "react-hook-form";
-import z from "zod";
 import { revalidateLink } from "@/shared/utils/actions";
-import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { linkFormSchema } from "@/features/form-link/model/linkForm.schema";
+import { linkFormSchema } from "@/shared/lib/linkForm.schema";
 import useLinkForm from "@/features/form-link/model/useLinkForm";
 import { AddLink } from "@/features/add-link/api/addLink.service";
 import { LinkFormButton, LinkFormUI } from "@/features/form-link/ui/LinkFormUI";
@@ -21,16 +19,6 @@ interface AddLinkModalProps {
 }
 
 type FormData = z.infer<typeof linkFormSchema>;
-
-export const LinkPreview = ({ title }: { title: string }) => {
-  return (
-    <Card className="!py-1 mb-3">
-      <Card.Content>
-        <Typography.P1>{title}</Typography.P1>
-      </Card.Content>
-    </Card>
-  );
-};
 
 const LinkModal = ({ closeModal }: AddLinkModalProps) => {
   const router = useRouter();

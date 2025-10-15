@@ -1,13 +1,13 @@
 import { fetchAPI } from "@/shared/utils/fetchAPI";
-import { DeleteLinkResponse } from "../model/deleteLink.type";
+import { DeleteLinkResponse } from "@/features/delete-link/model/deleteLink.type";
 
-async function DeleteLink(linkId:number):Promise<DeleteLinkResponse> {
+async function DeleteLink(linkId: number): Promise<DeleteLinkResponse> {
   const res = await fetchAPI(`/api/links/${linkId}/delete`, {
-    method:'DELETE',
-    revalidate: 0
-  })
+    method: "DELETE",
+    revalidate: 0,
+  });
 
-  return res ?? {}
+  return res ?? {};
 }
 
-export default DeleteLink
+export default DeleteLink;

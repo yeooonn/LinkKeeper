@@ -1,11 +1,11 @@
 "use client";
 import Typography from "@/shared/components/atoms/Typography";
-import { FolderItem } from "@/shared/components/molecules/FolderItem";
+import { FolderItem } from "@/entites/folder/ui/FolderItem";
 import { Dispatch, SetStateAction } from "react";
-import { useFolder } from "@/features/navigation/model/useFolder";
+import { useFolder } from "@/entites/folder/model/useFolder";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
-import { useGetFolderList } from "../model/folder.queries";
-import FolderSkeletonUI from "./FolderSkeletonUI";
+import { useGetFolderList } from "@/entites/folder/model/folder.queries";
+import FolderSkeletonUI from "@/entites/folder/ui/FolderSkeletonUI";
 
 interface MenuSectionProps {
   showTitle?: boolean;

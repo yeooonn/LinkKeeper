@@ -1,5 +1,5 @@
 import cn from "@/shared/utils/cn";
-import Typography from "../atoms/Typography";
+import Typography from "@/shared/components/atoms/Typography";
 import { SelectHTMLAttributes } from "react";
 import Selectbox from "@/shared/components/atoms/Selectbox";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";

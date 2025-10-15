@@ -1,9 +1,9 @@
 "use client";
 import Typography from "@/shared/components/atoms/Typography";
-import { MenuItem } from "@/shared/components/molecules/MenuItem";
+import { MenuItem } from "@/entites/menu/ui/MenuItem";
 import { Dispatch, SetStateAction } from "react";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
-import { FILTER_LIST } from "@/shared/constants/fiterList";
+import { FILTER_LIST } from "@/entites/menu/model/fiterList";
 
 interface MenuSectionProps {
   selectedMenu: string;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import DeleteLink from "../api/deleteLink.service";
+import DeleteLink from "@/features/delete-link/api/deleteLink.service";
 import { revalidateLink } from "@/shared/utils/actions";
 import { toast } from "react-toastify";
 

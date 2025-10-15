@@ -1,4 +1,4 @@
-import { FolderResponse } from "@/features/navigation/model/folder.type";
+import { FolderResponse } from "@/entites/folder/model/folder.type";
 import Typography from "@/shared/components/atoms/Typography";
 import cn from "@/shared/utils/cn";
 import { useRouter } from "next/navigation";

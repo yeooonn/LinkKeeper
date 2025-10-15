@@ -1,9 +1,9 @@
 "use client";
-import MenuSection from "@/features/navigation/ui/MenuSection";
-import FolderSection from "@/features/navigation/ui/FolderSection";
-import ProfileSection from "@/features/profile/ui/ProfileSection";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import MenuSection from "@/entites/menu/ui/MenuSection";
+import FolderSection from "@/entites/folder/ui/FolderSection";
+import ProfileSection from "@/features/profile/ui/ProfileSection";
 
 const Sidebar = () => {
   const [selectedItem, setSelectedItem] = useState<string>("전체");

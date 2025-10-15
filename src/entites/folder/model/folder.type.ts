@@ -1,10 +1,3 @@
-export interface LinkTag {
-  linkId: number;
-  tag: { id: number; name: string };
-  tagId: number;
-  userId: string;
-}
-
 export interface LinkReads {
   id: number;
   linkId: number;
@@ -25,6 +18,13 @@ export interface Link {
   linkReads: LinkReads[];
 }
 
-export interface LinkResponse extends Link {
-  linkTags: LinkTag[];
+export interface FolderInterface {
+  id: string;
+  name: string;
+  children?: { id: string; name: string; children?: FolderInterface[] }[];
+}
+
+export interface FolderResponse extends FolderInterface {
+  links: Link[];
+  parentId: string;
 }

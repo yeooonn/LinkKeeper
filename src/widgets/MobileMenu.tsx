@@ -1,10 +1,10 @@
 "use client";
-import Typography from "@/shared/components/atoms/Typography";
 import cn from "@/shared/utils/cn";
-import ProfileSection from "@/features/profile/ui/ProfileSection";
-import FolderSection from "@/features/navigation/ui/FolderSection";
 import { useState } from "react";
-import { FILTER_LIST } from "@/shared/constants/fiterList";
+import Typography from "@/shared/components/atoms/Typography";
+import ProfileSection from "@/features/profile/ui/ProfileSection";
+import FolderSection from "@/entites/folder/ui/FolderSection";
+import { FILTER_LIST } from "@/entites/menu/model/fiterList";
 
 interface RenderMobileMenuButtonType {
   icon: string;

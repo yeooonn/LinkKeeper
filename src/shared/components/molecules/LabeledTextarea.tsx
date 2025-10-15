@@ -1,6 +1,6 @@
 import cn from "@/shared/utils/cn";
-import Typography from "../atoms/Typography";
-import Textarea from "../atoms/Textarea";
+import Typography from "@/shared/components/atoms/Typography";
+import Textarea from "@/shared/components/atoms/Textarea";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 interface LabeledInputProps {

@@ -1,6 +1,6 @@
 "use client";
 
-import useReadLink from "../model/useReadLink";
+import useReadLink from "@/features/read-link/model/useReadLink";
 
 interface LinkWrapperProps {
   children: React.ReactNode;

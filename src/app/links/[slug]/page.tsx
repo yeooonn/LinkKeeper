@@ -1,6 +1,6 @@
 // app/links/[slug]
 import fetchLinks from "@/features/landing/api/fetchLinks.service";
-import { FILTER_LIST } from "@/shared/constants/fiterList";
+import { FILTER_LIST } from "@/entites/menu/model/fiterList";
 import Landing from "@/widgets/Landing";
 
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {

@@ -5,7 +5,7 @@ import useModal from "@/shared/hooks/useModal";
 import { useThemeStore } from "@/shared/stores/usethemeStore";
 import cn from "@/shared/utils/cn";
 import { useRouter } from "next/navigation";
-import LinkModal from "../modal/LinkModal";
+import LinkModal from "@/widgets/LinkModal";
 
 export const Header = () => {
   const navigator = useRouter();

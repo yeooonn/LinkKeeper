@@ -1,4 +1,3 @@
-import { LinkResponse } from "@/features/landing/model/link.type";
 import SearchInfoText from "@/features/search-link/ui/SearchInfoText";
 import SearchInput from "@/features/search-link/ui/SearchInput";
 import ToggleBookmarkButton from "@/features/toggle-bookmark/ui/ToggleBookmarkButton";
@@ -8,9 +7,10 @@ import Icon from "@/shared/components/atoms/Icon";
 import Tag from "@/shared/components/atoms/Tag";
 import Typography from "@/shared/components/atoms/Typography";
 import { formatTimeAgo } from "@/shared/utils/formatTimeAgo";
-import LinkWrapper from "../features/read-link/ui/LinkWrapper";
+import LinkWrapper from "@/features/read-link/ui/LinkWrapper";
 import DeleteLinkButton from "@/features/delete-link/ui/DeleteLinkButton";
 import UpdateLinkButton from "@/features/update-link/ui/UpdateLinkButton";
+import { LinkResponse } from "@/entites/link/types";
 
 const RenderCard = ({ data }: { data: LinkResponse }) => {
   const isRead =

@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { linkFormSchema } from "./linkForm.schema";
+import { linkFormSchema } from "@/shared/lib/linkForm.schema";
 
 const useLinkForm = () => {
   const methods = useForm({
