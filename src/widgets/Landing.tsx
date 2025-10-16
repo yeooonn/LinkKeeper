@@ -10,7 +10,7 @@ import { formatTimeAgo } from "@/shared/utils/formatTimeAgo";
 import LinkWrapper from "@/features/read-link/ui/LinkWrapper";
 import DeleteLinkButton from "@/features/delete-link/ui/DeleteLinkButton";
 import UpdateLinkButton from "@/features/update-link/ui/UpdateLinkButton";
-import { LinkResponse } from "@/entites/link/types";
+import { LinkResponse } from "@/entites/link/model/types";
 
 const RenderCard = ({ data }: { data: LinkResponse }) => {
   const isRead =
@@ -41,7 +41,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
 
             <div className="h-6 w-px bg-gray-300"></div>
 
-            <UpdateLinkButton />
+            <UpdateLinkButton linkId={data.id} />
             <DeleteLinkButton linkId={data.id} />
           </div>
         </Card.Header>
@@ -79,6 +79,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
 };
 
 const Landing = ({ LandingData }: { LandingData: LinkResponse[] }) => {
+  console.log(LandingData);
   if (LandingData.length === 0) {
     return (
       <div className="w-full h-full flex flex-col gap-4">
