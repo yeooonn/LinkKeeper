@@ -38,6 +38,7 @@ interface ButtonPropsInterface {
     showNextButton: boolean;
     showAddButton: boolean;
     methods: UseFormReturn<FormData>;
+    mode: string;
   };
 }
 
@@ -93,7 +94,7 @@ export const LinkFormUI = ({
         <LabeledInput
           className="mb-1"
           title="태그"
-          placeholder="#태그1  #태그2"
+          placeholder="#태그1 #태그2"
           register={register("tags")}
           error={errors.tags as FieldError}
         />
@@ -210,6 +211,7 @@ export const LinkFormButton = ({ buttonProps }: ButtonPropsInterface) => {
     showNextButton,
     showAddButton,
     methods,
+    mode,
   } = buttonProps;
 
   const isFirstNextActive =
@@ -241,7 +243,7 @@ export const LinkFormButton = ({ buttonProps }: ButtonPropsInterface) => {
           onClick={methods.handleSubmit(onSubmit)}
           isDisabled={!isAddButtonActive}
         >
-          추가
+          {mode === "create" ? "추가" : "수정"}
         </Button.Blue>
       )}
     </>

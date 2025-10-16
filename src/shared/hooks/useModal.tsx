@@ -1,8 +1,11 @@
 import { useState } from "react";
 
-const useModal = () => {
+type ModalModeType = "create" | "edit";
+
+const useModal = (mode?: ModalModeType) => {
   // 모달 상태
   const [showModal, setShowModal] = useState<boolean>(false);
+  const modalMode = mode || "";
 
   // 모달 열기
   const openModal = () => {
@@ -16,6 +19,7 @@ const useModal = () => {
 
   return {
     showModal,
+    modalMode,
     openModal,
     closeModal,
   };
