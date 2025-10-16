@@ -9,7 +9,7 @@ import LinkModal from "@/widgets/LinkModal";
 
 export const Header = () => {
   const navigator = useRouter();
-  const { showModal, openModal, closeModal } = useModal();
+  const { showModal, openModal, closeModal, modalMode } = useModal("create");
   const { isDark, toggleTheme } = useThemeStore();
 
   const onClickAddLink = () => {
@@ -23,7 +23,7 @@ export const Header = () => {
 
   return (
     <>
-      {showModal && <LinkModal closeModal={closeModal} />}
+      {showModal && <LinkModal closeModal={closeModal} mode={modalMode} />}
       <div className="w-full desktop:h-19 laptop:h-15 h-15 border-b border-border-primary px-4 fixed bg-background-secondary z-999 transition-all">
         <div className="w-full h-full flex justify-between">
           <div
