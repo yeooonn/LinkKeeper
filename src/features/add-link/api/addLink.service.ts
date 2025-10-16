@@ -1,4 +1,4 @@
-import { LinkResponse } from "@/entites/link/types";
+import { LinkResponse } from "@/entites/link/model/types";
 import { linkFormSchema } from "@/shared/lib/linkForm.schema";
 import { fetchAPI } from "@/shared/utils/fetchAPI";
 import z from "zod";
