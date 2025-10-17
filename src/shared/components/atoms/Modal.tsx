@@ -31,7 +31,7 @@ const Modal = ({ className, children, onClose, ...props }: ModalProps) => {
     >
       <div
         className={cn(
-          "desktop:min-w-[700px] tablet:min-w-[600px] mobile:min-w-[80%] mobile:max-h-[70%] overflow-y-scroll rounded-2xl bg-background-trtiary border border-border-secondary px-7 py-5 transition-all",
+          "desktop:min-w-[700px] tablet:min-w-[600px] mobile:min-w-[80%] mobile:max-h-[70%] overflow-y-scroll rounded-2xl bg-background-trtiary border border-border-secondary px-7 py-5 transition-all tablet:max-h-[100%]",
           className
         )}
         style={{ scrollbarWidth: "none" }}
