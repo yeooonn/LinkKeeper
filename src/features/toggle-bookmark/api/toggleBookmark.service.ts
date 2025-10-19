@@ -9,7 +9,7 @@ async function patchBookMark(
 ): Promise<toggleBookmarkResponse> {
   const res = await fetchAPI(`/api/links/${linkId}/bookmark`, {
     method: "PATCH",
-    revalidate: revalidateTime,
+    next: { revalidate: revalidateTime }, 
   });
   return res ?? "";
 }
