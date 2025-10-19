@@ -124,7 +124,7 @@ export const LinkFormUI = ({
           </Button.OutlineBlue>
         </div>
         <div className="border border-gray-300 rounded-lg max-h-100 overflow-y-scroll overflow-x-hidden scrollbar-hide">
-          <div className="w-full ml-3 sticky top-0 bg-background-primary z-10 pb-2 pt-3">
+          <div className="w-full ml-3 sticky top-0  z-10 pb-2 pt-3">
             <Input placeholder="폴더 검색" icon="search" className="!w-[95%]" />
             <hr className="border-gray-300 w-[95%] mt-3" />
           </div>
@@ -158,6 +158,7 @@ export const LinkFormUI = ({
               showChildFolderSelectionHighlight={false}
               selectedMenu={selectedItem}
               setSelectedMenu={setSelectedItem}
+              showAddFolderInput={showAddFolderInput}
             />
           </div>
         </div>

@@ -13,6 +13,7 @@ interface MenuSectionProps {
   setSelectedMenu: Dispatch<SetStateAction<string>>;
   showFolderSelectionHighlight?: boolean;
   showChildFolderSelectionHighlight?: boolean;
+  showAddFolderInput?: boolean;
 }
 
 const FolderSection = ({
@@ -21,6 +22,7 @@ const FolderSection = ({
   showTitle = true,
   showFolderSelectionHighlight = false,
   showChildFolderSelectionHighlight = true,
+  showAddFolderInput = false,
 }: MenuSectionProps) => {
   const { expandedFolders, onClickFolder } = useFolder();
   const { data: folderList, isLoading } = useGetFolderList();
@@ -29,7 +31,10 @@ const FolderSection = ({
     return <FolderSkeletonUI />;
   }
 
-  if (folderList === undefined || folderList.length === 0) {
+  if (
+    folderList === undefined ||
+    (folderList.length === 0 && !showAddFolderInput)
+  ) {
     return (
       <>
         <div className="px-4">
