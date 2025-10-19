@@ -8,6 +8,15 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+// 알림 설정 Enum
+enum AlertType {
+  NONE
+  ONE_HOUR
+  ONE_DAY
+  ONE_WEEK
+  CUSTOM
+}
+
 model User {
   userName  String    @unique
   userEmail String?   @unique
@@ -18,6 +27,7 @@ model User {
   links     Link[]
   LinkTag   LinkTag[]
   LinkRead  LinkRead[]
+  notifications Notification[] // 알림 기록
 }
 
 model Link {
@@ -26,13 +36,14 @@ model Link {
   url        String
   memo       String?
   createdAt  DateTime  @default(now())
-  isAlert    Boolean
+  alertType  AlertType @default(NONE) // 알림 설정
+  customAlertDate DateTime?   // 사용자 정의 알림 시간
   isBookmark Boolean
   linkReads  LinkRead[] 
   userId     String
   user       User      @relation(fields: [userId], references: [userId])
   linkTags   LinkTag[]
-
+  notifications Notification[] // 발송된 알림 기록
   foldername   String?
   folder     Folder?   @relation(fields: [foldername], references: [name])
 }
@@ -74,4 +85,17 @@ model LinkRead {
   link      Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
 
   @@unique([userId, linkId])
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  linkId      Int
+  sentAt      DateTime @default(now())
+  alertType   AlertType // 발송된 알림의 타입
+  message     String?   // 알림 메시지 (선택적)
+  user        User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  link        Link      @relation(fields: [linkId], references: [id], onDelete: Cascade)
+
+  @@index([userId, linkId])
 }
