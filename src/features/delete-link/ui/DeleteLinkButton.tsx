@@ -6,7 +6,6 @@ import Typography from "@/shared/components/atoms/Typography";
 import useModal from "@/shared/hooks/useModal";
 import { stopEvent } from "@/shared/utils/stopEvent";
 import { useDeleteLink } from "@/features/delete-link/model/useDeleteLink";
-import { useQueryClient } from "@tanstack/react-query";
 
 const DeleteLinkButton = ({ linkId }: { linkId: number }) => {
   const { showModal, openModal, closeModal } = useModal();
