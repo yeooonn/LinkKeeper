@@ -13,14 +13,18 @@ import { linkFormSchema } from "@/shared/lib/linkForm.schema";
 import useLinkForm from "@/features/form-link/model/useLinkForm";
 import { AddLink } from "@/features/add-link/api/addLink.service";
 import { LinkFormButton, LinkFormUI } from "@/features/form-link/ui/LinkFormUI";
+import { LinkResponse } from "@/entites/link/model/types";
+import { UpdateLink } from "@/features/update-link/model/updateLink.service";
 
-interface AddLinkModalProps {
+interface LinkModalProps {
   closeModal: () => void;
+  mode: string;
+  initData?: LinkResponse[];
 }
 
 type FormData = z.infer<typeof linkFormSchema>;
 
-const LinkModal = ({ closeModal }: AddLinkModalProps) => {
+const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const lineCount = 3;
@@ -32,43 +36,44 @@ const LinkModal = ({ closeModal }: AddLinkModalProps) => {
     handleClickNextButton,
     handleClickPrevButton,
   } = useLineStepper({ lineCount: lineCount });
-  const [selectedItem, setSelectedItem] = useState<string>("");
+  const { methods, initialFolder } = useLinkForm(mode, initData ?? []);
+  const [selectedItem, setSelectedItem] = useState<string>(initialFolder);
   const [newFolderName, setNewFolderName] = useState<string>("");
-
-  const { methods } = useLinkForm();
-
-  // tags 문자열 분리
-  const formatTags = (tags: string | undefined) => {
-    tags
-      ? tags
-          .split(" ")
-          .map((t: string) => t.trim())
-          .filter(Boolean)
-      : [];
-  };
+  const isCreate = mode === "create";
+  const isEdit = mode === "edit";
 
   const onSubmit = async (data: FormData) => {
+    console.log("data", data);
     const requestData = {
       ...data,
-      tag: formatTags(data.tags),
+      tag: data.tags?.split(" "),
       foldername: selectedItem || newFolderName,
       isAlert: data.alert !== "미등록",
+      alert: data.alert,
       isBookmark: false,
       linkReads: [],
       userId: "yeooonn",
+      date: data.date,
+      time: data.time,
     };
 
-    // 링크 추가 API 호출
-    const response = await AddLink(requestData);
+    console.log("requestData", data.tags?.split(" "));
+
+    let response;
+    if (isCreate) response = await AddLink(requestData);
+    if (isEdit && initData)
+      response = await UpdateLink(requestData, initData[0].id);
 
     if (!response) {
-      toast.error("링크 생성에 실패했습니다.");
+      toast.error(
+        isCreate ? "링크 생성 실패했습니다." : "링크 수정 실패했습니다."
+      );
       return;
     }
 
     methods.reset(); // 폼 초기화
     closeModal();
-    toast.success("링크가 추가되었습니다.");
+    toast.success(isCreate ? "추가되었습니다." : "수정되었습니다.");
     router.push("/links/전체");
 
     queryClient.invalidateQueries({ queryKey: ["folders"] }); // 폴더 목록 새로고침
@@ -88,6 +93,7 @@ const LinkModal = ({ closeModal }: AddLinkModalProps) => {
     showNextButton: showNextButton,
     showAddButton: showAddButton,
     methods: methods,
+    mode: mode,
   };
 
   return (

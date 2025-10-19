@@ -1,4 +1,4 @@
-import { LinkResponse } from "@/entites/link/types";
+import { LinkResponse } from "@/entites/link/model/types";
 import { fetchAPI } from "@/shared/utils/fetchAPI";
 
 // 서버 컴포넌트에서 API 호출로 데이터 가져오기

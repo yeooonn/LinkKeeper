@@ -1,4 +1,4 @@
-import fetchLinks from "@/features/landing/api/fetchLinks.service";
+import fetchLinks from "@/entites/link/api/fetchLinks.service";
 import Landing from "@/widgets/Landing";
 
 export default async function Home() {
