@@ -43,21 +43,16 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
   const isEdit = mode === "edit";
 
   const onSubmit = async (data: FormData) => {
-    console.log("data", data);
     const requestData = {
       ...data,
       tag: data.tags?.split(" "),
       foldername: selectedItem || newFolderName,
-      isAlert: data.alert !== "미등록",
-      alert: data.alert,
+      alertType: data.alert,
+      customAlertDate: new Date(`${data.date}T${data.time}:00+09:00`),
       isBookmark: false,
       linkReads: [],
       userId: "yeooonn",
-      date: data.date,
-      time: data.time,
     };
-
-    console.log("requestData", data.tags?.split(" "));
 
     let response;
     if (isCreate) response = await AddLink(requestData);

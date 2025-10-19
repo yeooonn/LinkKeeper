@@ -8,7 +8,11 @@ const USER_ID = "yeooonn";
 const FILTER_CONDITIONS: Record<string, object> = {
   "읽지 않음": { linkReads: { none: { userId: USER_ID } } },
   즐겨찾기: { isBookmark: true },
-  "알림 설정": { isAlert: true },
+  "알림 설정": {
+    alertType: {
+      not: "NONE",
+    },
+  },
 };
 
 // where 절 생성 함수

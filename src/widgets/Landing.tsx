@@ -35,7 +35,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
           </div>
 
           <div className="flex items-center tablet:gap-4 mobile:gap-2">
-            <Icon.Bell isActive={data.isAlert} />
+            <Icon.Bell isActive={data.alertType !== "NONE"} />
             <ToggleBookmarkButton isActive={data.isBookmark} linkId={data.id} />
             <Icon.Eye isActive={isRead} />
 

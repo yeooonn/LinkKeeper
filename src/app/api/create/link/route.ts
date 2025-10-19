@@ -8,12 +8,13 @@ export async function POST(request: Request) {
     const {
       title,
       url,
+      tag = [], // 문자열로 태그 전달
       memo,
       foldername,
+      alertType = "NONE",
+      customAlertDate,
       userId,
-      isAlert = false,
       isBookmark = false,
-      tag = [], // 문자열로 태그 전달
     } = body;
 
     // userId 확인
@@ -31,7 +32,8 @@ export async function POST(request: Request) {
         title,
         url,
         memo,
-        isAlert,
+        alertType,
+        customAlertDate,
         isBookmark,
         user: { connect: { userId } },
         folder: {

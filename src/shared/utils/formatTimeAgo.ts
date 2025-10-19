@@ -3,13 +3,11 @@
  * @param createdAt
  */
 export const formatTimeAgo = (createdAt: string) => {
-  // UTC 기준 현재 시간
-  const nowUtc = new Date();
-  const createdDate = new Date(createdAt); // ISO 문자열 -> Date 객체 (자동으로 로컬 시간 기준)
-  // KST로 변환 (UTC+9)
-  const nowKst = new Date(nowUtc.getTime() + 9 * 60 * 60 * 1000); // 9시간 추가
+  const nowUtc = new Date(); // UTC 기준 현재 시간
+  const createdDate = new Date(createdAt); // 생성 시간
+  const utcTime = new Date(nowUtc.getTime());
 
-  const diff = nowKst.getTime() - createdDate.getTime(); // 밀리초 단위 차이
+  const diff = utcTime.getTime() - createdDate.getTime(); // 밀리초 단위 차이
 
   const minute = 60 * 1000;
   const hour = 60 * minute;

@@ -3,7 +3,8 @@ import Input from "@/shared/components/atoms/Input";
 import Typography from "@/shared/components/atoms/Typography";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
-interface LabeledInputProps {
+interface LabeledInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: string;
   isRequired?: boolean;
   title: string;
