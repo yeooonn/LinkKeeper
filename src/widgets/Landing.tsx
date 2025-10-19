@@ -39,7 +39,7 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
             <ToggleBookmarkButton isActive={data.isBookmark} linkId={data.id} />
             <Icon.Eye isActive={isRead} />
 
-            <div className="h-6 w-px bg-background-hover"></div>
+            <div className="h-6 w-px bg-border-gray-tag"></div>
 
             <UpdateLinkButton linkId={data.id} />
             <DeleteLinkButton linkId={data.id} />
