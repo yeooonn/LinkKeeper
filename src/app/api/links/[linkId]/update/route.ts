@@ -14,7 +14,8 @@ export async function PUT(req: Request) {
       memo,
       foldername,
       userId,
-      isAlert = false,
+      alertType,
+      customAlertDate,
       isBookmark = false,
       tag = [],
     } = body;
@@ -48,13 +49,14 @@ export async function PUT(req: Request) {
     await db.linkTag.deleteMany({ where: { linkId: linkId } });
 
     // 링크 업데이트
-    const updatedLink = await db.link.update({
+    await db.link.update({
       where: { id: linkId },
       data: {
         title,
         url,
         memo,
-        isAlert,
+        alertType,
+        customAlertDate,
         isBookmark,
         folder: {
           connectOrCreate: {
