@@ -12,7 +12,7 @@ const Selectbox = ({ className, options, ...props }: SelectBoxProps) => {
       <select
         defaultValue=""
         className={cn(
-          "px-2 py-2 w-full  rounded-lg border bg-white border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm",
+          "px-2 py-2 w-full  rounded-lg border bg-background-secondary border-border-primary text-foreground-secondary focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm",
           className
         )}
         {...props}
