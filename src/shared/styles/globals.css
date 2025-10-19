@@ -162,3 +162,12 @@ body {
   background-color: var(--background-primary); /* 기본 배경 */
   color: var(--foreground-secondary); /* 기본 텍스트 색상 */
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}

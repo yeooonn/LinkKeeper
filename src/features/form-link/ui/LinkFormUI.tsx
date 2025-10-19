@@ -123,13 +123,13 @@ export const LinkFormUI = ({
             {showAddFolderInput ? "취소" : "폴더 추가"}
           </Button.OutlineBlue>
         </div>
-        <div className="border border-gray-300 rounded-lg max-h-100 overflow-y-scroll overflow-x-hidden">
-          <div className="w-full ml-3 sticky top-0 bg-white z-10 pb-2  pt-3">
+        <div className="border border-gray-300 rounded-lg max-h-100 overflow-y-scroll overflow-x-hidden scrollbar-hide">
+          <div className="w-full ml-3 sticky top-0 bg-background-primary z-10 pb-2 pt-3">
             <Input placeholder="폴더 검색" icon="search" className="!w-[95%]" />
             <hr className="border-gray-300 w-[95%] mt-3" />
           </div>
 
-          <div className="overflow-y-scroll overflow-x-hidden max-h-[calc(100%-60px)]">
+          <div className="overflow-y-scroll overflow-x-hidden max-h-[calc(100%-60px)] scrollbar-hide">
             {showAddFolderInput && (
               <div
                 onClick={() => setSelectedItem(newFolderName)}
@@ -137,7 +137,7 @@ export const LinkFormUI = ({
                   isSelectedNewFolder ? SELECTED_COLOR : UNSELECTED_COLOR,
                   selectedItem !== newFolderName &&
                     "dark:hover:bg-background-hover",
-                  "group pl-2.5 py-1 flex gap-3 ml-3 mt-4 mr-3 pr-2 rounded-lg cursor-pointer items-center "
+                  "group pl-2.5 py-1 flex gap-3 ml-3 mt-4 mr-3 pr-2 rounded-lg cursor-pointer items-center"
                 )}
               >
                 <div className="flex gap-2">
