@@ -6,7 +6,7 @@ async function fetchFolderList(
 ): Promise<FolderResponse[]> {
   const res = await fetchAPI<FolderResponse[]>("/api/folders", {
     method: "GET",
-    revalidate: revalidateTime, // 10초마다 캐시 재검증
+    next: { revalidate: revalidateTime }, // 10초마다 캐시 재검증
   });
 
   return res ?? [];

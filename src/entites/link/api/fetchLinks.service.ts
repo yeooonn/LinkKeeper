@@ -8,8 +8,7 @@ async function fetchLinks(
 ): Promise<LinkResponse[]> {
   const res = await fetchAPI<LinkResponse[]>(`/api/links${query}`, {
     method: "GET",
-    revalidate: revalidateTime,
-    next: { tags: ["link"] },
+    next: { revalidate: revalidateTime, tags: ["link"] },
   });
 
   return res ?? [];
