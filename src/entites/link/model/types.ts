@@ -19,10 +19,13 @@ export interface Link {
   memo: string;
   foldername: string;
   createdAt: string;
-  isAlert: boolean;
+  alertType: string;
+  customAlertDate?: string;
   isBookmark: boolean;
   userId: string;
   linkReads: LinkReads[];
+  date: string;
+  time: string;
 }
 
 export interface LinkResponse extends Link {
