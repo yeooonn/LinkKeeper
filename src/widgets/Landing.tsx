@@ -14,7 +14,7 @@ import { LinkResponse } from "@/entites/link/model/types";
 
 const RenderCard = ({ data }: { data: LinkResponse }) => {
   const isRead =
-    data.linkReads.length > 0 &&
+    data.linkReads?.length > 0 &&
     data.linkReads.map((item) => item.userId === "yeooonn")
       ? true
       : false;
