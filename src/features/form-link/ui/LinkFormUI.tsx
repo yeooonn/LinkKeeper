@@ -214,12 +214,18 @@ export const LinkFormButton = ({ buttonProps }: ButtonPropsInterface) => {
     mode,
   } = buttonProps;
 
+  const {
+    formState: { errors },
+  } = methods;
+
   const isFirstNextActive =
     methods.watch("title") && methods.watch("url") && step === 0;
   const isSecondNextActive = (selectedItem || newFolderName) && step === 1;
   const isAddButtonActive =
     methods.watch("alert") === "CUSTOM"
-      ? methods.watch("date") !== "" && methods.watch("time") !== ""
+      ? methods.watch("date") !== "" &&
+        methods.watch("time") !== "" &&
+        !errors.time
       : true;
   const showNextBtn =
     showNextButton && !isFirstNextActive && !isSecondNextActive;

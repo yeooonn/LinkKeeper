@@ -15,7 +15,7 @@ export async function fetchAPI<ResponseType, BodyType = unknown>(
   const { method = "GET", next, body, revalidate = 10, headers = {} } = options;
 
   // 캐시 테스트용 콘솔
-  console.log(`[apiClient] ${endpoint} 호출:`, new Date().toISOString());
+  console.log(`[apiClient] ${endpoint} 호출:`, new Date().toString());
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${endpoint}`, {
