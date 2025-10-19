@@ -11,7 +11,7 @@ export async function UpdateLink(requestData: FormData, LinkId: number) {
     {
       method: "PUT",
       body: requestData,
-      next: { revalidate: 0 }, // 10초마다 캐시 재검증
+      next: { revalidate: 0 },
     }
   );
 

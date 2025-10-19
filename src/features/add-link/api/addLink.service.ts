@@ -9,7 +9,7 @@ export async function AddLink(requestData: FormData) {
   const res = await fetchAPI<LinkResponse, FormData>("/api/create/link", {
     method: "POST",
     body: requestData,
-    next: { revalidate: 0 }, // 10초마다 캐시 재검증
+    next: { revalidate: 0 }, 
   });
 
   return res;

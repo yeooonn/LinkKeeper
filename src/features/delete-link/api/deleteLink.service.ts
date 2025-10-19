@@ -4,7 +4,7 @@ import { DeleteLinkResponse } from "@/features/delete-link/model/deleteLink.type
 async function DeleteLink(linkId: number): Promise<DeleteLinkResponse> {
   const res = await fetchAPI(`/api/links/${linkId}/delete`, {
     method: "DELETE",
-    revalidate: 0,
+    next: { revalidate: 0 },
   });
 
   return res ?? {};
