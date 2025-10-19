@@ -4,16 +4,15 @@ import { linkFormSchema } from "@/shared/lib/linkForm.schema";
 import { LinkResponse } from "@/entites/link/model/types";
 
 const defaultValues = (mode: string, initData: LinkResponse) => {
-  console.log(initData);
   if (mode === "edit" && initData)
     return {
       title: initData.title,
       url: initData.url,
       tags: initData.linkTags.map((tags) => tags.tag.name).join(" "), // tags 문자열로 변환
       memo: initData.memo,
-      alert: "NONE" as const,
-      date: initData.createdAt,
-      time: "",
+      alert: initData.alertType,
+      date: initData.customAlertDate?.toString().split("T")[0],
+      time: initData.customAlertDate?.toString().slice(11, 16),
     };
 
   return {
@@ -21,7 +20,7 @@ const defaultValues = (mode: string, initData: LinkResponse) => {
     url: "",
     tags: "",
     memo: "",
-    alert: "NONE" as const,
+    alert: "NONE",
     date: "",
     time: "",
   };
@@ -36,11 +35,10 @@ const useLinkForm = (mode: string, initData: LinkResponse[]) => {
 
   const initFoleder = mode === "edit" ? initData[0]?.foldername : "";
 
-  console.log("initData[0]?.isAlert", initData[0]?.isAlert);
   return {
     methods,
     initialFolder: initFoleder,
-    initialAlert: mode === "edit" ? initData[0]?.isAlert : "미등록",
+    initialAlert: mode === "edit" ? initData[0]?.alertType : "미등록",
   };
 };
 
