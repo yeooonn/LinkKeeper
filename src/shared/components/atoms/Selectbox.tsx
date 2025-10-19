@@ -3,7 +3,7 @@ import { SelectHTMLAttributes } from "react";
 
 interface SelectBoxProps extends SelectHTMLAttributes<HTMLSelectElement> {
   className?: string;
-  options: { key: string; value: string }[];
+  options: { key: string; value: string; label: string }[];
 }
 
 const Selectbox = ({ className, options, ...props }: SelectBoxProps) => {
@@ -22,7 +22,7 @@ const Selectbox = ({ className, options, ...props }: SelectBoxProps) => {
         </option>
         {options.map((option) => (
           <option key={option.key} value={option.value}>
-            {option.value}
+            {option.label}
           </option>
         ))}
       </select>

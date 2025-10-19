@@ -11,7 +11,7 @@ const defaultValues = (mode: string, initData: LinkResponse) => {
       url: initData.url,
       tags: initData.linkTags.map((tags) => tags.tag.name).join(" "), // tags 문자열로 변환
       memo: initData.memo,
-      alert: "미등록" as const,
+      alert: "NONE" as const,
       date: initData.createdAt,
       time: "",
     };
@@ -21,7 +21,7 @@ const defaultValues = (mode: string, initData: LinkResponse) => {
     url: "",
     tags: "",
     memo: "",
-    alert: "미등록" as const,
+    alert: "NONE" as const,
     date: "",
     time: "",
   };

@@ -175,7 +175,7 @@ export const LinkFormUI = ({
           register={register("alert")}
         />
 
-        {watch("alert") === "사용자 정의" && (
+        {watch("alert") === "CUSTOM" && (
           <div className="flex gap-2">
             <LabeledInput
               type="date"
@@ -218,7 +218,7 @@ export const LinkFormButton = ({ buttonProps }: ButtonPropsInterface) => {
     methods.watch("title") && methods.watch("url") && step === 0;
   const isSecondNextActive = (selectedItem || newFolderName) && step === 1;
   const isAddButtonActive =
-    methods.watch("alert") === "사용자 정의"
+    methods.watch("alert") === "CUSTOM"
       ? methods.watch("date") !== "" && methods.watch("time") !== ""
       : true;
   const showNextBtn =

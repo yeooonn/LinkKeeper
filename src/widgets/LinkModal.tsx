@@ -48,7 +48,7 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
       ...data,
       tag: data.tags?.split(" "),
       foldername: selectedItem || newFolderName,
-      isAlert: data.alert !== "미등록",
+      isAlert: data.alert !== "NONE",
       alert: data.alert,
       isBookmark: false,
       linkReads: [],

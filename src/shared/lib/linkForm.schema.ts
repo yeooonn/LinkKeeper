@@ -7,7 +7,7 @@ export const linkFormSchema = z.object({
   tags: z.string().optional(), // 태그는 선택적, 공백 허용
   memo: z.string().optional(), // 메모는 선택적
   alert: z
-    .enum(["미등록", "1시간", "1일", "1주일", "사용자 정의"] as const)
+    .enum(["NONE", "ONE_HOUR", "ONE_DAY", "ONE_WEEK", "CUSTOM"] as const)
     .optional(), // ALERT_OPTION에 맞춘 enum
   date: z
     .string()

@@ -8,7 +8,7 @@ interface LabeledSelectboxProps
   extends SelectHTMLAttributes<HTMLSelectElement> {
   title: string;
   className?: string;
-  options: { key: string; value: string }[];
+  options: { key: string; value: string; label: string }[];
   error?: FieldError | string; // 에러 메시지 또는 객체
   register?: UseFormRegisterReturn; // react-hook-form의 register 반환값
 }
