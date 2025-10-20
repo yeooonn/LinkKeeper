@@ -1,9 +1,11 @@
 // app/links/[slug]
 import fetchLinks from "@/entites/link/api/fetchLinks.service";
 import { FILTER_LIST } from "@/entites/menu/model/fiterList";
+import GuestHome from "@/widgets/GuestHome";
 import Landing from "@/widgets/Landing";
 
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const isLogedIn = false;
   const { slug } = await params;
   // 1. slug가 필터인지 확인
   const isFilter = FILTER_LIST.find(
@@ -25,7 +27,8 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
   const landingData = await fetchLinks(10, query);
 
-  return <Landing LandingData={landingData} />;
+  if (isLogedIn) return <Landing LandingData={landingData} />;
+  else return <GuestHome />;
 };
 
 export default page;

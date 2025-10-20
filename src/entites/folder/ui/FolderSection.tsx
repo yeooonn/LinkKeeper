@@ -24,6 +24,7 @@ const FolderSection = ({
   showChildFolderSelectionHighlight = true,
   showAddFolderInput = false,
 }: MenuSectionProps) => {
+  const isLogedIn = false;
   const { expandedFolders, onClickFolder } = useFolder();
   const { data: folderList, isLoading } = useGetFolderList();
 
@@ -33,7 +34,8 @@ const FolderSection = ({
 
   if (
     folderList === undefined ||
-    (folderList.length === 0 && !showAddFolderInput)
+    (folderList.length === 0 && !showAddFolderInput) ||
+    !isLogedIn
   ) {
     return (
       <>
@@ -44,12 +46,22 @@ const FolderSection = ({
           <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
             <i className="bi bi-folder text-2xl text-gray-400" />
           </div>
-          <p className="text-gray-600 text-center mb-1 font-medium">
-            생성된 폴더가 없습니다
-          </p>
-          <p className="text-gray-400 text-center text-sm">
-            새로운 폴더를 만들어보세요
-          </p>
+          {isLogedIn && (
+            <>
+              <p className="text-gray-600 text-center mb-1 font-medium">
+                생성된 폴더가 없습니다
+              </p>
+              <p className="text-gray-400 text-center text-sm">
+                새로운 폴더를 만들어보세요
+              </p>
+            </>
+          )}
+          {!isLogedIn && (
+            <p className="text-gray-400 text-center text-sm">
+              로그인하여 폴더와 링크를 <br />
+              관리해보세요
+            </p>
+          )}
         </div>
       </>
     );

@@ -1,12 +1,12 @@
 import Profile from "@/shared/components/atoms/Profile";
 import Typography from "@/shared/components/atoms/Typography";
 import { userDummyData } from "@/features/profile/lib/userData";
+import Button from "@/shared/components/atoms/Button";
 
-const ProfileSection = () => {
+const ProfileContent = () => {
   const { profileImg, nickname } = userDummyData;
-
   return (
-    <div className="flex gap-4 items-center mobile:my-3 tablet:mb-0">
+    <div className="flex gap-4 items-center mobile:my-3 tablet:m-0 desktop:mt-0">
       <Profile
         src={profileImg}
         className="desktop:w-14 desktop:h-14 laptop:w-13 laptop:h-13 tablet:w-10 tablet:h-10 mobile:w-14 mobile:h-14"
@@ -22,6 +22,25 @@ const ProfileSection = () => {
       </div>
     </div>
   );
+};
+
+const LoginContent = () => {
+  return (
+    <div className="mobile:my-3 tablet:m-0 desktop:mt-0">
+      <Typography.P1 className="mb-2 laptop:block tablet:hidden">
+        링크를 저장하고 관리해보세요.
+      </Typography.P1>
+      <Button.Blue className="w-full flex justify-center !py-2">
+        로그인
+      </Button.Blue>
+    </div>
+  );
+};
+
+const ProfileSection = () => {
+  const isLogedIn = false;
+  if (isLogedIn) return <ProfileContent />;
+  else return <LoginContent />;
 };
 
 export default ProfileSection;
