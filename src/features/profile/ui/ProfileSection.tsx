@@ -2,6 +2,7 @@ import Profile from "@/shared/components/atoms/Profile";
 import Typography from "@/shared/components/atoms/Typography";
 import { userDummyData } from "@/features/profile/lib/userData";
 import Button from "@/shared/components/atoms/Button";
+import LoginButton from "@/features/login/ui/LoginButton";
 
 const ProfileContent = () => {
   const { profileImg, nickname } = userDummyData;
@@ -30,9 +31,7 @@ const LoginContent = () => {
       <Typography.P1 className="mb-2 laptop:block tablet:hidden">
         링크를 저장하고 관리해보세요.
       </Typography.P1>
-      <Button.Blue className="w-full flex justify-center !py-2">
-        로그인
-      </Button.Blue>
+      <LoginButton />
     </div>
   );
 };
