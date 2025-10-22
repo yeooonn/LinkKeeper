@@ -32,7 +32,7 @@ const socialButtons = [
   },
 ];
 
-const LoginModal = ({ onClose }: LoginModalProps) => {
+const SignInModal = ({ onClose }: LoginModalProps) => {
   return (
     <Modal onClose={onClose} className="!min-w-[30%]">
       <Modal.Header onClose={onClose}>
@@ -66,4 +66,4 @@ const LoginModal = ({ onClose }: LoginModalProps) => {
   );
 };
 
-export default LoginModal;
+export default SignInModal;

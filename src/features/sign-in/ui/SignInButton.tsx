@@ -1,9 +1,9 @@
 import Button from "@/shared/components/atoms/Button";
 import useModal from "@/shared/hooks/useModal";
-import LoginModal from "./LoginModal";
+import LoginModal from "./SignInModal";
 
-const LoginButton = () => {
-  const { showModal, modalMode, openModal, closeModal } = useModal();
+const SignInButton = () => {
+  const { showModal, openModal, closeModal } = useModal();
   return (
     <>
       {showModal && <LoginModal onClose={closeModal} />}
@@ -17,4 +17,4 @@ const LoginButton = () => {
   );
 };
 
-export default LoginButton;
+export default SignInButton;
