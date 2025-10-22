@@ -1,8 +1,7 @@
 import Profile from "@/shared/components/atoms/Profile";
 import Typography from "@/shared/components/atoms/Typography";
 import { userDummyData } from "@/features/profile/lib/userData";
-import Button from "@/shared/components/atoms/Button";
-import LoginButton from "@/features/login/ui/LoginButton";
+import SignInButton from "@/features/sign-in/ui/SignInButton";
 
 const ProfileContent = () => {
   const { profileImg, nickname } = userDummyData;
@@ -25,13 +24,13 @@ const ProfileContent = () => {
   );
 };
 
-const LoginContent = () => {
+const SignInContent = () => {
   return (
     <div className="mobile:my-3 tablet:m-0 desktop:mt-0">
       <Typography.P1 className="mb-2 laptop:block tablet:hidden">
         링크를 저장하고 관리해보세요.
       </Typography.P1>
-      <LoginButton />
+      <SignInButton />
     </div>
   );
 };
@@ -39,7 +38,7 @@ const LoginContent = () => {
 const ProfileSection = () => {
   const isLogedIn = false;
   if (isLogedIn) return <ProfileContent />;
-  else return <LoginContent />;
+  else return <SignInContent />;
 };
 
 export default ProfileSection;

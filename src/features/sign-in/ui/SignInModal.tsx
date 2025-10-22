@@ -4,7 +4,7 @@ import Modal from "@/shared/components/atoms/Modal";
 import Typography from "@/shared/components/atoms/Typography";
 import cn from "@/shared/utils/cn";
 
-interface LoginModalProps {
+interface SignInModalProps {
   onClose: () => void;
 }
 
@@ -32,7 +32,7 @@ const socialButtons = [
   },
 ];
 
-const SignInModal = ({ onClose }: LoginModalProps) => {
+const SignInModal = ({ onClose }: SignInModalProps) => {
   return (
     <Modal onClose={onClose} className="!min-w-[30%]">
       <Modal.Header onClose={onClose}>
