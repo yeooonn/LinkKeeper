@@ -1,6 +1,6 @@
 import Profile from "@/shared/components/atoms/Profile";
 import Typography from "@/shared/components/atoms/Typography";
-import { userDummyData } from "@/features/profile/lib/userData";
+import { userDummyData } from "@/entites/user/model/userData";
 import SignInButton from "@/features/sign-in/ui/SignInButton";
 
 const ProfileContent = () => {
@@ -27,10 +27,10 @@ const ProfileContent = () => {
 const SignInContent = () => {
   return (
     <div className="mobile:my-3 tablet:m-0 desktop:mt-0">
-      <Typography.P1 className="mb-2 laptop:block tablet:hidden">
+      <Typography.P1 className="mb-2 laptop:block tablet:hidden text-foreground-secondary">
         링크를 저장하고 관리해보세요.
       </Typography.P1>
-      <SignInButton />
+      <SignInButton variant="OutlineBlue" />
     </div>
   );
 };

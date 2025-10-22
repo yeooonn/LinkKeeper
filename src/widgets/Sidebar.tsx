@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import MenuSection from "@/entites/menu/ui/MenuSection";
 import FolderSection from "@/entites/folder/ui/FolderSection";
-import ProfileSection from "@/features/profile/ui/ProfileSection";
+import ProfileSection from "@/entites/user/ui/ProfileSection";
 
 const Sidebar = () => {
   const [selectedItem, setSelectedItem] = useState<string>("전체");
