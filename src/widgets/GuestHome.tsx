@@ -1,6 +1,4 @@
-import SearchInfoText from "@/features/search-link/ui/SearchInfoText";
-import SearchInput from "@/features/search-link/ui/SearchInput";
-import Button from "@/shared/components/atoms/Button";
+import SignInButton from "@/features/sign-in/ui/SignInButton";
 import Card from "@/shared/components/atoms/Card";
 import Typography from "@/shared/components/atoms/Typography";
 import cn from "@/shared/utils/cn";
@@ -83,9 +81,11 @@ const GuestHome = () => {
         나중에 읽을 링크들을 체계적으로 관리하고, 알림을 통해 놓치지 말고
         읽어보세요.
       </Typography.P1>
-      <Button.Blue className="mb-5 mt-3 flex justify-center !py-2 whitespace-nowrap">
-        시작하기
-      </Button.Blue>
+
+      <SignInButton
+        className="w-30 mb-5 mt-3 flex justify-center !py-2 whitespace-nowrap"
+        text="시작하기"
+      />
 
       <div className="flex flex-col laptop:grid laptop:grid-cols-2 gap-4 laptop:w-[60%] tablet:w-[80%] mobile:w-full max-w-6xl justify-items-center">
         {guideCardData.map((guide) => renderGuideCard(guide))}
