@@ -17,17 +17,40 @@ enum AlertType {
   CUSTOM
 }
 
+enum Provider {
+  KAKAO
+  NAVER
+  GITHUB
+}
+
+model SocialAccount {
+  id             String    @id @default(cuid())
+  provider       Provider  // enum
+  providerUserId String    // 소셜 플랫폼에서 받은 고유 사용자 ID
+  accessToken    String?   // 필요 시 저장 (일시적 사용)
+  refreshToken   String?   // 필요 시 저장 (일시적 사용)
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt @default(now())
+
+  @@unique([provider, providerUserId]) // 한 provider 내에서 중복 방지
+}
+
 model User {
-  userName  String    @unique
-  userEmail String?   @unique
-  password  String?
-  github_id String?   @unique
-  avatar    String?   @default("@/shared/assets/img/defaultProfile.png")
-  userId    String    @id
+  id             String           @id @default(cuid())
+  email          String?         
+  name           String?
+  profileImage   String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  
   links     Link[]
   LinkTag   LinkTag[]
   LinkRead  LinkRead[]
   notifications Notification[] // 알림 기록
+  socialAccounts SocialAccount[] // 소셜 로그인 연결
 }
 
 model Link {
@@ -41,7 +64,7 @@ model Link {
   isBookmark Boolean
   linkReads  LinkRead[] 
   userId     String
-  user       User      @relation(fields: [userId], references: [userId])
+  user       User      @relation(fields: [userId], references: [id])
   linkTags   LinkTag[]
   notifications Notification[] // 발송된 알림 기록
   foldername   String?
@@ -60,7 +83,7 @@ model LinkTag {
   userId String
   link   Link   @relation(fields: [linkId], references: [id], onDelete: Cascade)
   tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userId], references: [userId])
+  user   User   @relation(fields: [userId], references: [id])
 
   @@id([linkId, tagId])
 }
@@ -81,7 +104,7 @@ model LinkRead {
   linkId    Int
   readAt    DateTime @default(now())
 
-  user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   link      Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
 
   @@unique([userId, linkId])
@@ -94,7 +117,7 @@ model Notification {
   sentAt      DateTime @default(now())
   alertType   AlertType // 발송된 알림의 타입
   message     String?   // 알림 메시지 (선택적)
-  user        User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   link        Link      @relation(fields: [linkId], references: [id], onDelete: Cascade)
 
   @@index([userId, linkId])

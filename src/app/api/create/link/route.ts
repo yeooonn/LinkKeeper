@@ -13,12 +13,12 @@ export async function POST(request: Request) {
       foldername,
       alertType = "NONE",
       customAlertDate,
-      userId,
+      id,
       isBookmark = false,
     } = body;
 
-    // userId 확인
-    const userExists = await db.user.findUnique({ where: { userId } });
+    // id 확인
+    const userExists = await db.user.findUnique({ where: { id } });
     if (!userExists) {
       return NextResponse.json(
         { error: "유효하지 않은 userId입니다." },
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
         alertType,
         customAlertDate,
         isBookmark,
-        user: { connect: { userId } },
+        user: { connect: { id } },
         folder: {
           connectOrCreate: {
             where: { name: foldername }, // 폴더가 있으면 기존 폴더와 연결
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
         data: {
           linkId: newLink.id,
           tagId: tag.id,
-          userId,
+          userId: id,
         },
       });
     }

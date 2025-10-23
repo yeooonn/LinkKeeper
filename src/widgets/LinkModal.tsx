@@ -51,7 +51,7 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
       customAlertDate: new Date(`${data.date}T${data.time}:00+09:00`),
       isBookmark: false,
       linkReads: [],
-      userId: "yeooonn",
+      id: "yeooonn",
     };
 
     let response;

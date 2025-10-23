@@ -13,7 +13,7 @@ export async function PUT(req: Request) {
       url,
       memo,
       foldername,
-      userId,
+      id,
       alertType,
       customAlertDate,
       isBookmark = false,
@@ -28,7 +28,7 @@ export async function PUT(req: Request) {
     }
 
     // 유저 존재 여부 확인
-    const userExists = await db.user.findUnique({ where: { userId } });
+    const userExists = await db.user.findUnique({ where: { id } });
     if (!userExists) {
       return NextResponse.json(
         { error: "유효하지 않은 userId입니다." },
@@ -81,7 +81,7 @@ export async function PUT(req: Request) {
         data: {
           linkId: linkId,
           tagId: tag.id,
-          userId,
+          userId: id,
         },
       });
     }
