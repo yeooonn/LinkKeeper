@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 import { fetchAPI } from "@/shared/utils/fetchAPI";
 import { SignIn } from "@/features/sign-in/model/signIn.service";
 import { toast } from "react-toastify";
+import { useAuthStore } from "@/shared/stores/useUserStore";
 
 export default function AuthCallback() {
   const router = useRouter();
   const supabase = createClient();
+  const setUser = useAuthStore((state) => state.setUser);
 
   useEffect(() => {
     const handleAuth = async () => {
@@ -27,11 +29,13 @@ export default function AuthCallback() {
           profileImage: data.session.user.user_metadata.avatar_url || null,
         };
 
-        // 로그인 성공 후 Prisma로 사용자 등록 로직 실행 가능
         const response = await SignIn(requestData);
+
         if (response?.message === "success") {
           toast.success("로그인되었습니다.");
           router.replace(`${process.env.NEXT_PUBLIC_BASE_URL}`);
+          const userData = response.data;
+          // setUser(userData);
         }
 
         if (response?.error) {
