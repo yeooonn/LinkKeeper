@@ -1,16 +1,14 @@
 import { StaticImageData } from "next/image";
 
 // 유저 타입
-export interface UserInterface {
+export interface UserInterface1 {
   profileImg: StaticImageData;
   nickname: string;
 }
 
-export interface User {
-  userId: string;
-  userName: string;
-  userEmail?: string;
-  password?: string;
-  github_id?: string;
-  avatar: string;
+export interface UserInterface {
+  id: string;
+  email?: string | undefined;
+  name?: string;
+  profileImage: string | StaticImageData;
 }

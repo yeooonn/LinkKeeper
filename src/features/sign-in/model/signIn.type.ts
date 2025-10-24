@@ -9,4 +9,5 @@ export interface SignInResponse {
   message?: string;
   error?: string;
   status?: string;
+  data: SignInRequest;
 }
