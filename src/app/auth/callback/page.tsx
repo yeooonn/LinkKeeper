@@ -35,7 +35,7 @@ export default function AuthCallback() {
           toast.success("로그인되었습니다.");
           router.replace(`${process.env.NEXT_PUBLIC_BASE_URL}`);
           const userData = response.data;
-          // setUser(userData);
+          setUser(userData);
         }
 
         if (response?.error) {

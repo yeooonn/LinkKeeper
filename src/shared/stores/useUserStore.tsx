@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { StaticImageData } from "next/image";
 
 // 로그인한 user 정보
 interface AuthState {
@@ -7,7 +6,7 @@ interface AuthState {
     id: string;
     email?: string | undefined;
     name?: string;
-    profileImage: string | StaticImageData;
+    profileImage: string | undefined;
   } | null;
   setUser: (user: AuthState["user"]) => void;
   clearUser: () => void;

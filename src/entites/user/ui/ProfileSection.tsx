@@ -1,6 +1,5 @@
 import Profile from "@/shared/components/atoms/Profile";
 import Typography from "@/shared/components/atoms/Typography";
-// import { userDummyData } from "@/entites/user/model/userData";
 import SignInButton from "@/features/sign-in/ui/SignInButton";
 import { useAuthStore } from "@/shared/stores/useUserStore";
 import { UserInterface } from "../model/types";
@@ -10,7 +9,7 @@ const ProfileContent = ({ userData }: { userData: UserInterface }) => {
   return (
     <div className="flex gap-4 items-center mobile:my-3 tablet:m-0 desktop:mt-0">
       <Profile
-        src={profileImage}
+        src={profileImage!}
         className="desktop:w-14 desktop:h-14 laptop:w-13 laptop:h-13 tablet:w-10 tablet:h-10 mobile:w-14 mobile:h-14"
       />
       <div className="w-full">
@@ -39,6 +38,7 @@ const SignInContent = () => {
 
 const ProfileSection = () => {
   const userData = useAuthStore((state) => state.user);
+  console.log("userData", userData);
 
   if (userData) return <ProfileContent userData={userData} />;
   else return <SignInContent />;

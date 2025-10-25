@@ -10,5 +10,5 @@ export interface UserInterface {
   id: string;
   email?: string | undefined;
   name?: string;
-  profileImage: string | StaticImageData;
+  profileImage: string | undefined;
 }
