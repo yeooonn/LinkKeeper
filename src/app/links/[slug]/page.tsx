@@ -1,9 +1,15 @@
-// app/links/[slug]
 import fetchLinks from "@/entites/link/api/fetchLinks.service";
 import { FILTER_LIST } from "@/entites/menu/model/fiterList";
+import { createClient } from "@/shared/utils/supabase/server";
+import GuestHome from "@/widgets/GuestHome";
 import Landing from "@/widgets/Landing";
 
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const supabase = await createClient(); // 서버 클라이언트 생성 (쿠키 자동 로드)
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { slug } = await params;
   // 1. slug가 필터인지 확인
   const isFilter = FILTER_LIST.find(
@@ -25,6 +31,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
   const landingData = await fetchLinks(10, query);
 
+  if (!user) return <GuestHome />;
   return <Landing LandingData={landingData} />;
 };
 

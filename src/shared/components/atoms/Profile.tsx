@@ -11,11 +11,16 @@ const Profile = ({ src, className, children }: ProfileProps) => {
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-full border border-gray-400 flex-shrink-0",
+        "relative overflow-hidden rounded-full border border-gray-400 flex-shrink-0",
         className
       )}
     >
-      <Image src={src} alt="프로필 이미지" />
+      <Image
+        src={src}
+        alt="프로필 이미지"
+        fill
+        className="object-cover rounded-full"
+      />
       {children}
     </div>
   );

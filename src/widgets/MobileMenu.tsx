@@ -2,7 +2,7 @@
 import cn from "@/shared/utils/cn";
 import { useEffect, useState } from "react";
 import Typography from "@/shared/components/atoms/Typography";
-import ProfileSection from "@/features/profile/ui/ProfileSection";
+import ProfileSection from "@/entites/user/ui/ProfileSection";
 import FolderSection from "@/entites/folder/ui/FolderSection";
 import { FILTER_LIST } from "@/entites/menu/model/fiterList";
 import { usePathname, useRouter } from "next/navigation";
