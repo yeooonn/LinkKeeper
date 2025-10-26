@@ -1,8 +1,8 @@
 import Profile from "@/shared/components/atoms/Profile";
 import Typography from "@/shared/components/atoms/Typography";
 import SignInButton from "@/features/sign-in/ui/SignInButton";
-import { useAuthStore } from "@/shared/stores/useUserStore";
-import { UserInterface } from "../model/types";
+import { UserInterface } from "@/entites/user/model/types";
+import { useUser } from "@/shared/hooks/useUser";
 
 const ProfileContent = ({ userData }: { userData: UserInterface }) => {
   const { profileImage, name } = userData;
@@ -37,10 +37,9 @@ const SignInContent = () => {
 };
 
 const ProfileSection = () => {
-  const userData = useAuthStore((state) => state.user);
-  console.log("userData", userData);
+  const { user } = useUser();
 
-  if (userData) return <ProfileContent userData={userData} />;
+  if (user) return <ProfileContent userData={user} />;
   else return <SignInContent />;
 };
 

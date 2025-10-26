@@ -8,12 +8,13 @@ import { useRouter } from "next/navigation";
 import LinkModal from "@/widgets/LinkModal";
 import AddLinkButton from "@/features/add-link/ui/AddLinkButton";
 import SignInButton from "@/features/sign-in/ui/SignInButton";
+import { useUser } from "@/shared/hooks/useUser";
 
 export const Header = () => {
   const navigator = useRouter();
   const { showModal, openModal, closeModal, modalMode } = useModal("create");
   const { isDark, toggleTheme } = useThemeStore();
-  const isLogedIn = false;
+  const { user } = useUser();
 
   const handleClickLogo = () => {
     navigator.push("/links/전체");
@@ -35,8 +36,8 @@ export const Header = () => {
             </Typography.H1>
           </div>
           <div className="flex h-full items-center gap-3">
-            {isLogedIn && <AddLinkButton openModal={openModal} />}
-            {!isLogedIn && <SignInButton text="링크 추가" />}
+            {user && <AddLinkButton openModal={openModal} />}
+            {!user && <SignInButton text="링크 추가" />}
             <Button.Gray onClick={toggleTheme}>
               <i
                 className={cn(
