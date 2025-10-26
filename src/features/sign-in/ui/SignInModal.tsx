@@ -3,8 +3,8 @@ import { Naver } from "@/shared/assets/svg/naver";
 import Modal from "@/shared/components/atoms/Modal";
 import Typography from "@/shared/components/atoms/Typography";
 import cn from "@/shared/utils/cn";
-import { createClient } from "@/shared/utils/supabase/supabaseClient";
-import { Provider, SupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@/shared/utils/supabase/client";
+import { Provider } from "@supabase/supabase-js";
 
 interface SignInModalProps {
   onClose: () => void;
