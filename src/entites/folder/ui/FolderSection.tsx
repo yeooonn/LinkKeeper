@@ -28,7 +28,7 @@ const FolderSection = ({
   const { user } = useUser();
 
   const { expandedFolders, onClickFolder } = useFolder();
-  const { data: folderList, isLoading } = useGetFolderList();
+  const { data: folderList, isLoading } = useGetFolderList(user?.id || "");
 
   if (isLoading) {
     return <FolderSkeletonUI />;
