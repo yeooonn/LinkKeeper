@@ -60,7 +60,7 @@ const SignInModal = ({ onClose }: SignInModalProps) => {
   // }
 
   return (
-    <Modal onClose={onClose} className="!min-w-[30%]">
+    <Modal onClose={onClose} className="!min-w-[30%] desktop:!min-w-[21%]">
       <Modal.Header onClose={onClose}>
         <Typography.H1> </Typography.H1>
       </Modal.Header>
