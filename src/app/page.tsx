@@ -4,12 +4,13 @@ import GuestHome from "@/widgets/GuestHome";
 import Landing from "@/widgets/Landing";
 
 export default async function Home() {
-  const landingData = await fetchLinks(10, "?filter=전체");
   const supabase = await createClient(); // 서버 클라이언트 생성 (쿠키 자동 로드)
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) return <GuestHome />;
-  return <Landing LandingData={landingData} />;
+
+  const landingData = await fetchLinks(10, `?filter=전체&userId=${user.id}`);
+  return <Landing LandingData={landingData} userId={user.id} />;
 }

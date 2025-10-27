@@ -12,10 +12,16 @@ import DeleteLinkButton from "@/features/delete-link/ui/DeleteLinkButton";
 import UpdateLinkButton from "@/features/update-link/ui/UpdateLinkButton";
 import { LinkResponse } from "@/entites/link/model/types";
 
-const RenderCard = ({ data }: { data: LinkResponse }) => {
+const RenderCard = ({
+  data,
+  userId,
+}: {
+  data: LinkResponse;
+  userId: string;
+}) => {
   const isRead =
     data.linkReads?.length > 0 &&
-    data.linkReads.map((item) => item.userId === "yeooonn")
+    data.linkReads.map((item) => item.userId === userId)
       ? true
       : false;
 
@@ -78,8 +84,13 @@ const RenderCard = ({ data }: { data: LinkResponse }) => {
   );
 };
 
-const Landing = ({ LandingData }: { LandingData: LinkResponse[] }) => {
-  console.log(LandingData);
+const Landing = ({
+  LandingData,
+  userId,
+}: {
+  LandingData: LinkResponse[];
+  userId: string;
+}) => {
   if (LandingData.length === 0) {
     return (
       <div className="w-full h-full flex flex-col gap-4">
@@ -127,7 +138,7 @@ const Landing = ({ LandingData }: { LandingData: LinkResponse[] }) => {
       <div className="flex flex-col gap-2">
         <SearchInfoText />
         {LandingData.map((list) => (
-          <RenderCard key={list.id} data={list} />
+          <RenderCard key={list.id} data={list} userId={userId} />
         ))}
       </div>
     </div>

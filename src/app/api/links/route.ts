@@ -1,45 +1,32 @@
-// app/api/links/route.ts
 import db from "@/shared/lib/db";
+import { createClient } from "@/shared/utils/supabase/server";
 import { NextResponse } from "next/server";
 
-const USER_ID = "yeooonn";
-
-// 필터 매핑 객체
-const FILTER_CONDITIONS: Record<string, object> = {
-  "읽지 않음": { linkReads: { none: { userId: USER_ID } } },
-  즐겨찾기: { isBookmark: true },
-  "알림 설정": {
-    alertType: {
-      not: "NONE",
-    },
-  },
-};
-
-// where 절 생성 함수
+// 필터 매핑 객체를 함수 내부에서 만들기 (USER_ID 의존성 제거)
 const buildWhereClause = (
+  USER_ID: string,
   filename?: string | null,
   filter?: string | null,
   url?: string | null,
   editLinkId?: string | null
 ) => {
-  if (filename) {
-    return { userId: USER_ID, title: { equals: filename } };
-  }
+  const FILTER_CONDITIONS: Record<string, object> = {
+    "읽지 않음": { linkReads: { none: { userId: USER_ID } } },
+    즐겨찾기: { isBookmark: true },
+    "알림 설정": {
+      alertType: { not: "NONE" },
+    },
+  };
 
-  if (filter) {
-    const condition = FILTER_CONDITIONS[filter];
-    return { userId: USER_ID, ...(condition ?? {}) };
-  }
+  if (filename) return { userId: USER_ID, title: { equals: filename } };
 
-  if (url) {
-    return { userId: USER_ID, url: { equals: url } };
-  }
+  if (filter) return { userId: USER_ID, ...(FILTER_CONDITIONS[filter] ?? {}) };
 
-  if (editLinkId) {
+  if (url) return { userId: USER_ID, url: { equals: url } };
+
+  if (editLinkId)
     return { userId: USER_ID, id: { equals: Number(editLinkId) } };
-  }
 
-  // 기본 전체 조회
   return { userId: USER_ID };
 };
 
@@ -49,25 +36,31 @@ export async function GET(request: Request) {
   const filter = searchParams.get("filter");
   const searchValue = searchParams.get("url");
   const editLinkId = searchParams.get("edit");
+  const USER_ID = searchParams.get("userId");
 
-  const where = buildWhereClause(filename, filter, searchValue, editLinkId);
+  if (!USER_ID) {
+    return NextResponse.json(
+      { error: "인증되지 않은 사용자입니다." },
+      { status: 401 }
+    );
+  }
+
+  const where = buildWhereClause(
+    USER_ID,
+    filename,
+    filter,
+    searchValue,
+    editLinkId
+  );
 
   try {
     const links = await db.link.findMany({
-      where: where,
+      where,
       include: {
-        user: false, // 필요 시 User 모델 포함
-        linkTags: {
-          include: {
-            tag: true, // LinkTag와 연결된 Tag 모델 포함
-          },
-        },
-        folder: false,
+        linkTags: { include: { tag: true } },
         linkReads: true,
       },
-      orderBy: {
-        id: "desc",
-      },
+      orderBy: { id: "desc" },
     });
 
     return NextResponse.json(links, { status: 200 });
