@@ -3,6 +3,7 @@
 import fetchLinks from "@/entites/link/api/fetchLinks.service";
 import { LinkResponse } from "@/entites/link/model/types";
 import useModal from "@/shared/hooks/useModal";
+import { useUser } from "@/shared/hooks/useUser";
 import { stopEvent } from "@/shared/utils/stopEvent";
 import LinkModal from "@/widgets/LinkModal";
 import { useState } from "react";
@@ -10,6 +11,7 @@ import { useState } from "react";
 const UpdateLinkButton = ({ linkId }: { linkId: number }) => {
   const { showModal, openModal, closeModal, modalMode } = useModal("edit");
   const [initData, setInitData] = useState<LinkResponse[]>([]);
+  const { user } = useUser();
 
   const handleModifyButton = async (e: React.MouseEvent) => {
     stopEvent(e);
@@ -17,7 +19,7 @@ const UpdateLinkButton = ({ linkId }: { linkId: number }) => {
     if (!linkId) return;
 
     try {
-      const data = await fetchLinks(10, `?edit=${linkId}`);
+      const data = await fetchLinks(10, `?edit=${linkId}&userId=${user?.id}`);
       setInitData(data);
       openModal();
     } catch (error) {
