@@ -44,7 +44,7 @@ const SignInModal = ({ onClose }: SignInModalProps) => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider,
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+        redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
       },
     });
 
