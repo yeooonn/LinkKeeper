@@ -1,10 +1,16 @@
 import db from "@/shared/lib/db";
+import { createClient } from "@/shared/utils/supabase/server";
 import { NextResponse } from "next/server";
 
 export async function DELETE(req: Request) {
   const url = new URL(req.url);
   const linkId = Number(url.pathname.split("/").at(-2));
-  const userId = "yeooonn";
+  const supabase = await createClient(); // 서버 클라이언트 생성 (쿠키 자동 로드)
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  
+  const userId = user!.id;
 
   try {
     const link = await db.link.findUnique({

@@ -22,17 +22,19 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   let query = "";
 
   if (isFilter) {
-    query = `?filter=${slug}`;
+    query = `?filter=${slug}&userId=${user?.id}`;
   } else if (isURL) {
-    query = `?url=${encodeURIComponent(decodeURIComponent(slug))}`;
+    query = `?url=${encodeURIComponent(decodeURIComponent(slug))}&userId=${
+      user?.id
+    }`;
   } else {
-    query = `?filename=${slug}`;
+    query = `?filename=${slug}&userId=${user?.id}`;
   }
 
-  const landingData = await fetchLinks(10, query);
-
   if (!user) return <GuestHome />;
-  return <Landing LandingData={landingData} />;
+
+  const landingData = await fetchLinks(10, query);
+  return <Landing LandingData={landingData} userId={user.id} />;
 };
 
 export default page;

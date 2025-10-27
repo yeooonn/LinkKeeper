@@ -25,6 +25,7 @@ export async function fetchAPI<ResponseType, BodyType = unknown>(
         ...headers,
       },
       body: body ? JSON.stringify(body) : undefined,
+      credentials: "include",
       next: { revalidate: 10, ...next },
     });
 

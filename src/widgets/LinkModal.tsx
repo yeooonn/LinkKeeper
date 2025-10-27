@@ -15,6 +15,7 @@ import { AddLink } from "@/features/add-link/api/addLink.service";
 import { LinkFormButton, LinkFormUI } from "@/features/form-link/ui/LinkFormUI";
 import { LinkResponse } from "@/entites/link/model/types";
 import { UpdateLink } from "@/features/update-link/model/updateLink.service";
+import { useUser } from "@/shared/hooks/useUser";
 
 interface LinkModalProps {
   closeModal: () => void;
@@ -41,6 +42,7 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
   const [newFolderName, setNewFolderName] = useState<string>("");
   const isCreate = mode === "create";
   const isEdit = mode === "edit";
+  const { user } = useUser();
 
   const onSubmit = async (data: FormData) => {
     const requestData = {
@@ -51,7 +53,7 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
       customAlertDate: new Date(`${data.date}T${data.time}:00+09:00`),
       isBookmark: false,
       linkReads: [],
-      id: "yeooonn",
+      id: user!.id,
     };
 
     let response;
