@@ -14,6 +14,8 @@ import { FieldError, useFormContext, UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { linkFormSchema } from "@/shared/lib/linkForm.schema";
 import Card from "@/shared/components/atoms/Card";
+import SearchFolderInput from "@/entites/folder/ui/SearchFolderInput";
+import useSearchFolderInput from "@/entites/folder/model/useSearchFolderInput";
 
 interface LinkFormUI {
   step: number;
@@ -64,7 +66,10 @@ export const LinkFormUI = ({
     watch,
     formState: { errors },
   } = useFormContext();
+  const { searchFolderValue, setSearchFolderValue, handleSearchValue } =
+    useSearchFolderInput();
   const [showAddFolderInput, setShowAddFolderInput] = useState<boolean>(false);
+
   // 새로 추가한 폴더 선택(하이라이트 표시) 여부
   const isSelectedNewFolder =
     selectedItem !== "" && selectedItem === newFolderName;
@@ -72,6 +77,7 @@ export const LinkFormUI = ({
   const handleClickAddFolderButton = () => {
     setShowAddFolderInput((prev) => !prev);
     setSelectedItem("");
+    setSearchFolderValue("");
   };
 
   if (step === 0) {
@@ -125,7 +131,7 @@ export const LinkFormUI = ({
         </div>
         <div className="border border-gray-300 rounded-lg max-h-100 overflow-y-scroll overflow-x-hidden scrollbar-hide">
           <div className="w-full ml-3 sticky top-0  z-10 pb-2 pt-3">
-            <Input placeholder="폴더 검색" icon="search" className="!w-[95%]" />
+            <SearchFolderInput handleSearchValue={handleSearchValue} />
             <hr className="border-gray-300 w-[95%] mt-3" />
           </div>
 
@@ -153,6 +159,7 @@ export const LinkFormUI = ({
             )}
 
             <FolderSection
+              searchFolderValue={searchFolderValue}
               showTitle={false}
               showFolderSelectionHighlight={true}
               showChildFolderSelectionHighlight={false}

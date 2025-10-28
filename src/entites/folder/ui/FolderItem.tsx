@@ -80,8 +80,10 @@ export const FolderItem = ({
             <div key={childrenFolder.id} className="pl-9">
               <button
                 onClick={() => {
-                  setSelectedMenu(childrenFolder.title);
-                  router.push(`/links/${childrenFolder.title}`);
+                  if (showChildFolderSelectionHighlight) {
+                    setSelectedMenu(childrenFolder.title);
+                    router.push(`/links/${childrenFolder.title}`);
+                  }
                   localStorage.removeItem("searchValue");
                 }}
                 className={cn(
