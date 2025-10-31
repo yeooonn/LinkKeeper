@@ -12,12 +12,18 @@ export interface LinkReads {
   userId: string;
 }
 
+export interface folder {
+  id: string;
+  name: string;
+  parentId: string;
+}
+
 export interface Link {
   id: number;
   title: string;
   url: string;
   memo: string;
-  foldername: string;
+  folder: folder;
   createdAt: string;
   alertType: string;
   customAlertDate?: string;
@@ -30,4 +36,5 @@ export interface Link {
 
 export interface LinkResponse extends Link {
   linkTags: LinkTag[];
+  error?: string;
 }

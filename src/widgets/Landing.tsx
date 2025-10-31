@@ -34,7 +34,7 @@ const RenderCard = ({
       >
         <Card.Header>
           <div className="flex gap-2 items-center">
-            <Tag.Gray>{data.foldername}</Tag.Gray>
+            <Tag.Gray>{data.folder.name}</Tag.Gray>
             <Typography.P2 className="font-bold line-clamp-1">
               {data.title}
             </Typography.P2>

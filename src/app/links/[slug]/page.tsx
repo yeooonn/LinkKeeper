@@ -28,13 +28,18 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
       user?.id
     }`;
   } else {
-    query = `?filename=${slug}&userId=${user?.id}`;
+    query = `?filename=${slug.split("_")[0]}&userId=${user?.id}`;
   }
 
   if (!user) return <GuestHome />;
 
   const landingData = await fetchLinks(10, query);
-  return <Landing LandingData={landingData} userId={user.id} />;
+
+  const filterdData = slug.split("_")[1]
+    ? landingData.filter((link) => link.folder.id === slug.split("_")[1])
+    : landingData;
+
+  return <Landing LandingData={filterdData} userId={user.id} />;
 };
 
 export default page;

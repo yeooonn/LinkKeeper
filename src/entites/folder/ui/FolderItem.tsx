@@ -72,17 +72,17 @@ export const FolderItem = ({
       {isOpenFolder &&
         folder.links &&
         folder.links.map((childrenFolder) => {
+          const joinedId = `${childrenFolder.title}_${childrenFolder.folderId}`;
           const isSelected =
-            showChildFolderSelectionHighlight &&
-            selectedMenu === childrenFolder.title;
+            showChildFolderSelectionHighlight && selectedMenu === joinedId;
 
           return (
             <div key={childrenFolder.id} className="pl-9">
               <button
                 onClick={() => {
                   if (showChildFolderSelectionHighlight) {
-                    setSelectedMenu(childrenFolder.title);
-                    router.push(`/links/${childrenFolder.title}`);
+                    setSelectedMenu(`/links/${joinedId}`);
+                    router.push(`/links/${joinedId}`);
                   }
                   localStorage.removeItem("searchValue");
                 }}

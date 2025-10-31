@@ -10,7 +10,7 @@ export interface Link {
   title: string;
   url: string;
   memo: string;
-  foldername: string;
+  folderId: string;
   createdAt: string;
   alertType: string;
   customAlertDate?: string
