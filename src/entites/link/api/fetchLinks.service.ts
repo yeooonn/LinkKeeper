@@ -6,7 +6,7 @@ async function fetchLinks(
   revalidateTime: number = 10,
   query?: string
 ): Promise<LinkResponse[]> {
-  const res = await fetchAPI<LinkResponse[]>(`/api/links${query}`, {
+  const res = await fetchAPI<LinkResponse[]>(`api/links${query}`, {
     method: "GET",
     next: { revalidate: revalidateTime, tags: ["link"] },
   });

@@ -7,7 +7,7 @@ type FormData = z.infer<typeof linkFormSchema>;
 
 export async function UpdateLink(requestData: FormData, LinkId: number) {
   const res = await fetchAPI<LinkResponse, FormData>(
-    `/api/links/${LinkId}/update`,
+    `api/links/${LinkId}/update`,
     {
       method: "PUT",
       body: requestData,
