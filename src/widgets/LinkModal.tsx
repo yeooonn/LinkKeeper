@@ -101,7 +101,9 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
   return (
     <Modal onClose={closeModal}>
       <Modal.Header onClose={closeModal}>
-        <Typography.P2 className="font-bold">새 링크 추가</Typography.P2>
+        <Typography.P2 className="font-bold">
+          {mode === "create" ? "새 링크 추가" : "링크 수정"}
+        </Typography.P2>
       </Modal.Header>
       <Modal.Content>
         <LineStepper lineCount={lineCount} step={step} />
