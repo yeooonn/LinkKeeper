@@ -1,8 +1,8 @@
 export interface SignInRequest {
   id: string;
-  email: string | undefined;
-  name: string;
-  profileImage: string | undefined;
+  email?: string | undefined;
+  name?: string;
+  profileImage?: string | undefined;
 }
 
 export interface SignInResponse {
