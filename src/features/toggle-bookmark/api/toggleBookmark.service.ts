@@ -7,7 +7,7 @@ async function patchBookMark(
   revalidateTime: number = 10,
   linkId: number
 ): Promise<toggleBookmarkResponse> {
-  const res = await fetchAPI(`/api/links/${linkId}/bookmark`, {
+  const res = await fetchAPI(`api/links/${linkId}/bookmark`, {
     method: "PATCH",
     next: { revalidate: revalidateTime }, 
   });

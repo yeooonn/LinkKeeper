@@ -6,7 +6,7 @@ import z from "zod";
 type FormData = z.infer<typeof linkFormSchema>;
 
 export async function AddLink(requestData: FormData) {
-  const res = await fetchAPI<LinkResponse, FormData>("/api/create/link", {
+  const res = await fetchAPI<LinkResponse, FormData>("api/create/link", {
     method: "POST",
     body: requestData,
     next: { revalidate: 0 }, 
