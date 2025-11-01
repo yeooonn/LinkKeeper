@@ -8,6 +8,7 @@ import { ThemeProvider } from "./providers/ThemeProvider";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import QueryProvider from "./providers/QueryClientProvider";
+import ClientProvider from "./providers/ClientProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -36,16 +37,18 @@ export default function RootLayout({
               pauseOnHover
               transition={Slide}
             />
-            <main className="flex flex-col min-h-screen">
-              <Header />
-              <div className="flex w-full flex-1 desktop:pt-19 laptop:pt-15 pt-15">
-                <Sidebar />
-                <div className="w-full flex-1 desktop:pt-7 laptop:pt-5 px-5 pt-5 font-sans bg-background-primary laptop:pb-10 overflow-auto mobile:pb-28 transition-all">
-                  {children}
+            <ClientProvider>
+              <main className="flex flex-col min-h-screen">
+                <Header />
+                <div className="flex w-full flex-1 desktop:pt-19 laptop:pt-15 pt-15">
+                  <Sidebar />
+                  <div className="w-full flex-1 desktop:pt-7 laptop:pt-5 px-5 pt-5 font-sans bg-background-primary laptop:pb-10 overflow-auto mobile:pb-28 transition-all">
+                    {children}
+                  </div>
                 </div>
-              </div>
-              <MobileMenu />
-            </main>
+                <MobileMenu />
+              </main>
+            </ClientProvider>
           </QueryProvider>
         </body>
       </ThemeProvider>
