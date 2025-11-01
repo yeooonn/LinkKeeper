@@ -84,10 +84,10 @@ export const LinkFormUI = ({
     return (
       <>
         <LabeledInput
-          title="제목"
-          placeholder="제목"
+          title="파일명"
+          placeholder="파일명"
           isRequired={true}
-          register={register("title", { required: "제목은 필수입니다." })}
+          register={register("title", { required: "파일명은 필수입니다." })}
           error={errors.title as FieldError}
         />
         <LabeledInput

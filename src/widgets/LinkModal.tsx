@@ -61,7 +61,12 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
     if (isEdit && initData)
       response = await UpdateLink(requestData, initData[0].id);
 
-    if (!response) {
+    if (response?.message) {
+      toast.warning(response?.message);
+      return;
+    }
+
+    if (response?.error) {
       toast.error(
         isCreate ? "링크 생성 실패했습니다." : "링크 수정 실패했습니다."
       );

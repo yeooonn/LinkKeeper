@@ -36,5 +36,6 @@ export interface Link {
 
 export interface LinkResponse extends Link {
   linkTags: LinkTag[];
+  message?: string;
   error?: string;
 }
