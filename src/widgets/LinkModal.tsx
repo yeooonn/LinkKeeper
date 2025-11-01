@@ -48,7 +48,7 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
     const requestData = {
       ...data,
       tag: data.tags?.split(" "),
-      foldername: selectedItem || newFolderName,
+      foldername: selectedItem.split("_")[0] || newFolderName,
       alertType: data.alert,
       customAlertDate: new Date(`${data.date}T${data.time}:00+09:00`),
       isBookmark: false,
@@ -61,7 +61,12 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
     if (isEdit && initData)
       response = await UpdateLink(requestData, initData[0].id);
 
-    if (!response) {
+    if (response?.message) {
+      toast.warning(response?.message);
+      return;
+    }
+
+    if (response?.error) {
       toast.error(
         isCreate ? "링크 생성 실패했습니다." : "링크 수정 실패했습니다."
       );

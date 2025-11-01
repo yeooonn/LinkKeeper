@@ -1,8 +1,9 @@
 // app/api/links/route.ts
 import db from "@/shared/lib/db";
+import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: Request) {  
   try {
     const body = await request.json();
     const {
@@ -66,7 +67,14 @@ export async function POST(request: Request) {
 
     return NextResponse.json("링크가 추가되었습니다.", { status: 201 });
   } catch (error) {
-    console.error("Error creating link:", error);
+    const prisma = Prisma;
+
+    if (error instanceof prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        return NextResponse.json({ message: "같은 폴더에 이미 존재하는 파일명 입니다. 파일명을 수정해 주세요.", status: 400 });
+      }
+    }
+
     return NextResponse.json({ error: "링크 생성 실패" }, { status: 500 });
   }
 }

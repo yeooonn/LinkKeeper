@@ -1,6 +1,7 @@
 // app/api/links/route.ts
 import db from "@/shared/lib/db";
 import { NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 
 export async function PUT(req: Request) {
   const url = new URL(req.url);
@@ -88,7 +89,17 @@ export async function PUT(req: Request) {
 
     return NextResponse.json("링크가 업데이트되었습니다.", { status: 200 });
   } catch (error) {
-    console.error("Error updating link:", error);
+    const prisma = Prisma;
+
+    if (error instanceof prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        return NextResponse.json({
+          message: "같은 폴더에 이미 존재하는 파일 이름입니다.",
+          status: 400,
+        });
+      }
+    }
+
     return NextResponse.json({ error: "링크 업데이트 실패" }, { status: 500 });
   }
 }

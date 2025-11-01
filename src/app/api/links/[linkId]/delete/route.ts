@@ -23,7 +23,7 @@ export async function DELETE(req: Request) {
     if (!link) throw new Error("존재하지 않는 링크입니다.");
     if (link.userId !== userId) throw new Error("삭제 권한이 없습니다.");
 
-    const folderName = link.foldername;
+    const folderId = link.folderId;
 
     // 트랜잭션으로 링크 + LinkTag 삭제
     await db.$transaction(async (tx) => {
@@ -34,9 +34,9 @@ export async function DELETE(req: Request) {
       await tx.link.delete({ where: { id: linkId } });
 
       // 3️. 폴더에 남은 링크가 없으면 삭제
-      if (folderName) {
-        const remaining = await tx.link.count({ where: { foldername: folderName } });
-        if (remaining === 0) await tx.folder.delete({ where: { name: folderName } });
+      if (folderId) {
+        const remaining = await tx.link.count({ where: { folderId: folderId } });
+        if (remaining === 0) await tx.folder.delete({ where: { id: folderId } });
       }
 
       // 4️. 사용되지 않는 태그 삭제

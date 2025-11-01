@@ -8,67 +8,52 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// 알림 설정 Enum
-enum AlertType {
-  NONE
-  ONE_HOUR
-  ONE_DAY
-  ONE_WEEK
-  CUSTOM
-}
-
-enum Provider {
-  KAKAO
-  NAVER
-  GITHUB
-}
-
 model SocialAccount {
-  id             String    @id @default(cuid())
-  provider       Provider  // enum
-  providerUserId String    // 소셜 플랫폼에서 받은 고유 사용자 ID
-  accessToken    String?   // 필요 시 저장 (일시적 사용)
-  refreshToken   String?   // 필요 시 저장 (일시적 사용)
+  id             String   @id @default(cuid())
+  provider       Provider
+  providerUserId String
+  accessToken    String?
+  refreshToken   String?
   userId         String
-  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now()) @updatedAt
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt @default(now())
-
-  @@unique([provider, providerUserId]) // 한 provider 내에서 중복 방지
+  @@unique([provider, providerUserId])
 }
 
 model User {
+  createdAt      DateTime        @default(now())
+  email          String?
   id             String          @id
-  email          String?         
   name           String?
   profileImage   String?
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  
-  links     Link[]
-  LinkTag   LinkTag[]
-  LinkRead  LinkRead[]
-  notifications Notification[] // 알림 기록
-  socialAccounts SocialAccount[] // 소셜 로그인 연결
+  updatedAt      DateTime        @updatedAt
+  links          Link[]
+  LinkRead       LinkRead[]
+  LinkTag        LinkTag[]
+  notifications  Notification[]
+  socialAccounts SocialAccount[]
 }
 
 model Link {
-  id         Int       @id @default(autoincrement())
-  title      String
-  url        String
-  memo       String?
-  createdAt  DateTime  @default(now())
-  alertType  AlertType @default(NONE) // 알림 설정
-  customAlertDate DateTime?   // 사용자 정의 알림 시간
-  isBookmark Boolean
-  linkReads  LinkRead[] 
-  userId     String
-  user       User      @relation(fields: [userId], references: [id])
-  linkTags   LinkTag[]
-  notifications Notification[] // 발송된 알림 기록
-  foldername   String?
-  folder     Folder?   @relation(fields: [foldername], references: [name])
+  id                           Int            @id @default(autoincrement())
+  title                        String
+  userId                       String
+  createdAt                    DateTime       @default(now())
+  isBookmark                   Boolean
+  memo                         String?
+  url                          String
+  alertType                    AlertType      @default(NONE)
+  customAlertDate              DateTime?
+  user                         User           @relation(fields: [userId], references: [id])
+  linkReads                    LinkRead[]
+  linkTags                     LinkTag[]
+  notifications                Notification[]
+  folderId        String   
+  folder          Folder?    @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+  @@unique([folderId, title]) 
 }
 
 model Tag {
@@ -89,36 +74,48 @@ model LinkTag {
 }
 
 model Folder {
-  id       String   @id @default(uuid())
-  name     String   @unique
-  parentId String?
-  parent   Folder?  @relation("FolderToSubfolders", fields: [parentId], references: [id])
-  children Folder[] @relation("FolderToSubfolders")
-
-  links    Link[]
+  id                         String   @id @default(uuid())
+  name                       String   @unique
+  parentId                   String?
+  parent                     Folder?  @relation("FolderToSubfolders", fields: [parentId], references: [id])
+  children                   Folder[] @relation("FolderToSubfolders")
+  links                      Link[]
 }
 
 model LinkRead {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  linkId    Int
-  readAt    DateTime @default(now())
-
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  link      Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  id     Int      @id @default(autoincrement())
+  userId String
+  linkId Int
+  readAt DateTime @default(now())
+  link   Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, linkId])
 }
 
 model Notification {
-  id          Int      @id @default(autoincrement())
-  userId      String
-  linkId      Int
-  sentAt      DateTime @default(now())
-  alertType   AlertType // 발송된 알림의 타입
-  message     String?   // 알림 메시지 (선택적)
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  link        Link      @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  id        Int       @id @default(autoincrement())
+  userId    String
+  linkId    Int
+  sentAt    DateTime  @default(now())
+  alertType AlertType
+  message   String?
+  link      Link      @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, linkId])
+}
+
+enum AlertType {
+  NONE
+  ONE_HOUR
+  ONE_DAY
+  ONE_WEEK
+  CUSTOM
+}
+
+enum Provider {
+  KAKAO
+  NAVER
+  GITHUB
 }

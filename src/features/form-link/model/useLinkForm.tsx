@@ -45,7 +45,8 @@ const useLinkForm = (mode: string, initData: LinkResponse[]) => {
     mode: "onChange",
   });
 
-  const initFoleder = mode === "edit" ? initData[0]?.foldername : "";
+  const joinedId = `${initData[0]?.folder.name}_${initData[0]?.folder.id}`;
+  const initFoleder = mode === "edit" ? joinedId : "";
 
   return {
     methods,

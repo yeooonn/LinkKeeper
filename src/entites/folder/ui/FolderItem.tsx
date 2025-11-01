@@ -29,15 +29,15 @@ export const FolderItem = ({
 }: FolderItemProps) => {
   const router = useRouter();
   const isOpenFolder = expandedFolders.includes(folder.id);
-  const isSelected =
-    showFolderSelectionHighlight && selectedMenu === folder.name;
+  const joinedId = `${folder.name}_${folder.id}`;
+  const isSelected = showFolderSelectionHighlight && selectedMenu === joinedId;
 
   return (
     <div key={folder.id}>
       <div
         onClick={() => {
           if (!showFolderSelectionHighlight) onClick();
-          setSelectedMenu(folder.name);
+          setSelectedMenu(joinedId);
         }}
         className={cn(
           isSelected ? selectedColor : unSelectedColor,
@@ -72,17 +72,17 @@ export const FolderItem = ({
       {isOpenFolder &&
         folder.links &&
         folder.links.map((childrenFolder) => {
+          const joinedId = `${childrenFolder.title}_${childrenFolder.folderId}`;
           const isSelected =
-            showChildFolderSelectionHighlight &&
-            selectedMenu === childrenFolder.title;
+            showChildFolderSelectionHighlight && selectedMenu === joinedId;
 
           return (
             <div key={childrenFolder.id} className="pl-9">
               <button
                 onClick={() => {
                   if (showChildFolderSelectionHighlight) {
-                    setSelectedMenu(childrenFolder.title);
-                    router.push(`/links/${childrenFolder.title}`);
+                    setSelectedMenu(`/links/${joinedId}`);
+                    router.push(`/links/${joinedId}`);
                   }
                   localStorage.removeItem("searchValue");
                 }}

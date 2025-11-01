@@ -1,8 +1,6 @@
 import db from "@/shared/lib/db";
-import { createClient } from "@/shared/utils/supabase/server";
 import { NextResponse } from "next/server";
 
-// 필터 매핑 객체를 함수 내부에서 만들기 (USER_ID 의존성 제거)
 const buildWhereClause = (
   USER_ID: string,
   filename?: string | null,
@@ -18,7 +16,12 @@ const buildWhereClause = (
     },
   };
 
-  if (filename) return { userId: USER_ID, title: { equals: filename } };
+  if (filename) {
+    return {
+      userId: USER_ID,
+      title: { equals: filename },
+    };
+  }
 
   if (filter) return { userId: USER_ID, ...(FILTER_CONDITIONS[filter] ?? {}) };
 
@@ -37,7 +40,6 @@ export async function GET(request: Request) {
   const searchValue = searchParams.get("url");
   const editLinkId = searchParams.get("edit");
   const USER_ID = searchParams.get("userId");
-
   if (!USER_ID) {
     return NextResponse.json(
       { error: "인증되지 않은 사용자입니다." },
@@ -59,6 +61,7 @@ export async function GET(request: Request) {
       include: {
         linkTags: { include: { tag: true } },
         linkReads: true,
+        folder: true,
       },
       orderBy: { id: "desc" },
     });
