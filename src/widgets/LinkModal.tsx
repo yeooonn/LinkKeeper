@@ -48,7 +48,7 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
     const requestData = {
       ...data,
       tag: data.tags?.split(" "),
-      foldername: selectedItem || newFolderName,
+      foldername: selectedItem.split("_")[0] || newFolderName,
       alertType: data.alert,
       customAlertDate: new Date(`${data.date}T${data.time}:00+09:00`),
       isBookmark: false,

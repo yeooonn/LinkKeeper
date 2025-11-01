@@ -29,15 +29,15 @@ export const FolderItem = ({
 }: FolderItemProps) => {
   const router = useRouter();
   const isOpenFolder = expandedFolders.includes(folder.id);
-  const isSelected =
-    showFolderSelectionHighlight && selectedMenu === folder.name;
+  const joinedId = `${folder.name}_${folder.id}`;
+  const isSelected = showFolderSelectionHighlight && selectedMenu === joinedId;
 
   return (
     <div key={folder.id}>
       <div
         onClick={() => {
           if (!showFolderSelectionHighlight) onClick();
-          setSelectedMenu(folder.name);
+          setSelectedMenu(joinedId);
         }}
         className={cn(
           isSelected ? selectedColor : unSelectedColor,
