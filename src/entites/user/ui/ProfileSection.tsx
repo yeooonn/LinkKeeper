@@ -5,6 +5,7 @@ import { UserInterface } from "@/entites/user/model/types";
 import { useUser } from "@/shared/hooks/useUser";
 import { useState } from "react";
 import { createClient } from "@/shared/utils/supabase/client";
+import defaultProfile from "@/shared/assets/img/defaultProfile.png";
 
 const ProfileContent = ({ userData }: { userData: UserInterface }) => {
   const supabase = createClient();
@@ -20,7 +21,7 @@ const ProfileContent = ({ userData }: { userData: UserInterface }) => {
   return (
     <div className="flex gap-4 items-center mobile:my-3 tablet:m-0 desktop:mt-0">
       <Profile
-        src={profileImage!}
+        src={profileImage ? profileImage : defaultProfile}
         className="desktop:w-14 desktop:h-14 laptop:w-13 laptop:h-13 tablet:w-10 tablet:h-10 mobile:w-14 mobile:h-14"
       />
       <div className="w-full">

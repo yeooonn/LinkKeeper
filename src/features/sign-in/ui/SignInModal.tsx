@@ -1,5 +1,5 @@
 import { Kakao } from "@/shared/assets/svg/kakao";
-import { Naver } from "@/shared/assets/svg/naver";
+import { Google } from "@/shared/assets/svg/Google";
 import Modal from "@/shared/components/atoms/Modal";
 import Typography from "@/shared/components/atoms/Typography";
 import cn from "@/shared/utils/cn";
@@ -12,7 +12,7 @@ interface SignInModalProps {
 
 const socialButtons = [
   {
-    label: "KAKAO",
+    label: "Kakao",
     provider: "kakao" as Provider,
     bg: "bg-[#F8D303]",
     hover: "hover:bg-[#FEE503]",
@@ -20,21 +20,21 @@ const socialButtons = [
     icon: <Kakao />,
   },
   {
-    label: "NAVER",
-    provider: "naver" as Provider,
-    bg: "bg-[#04B253]",
-    hover: "hover:bg-[#02C75B]",
-    text: "text-white",
-    icon: <Naver />,
+    label: "Google",
+    provider: "google" as Provider,
+    bg: "bg-[#edededa3]",
+    hover: "hover:bg-[#ededed65]",
+    text: "text-black",
+    icon: <Google />,
   },
-  {
-    label: "GITHUB",
-    provider: "github" as Provider,
-    bg: "bg-black",
-    hover: "hover:bg-[#333333]",
-    text: "text-white",
-    icon: <i className="bi bi-github text-white" />,
-  },
+  // {
+  //   label: "GITHUB",
+  //   provider: "github" as Provider,
+  //   bg: "bg-black",
+  //   hover: "hover:bg-[#333333]",
+  //   text: "text-white",
+  //   icon: <i className="bi bi-github text-white" />,
+  // },
 ];
 
 const SignInModal = ({ onClose }: SignInModalProps) => {
@@ -55,12 +55,8 @@ const SignInModal = ({ onClose }: SignInModalProps) => {
     console.log("로그인 데이터:", data);
   };
 
-  // const signOut = async () => {
-  //   await supabase.auth.signOut()
-  // }
-
   return (
-    <Modal onClose={onClose} className="!min-w-[30%] desktop:!min-w-[21%]">
+    <Modal onClose={onClose} className="!min-w-[24%] desktop:!min-w-[21%]">
       <Modal.Header onClose={onClose}>
         <Typography.H1> </Typography.H1>
       </Modal.Header>
