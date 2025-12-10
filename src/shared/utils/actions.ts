@@ -1,6 +1,7 @@
 "use server";
-import { revalidateTag } from 'next/cache'
+import { revalidateTag } from "next/cache";
 
 export async function revalidateLink() {
-  revalidateTag("link")
+  // @ts-expect-error nextjs type bug
+  revalidateTag("link");
 }
