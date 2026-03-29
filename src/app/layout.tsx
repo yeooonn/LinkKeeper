@@ -9,6 +9,7 @@ import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import QueryProvider from "./providers/QueryClientProvider";
 import ClientProvider from "./providers/ClientProvider";
+import ServiceWorkerRegister from "./providers/ServiceWorkerRegister";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -38,6 +39,7 @@ export default function RootLayout({
               transition={Slide}
             />
             <ClientProvider>
+              <ServiceWorkerRegister />
               <main className="flex flex-col min-h-screen">
                 <Header />
                 <div className="flex w-full flex-1 desktop:pt-19 laptop:pt-15 pt-15">

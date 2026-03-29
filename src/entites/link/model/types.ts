@@ -25,6 +25,7 @@ export interface Link {
   memo: string;
   folder: folder;
   createdAt: string;
+  updatedAt?: string;
   alertType: string;
   customAlertDate?: string;
   isBookmark: boolean;

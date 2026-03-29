@@ -1,7 +1,12 @@
-import { type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 import { updateSession } from './shared/utils/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
+  // Cron 등 서버 간 호출은 Supabase 세션 갱신 불필요 · 실패 시 500 방지
+  if (request.nextUrl.pathname.startsWith('/api/cron')) {
+    return NextResponse.next()
+  }
+
   // 세션(로그인 토큰)을 자동 갱신하는 함수
   const session = await updateSession(request)
 

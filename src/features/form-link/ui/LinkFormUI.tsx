@@ -9,13 +9,18 @@ import LabeledTextarea from "@/shared/components/molecules/LabeledTextarea";
 import { ALERT_OPTION } from "@/shared/constants/alertOption";
 import { SELECTED_COLOR, UNSELECTED_COLOR } from "@/shared/constants/colors";
 import cn from "@/shared/utils/cn";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { FieldError, useFormContext, UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { linkFormSchema } from "@/shared/lib/linkForm.schema";
 import Card from "@/shared/components/atoms/Card";
 import SearchFolderInput from "@/entites/folder/ui/SearchFolderInput";
 import useSearchFolderInput from "@/entites/folder/model/useSearchFolderInput";
+import { toast } from "react-toastify";
+import {
+  ensurePushPermissionFromAlertFlow,
+  getPushPermissionStatus,
+} from "@/shared/utils/pushSubscription";
 
 interface LinkFormUI {
   step: number;
@@ -66,6 +71,30 @@ export const LinkFormUI = ({
     watch,
     formState: { errors },
   } = useFormContext();
+  const alertValue = watch("alert");
+  const alertedForStep2Ref = useRef(false);
+
+  useEffect(() => {
+    if (step !== 2) {
+      alertedForStep2Ref.current = false;
+      return;
+    }
+
+    if (alertValue === "NONE" || !alertValue) {
+      alertedForStep2Ref.current = false;
+      return;
+    }
+
+    if (alertedForStep2Ref.current) return;
+    alertedForStep2Ref.current = true;
+
+    void (async () => {
+      const ok = await ensurePushPermissionFromAlertFlow();
+      if (!ok && getPushPermissionStatus() === "denied") {
+        toast.info("브라우저 설정에서 알림을 허용해주세요.");
+      }
+    })();
+  }, [step, alertValue]);
   const { searchFolderValue, setSearchFolderValue, handleSearchValue } =
     useSearchFolderInput();
   const [showAddFolderInput, setShowAddFolderInput] = useState<boolean>(false);
@@ -143,7 +172,7 @@ export const LinkFormUI = ({
                   isSelectedNewFolder ? SELECTED_COLOR : UNSELECTED_COLOR,
                   selectedItem !== newFolderName &&
                     "dark:hover:bg-background-hover",
-                  "group pl-2.5 py-1 flex gap-3 ml-3 mt-4 mr-3 pr-2 rounded-lg cursor-pointer items-center"
+                  "group pl-2.5 py-1 flex gap-3 ml-3 mt-4 mr-3 pr-2 rounded-lg cursor-pointer items-center",
                 )}
               >
                 <div className="flex gap-2">

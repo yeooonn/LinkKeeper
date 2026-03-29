@@ -23,17 +23,18 @@ model SocialAccount {
 }
 
 model User {
-  createdAt      DateTime        @default(now())
-  email          String?
-  id             String          @id
-  name           String?
-  profileImage   String?
-  updatedAt      DateTime        @updatedAt
-  links          Link[]
-  LinkRead       LinkRead[]
-  LinkTag        LinkTag[]
-  notifications  Notification[]
-  socialAccounts SocialAccount[]
+  createdAt           DateTime            @default(now())
+  email             String?
+  id                String              @id
+  name              String?
+  profileImage      String?
+  updatedAt         DateTime            @updatedAt
+  links             Link[]
+  LinkRead          LinkRead[]
+  LinkTag           LinkTag[]
+  notifications     Notification[]
+  socialAccounts    SocialAccount[]
+  pushSubscriptions PushSubscription[]
 }
 
 model Link {
@@ -41,11 +42,16 @@ model Link {
   title                        String
   userId                       String
   createdAt                    DateTime       @default(now())
+  updatedAt                    DateTime       @updatedAt
   isBookmark                   Boolean
   memo                         String?
   url                          String
   alertType                    AlertType      @default(NONE)
-  customAlertDate              DateTime?
+  /// 한국 시각 ISO 문자열 (예: 2025-03-29T15:07:00+09:00)
+  customAlertDate              String?
+  /// 한국 시각 ISO 문자열 (예: 2025-03-29T15:07:00+09:00)
+  alertAt                      String?
+  alertSent                    Boolean        @default(false)
   user                         User           @relation(fields: [userId], references: [id])
   linkReads                    LinkRead[]
   linkTags                     LinkTag[]
@@ -91,6 +97,18 @@ model LinkRead {
   user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, linkId])
+}
+
+model PushSubscription {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Notification {

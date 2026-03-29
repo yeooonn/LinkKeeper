@@ -1,6 +1,8 @@
 // app/api/links/route.ts
 import db from "@/shared/lib/db";
-import { Prisma } from "@prisma/client";
+import { calculateAlertAt } from "@/shared/lib/calculateAlertAt";
+import { toKstOffsetIsoString } from "@/shared/lib/kstIsoString";
+import { AlertType, Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {  
@@ -34,7 +36,7 @@ export async function POST(request: Request) {
         url,
         memo,
         alertType,
-        customAlertDate,
+        customAlertDate: null,
         isBookmark,
         user: { connect: { id } },
         folder: {
@@ -43,6 +45,31 @@ export async function POST(request: Request) {
             create: { name: foldername }, // 폴더가 없으면 새로 생성
           },
         },
+      },
+    });
+
+    const customForSchedule =
+      alertType === "CUSTOM" && customAlertDate != null && customAlertDate !== ""
+        ? new Date(customAlertDate)
+        : null;
+
+    const schedule = calculateAlertAt(
+      newLink.createdAt,
+      alertType as AlertType,
+      customForSchedule,
+    );
+
+    const customStored =
+      customForSchedule != null
+        ? toKstOffsetIsoString(customForSchedule)
+        : null;
+
+    await db.link.update({
+      where: { id: newLink.id },
+      data: {
+        customAlertDate: customStored,
+        alertAt: schedule.alertAt,
+        alertSent: schedule.alertSent,
       },
     });
 

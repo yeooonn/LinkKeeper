@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { SignIn } from "@/features/sign-in/model/signIn.service";
 import { toast } from "react-toastify";
 import { useAuthStore } from "@/shared/stores/useUserStore";
+import { subscribeToPushOnLogin } from "@/shared/utils/pushSubscription";
 
 export default function AuthCallback() {
   const router = useRouter();
@@ -17,6 +18,7 @@ export default function AuthCallback() {
 
         if (response?.message === "success") {
           toast.success("로그인되었습니다.");
+          void subscribeToPushOnLogin();
           router.replace(`${process.env.NEXT_PUBLIC_BASE_URL}`);
         }
 

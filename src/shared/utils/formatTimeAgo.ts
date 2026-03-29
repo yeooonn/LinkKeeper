@@ -1,4 +1,18 @@
 /**
+ * 링크 카드에 쓸 기준 시각: 한 번이라도 수정됐으면 수정 시각, 아니면 생성 시각
+ */
+export function linkListTimestamp(
+  createdAt: string,
+  updatedAt?: string | null,
+): string {
+  if (updatedAt == null || updatedAt === "") return createdAt;
+  const c = new Date(createdAt).getTime();
+  const u = new Date(updatedAt).getTime();
+  if (Number.isNaN(c) || Number.isNaN(u)) return createdAt;
+  return u > c ? updatedAt : createdAt;
+}
+
+/**
  * 특정 생성 시간과 현재 시간을 비교하여, 사람이 읽기 좋은 상대 시간 문자열 반환 유틸함수
  * @param createdAt
  */

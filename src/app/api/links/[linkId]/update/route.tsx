@@ -1,7 +1,9 @@
 // app/api/links/route.ts
 import db from "@/shared/lib/db";
+import { calculateAlertAt } from "@/shared/lib/calculateAlertAt";
+import { toKstOffsetIsoString } from "@/shared/lib/kstIsoString";
+import { AlertType, Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { Prisma } from "@prisma/client";
 
 export async function PUT(req: Request) {
   const url = new URL(req.url);
@@ -24,7 +26,7 @@ export async function PUT(req: Request) {
     if (!linkId) {
       return NextResponse.json(
         { error: "link ID가 없습니다.." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -33,7 +35,7 @@ export async function PUT(req: Request) {
     if (!userExists) {
       return NextResponse.json(
         { error: "유효하지 않은 userId입니다." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -42,12 +44,30 @@ export async function PUT(req: Request) {
     if (!existingLink) {
       return NextResponse.json(
         { error: "수정할 링크가 존재하지 않습니다." },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     // 기존 태그 연결 삭제
     await db.linkTag.deleteMany({ where: { linkId: linkId } });
+
+    const customForSchedule =
+      alertType === "CUSTOM" &&
+      customAlertDate != null &&
+      customAlertDate !== ""
+        ? new Date(customAlertDate)
+        : null;
+
+    const schedule = calculateAlertAt(
+      new Date(),
+      alertType as AlertType,
+      customForSchedule,
+    );
+
+    const customStored =
+      customForSchedule != null
+        ? toKstOffsetIsoString(customForSchedule)
+        : null;
 
     // 링크 업데이트
     await db.link.update({
@@ -57,8 +77,10 @@ export async function PUT(req: Request) {
         url,
         memo,
         alertType,
-        customAlertDate,
+        customAlertDate: customStored,
         isBookmark,
+        alertAt: schedule.alertAt,
+        alertSent: schedule.alertSent,
         folder: {
           connectOrCreate: {
             where: { name: foldername },

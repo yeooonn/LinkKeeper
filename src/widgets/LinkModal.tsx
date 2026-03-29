@@ -16,6 +16,7 @@ import { LinkFormButton, LinkFormUI } from "@/features/form-link/ui/LinkFormUI";
 import { LinkResponse } from "@/entites/link/model/types";
 import { UpdateLink } from "@/features/update-link/model/updateLink.service";
 import { useUser } from "@/shared/hooks/useUser";
+import { parseCustomAlertFromInput } from "@/shared/lib/customAlertDateTime";
 
 interface LinkModalProps {
   closeModal: () => void;
@@ -45,12 +46,17 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
   const { user } = useUser();
 
   const onSubmit = async (data: FormData) => {
+    const customAlertDate =
+      data.alert === "CUSTOM"
+        ? parseCustomAlertFromInput(data.date, data.time)
+        : null;
+
     const requestData = {
       ...data,
       tag: data.tags?.split(" "),
       foldername: selectedItem.split("_")[0] || newFolderName,
       alertType: data.alert,
-      customAlertDate: new Date(`${data.date}T${data.time}:00+09:00`),
+      customAlertDate,
       isBookmark: false,
       linkReads: [],
       id: user!.id,
@@ -68,7 +74,7 @@ const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
 
     if (response?.error) {
       toast.error(
-        isCreate ? "링크 생성 실패했습니다." : "링크 수정 실패했습니다."
+        isCreate ? "링크 생성 실패했습니다." : "링크 수정 실패했습니다.",
       );
       return;
     }
