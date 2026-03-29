@@ -15,8 +15,8 @@ export const FILTER_LIST: MenuInterface[] = [
     id: "읽지 않음",
   },
   {
-    icon: "bi bi-star",
-    selectedIcon: "bi bi-star-fill",
+    icon: "bi bi-bookmark",
+    selectedIcon: "bi bi-bookmark-fill",
     text: "즐겨찾기",
     id: "즐겨찾기",
   },

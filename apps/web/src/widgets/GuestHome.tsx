@@ -12,7 +12,7 @@ const guideCardData = [
       "링크를 폴더별로 체계적으로 정리하고 중첩 폴더로 더 세밀하게 분류하세요.",
   },
   {
-    icon: "bi bi-star",
+    icon: "bi bi-bookmark",
     color: { iconColor: "text-orange-500", bgColor: "bg-orange-100" },
     title: "즐겨찾기",
     content: "나중에 다시 보고 싶은 링크를 즐겨찾기에 저장해 쉽게 찾아보세요.",
@@ -48,14 +48,14 @@ const renderGuideCard = (guide: guideProps) => {
           <div
             className={cn(
               "w-10 h-10 rounded-xl flex items-center justify-center",
-              guide.color.bgColor
+              guide.color.bgColor,
             )}
           >
             <i
               className={cn(
                 guide.icon,
                 guide.color.iconColor,
-                "flex justify-center text-xl"
+                "flex justify-center text-xl",
               )}
             />
           </div>

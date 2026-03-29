@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FILTER_LIST } from "../../lib/filter-list";
@@ -42,17 +43,26 @@ export function MobileTabBar({
 
         {FILTER_LIST.map((menu) => {
           const selected = !categoryOpen && activeFilterText === menu.text;
+          const color = selected ? "#171717" : "#737373";
           return (
             <Pressable
               key={menu.text}
               onPress={() => onSelectFilter(menu.text)}
               className="min-w-[52px] items-center py-1 active:opacity-70"
             >
-              <Ionicons
-                name={selected ? menu.iconSelected : menu.icon}
-                size={22}
-                color={selected ? "#171717" : "#737373"}
-              />
+              {menu.iconSource === "material-community" ? (
+                <MaterialCommunityIcons
+                  name={menu.icon}
+                  size={22}
+                  color={color}
+                />
+              ) : (
+                <Ionicons
+                  name={selected ? menu.iconSelected : menu.icon}
+                  size={22}
+                  color={color}
+                />
+              )}
               <Text
                 className={`mt-0.5 text-xs ${selected ? "font-semibold text-foreground-primary" : "text-foreground-trtiary"}`}
                 numberOfLines={1}
