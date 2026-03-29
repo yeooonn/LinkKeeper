@@ -24,7 +24,7 @@ export async function updateSession(request: NextRequest) {
         // Supabase에서 새로 발급하거나 갱신한 쿠키를 설정
         setAll(cookiesToSet) {
           // 1️. 요청 객체의 쿠키를 갱신 (middleware 실행 중 쿠키 반영용)
-          cookiesToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           )
 

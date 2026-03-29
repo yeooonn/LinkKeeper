@@ -1,4 +1,4 @@
-// app/api/links/route.ts
+// app/api/links/[linkId]/update/route.ts
 import db from "@/shared/lib/db";
 import { calculateAlertAt } from "@/shared/lib/calculateAlertAt";
 import { toKstOffsetIsoString } from "@/shared/lib/kstIsoString";
