@@ -34,6 +34,9 @@ yarn-error.log*
 .env*
 .env
 
+# Supabase cron SQL filled from .env (secrets)
+supabase/cron/linkkeeper_notify.filled.sql
+
 # vercel
 .vercel
 

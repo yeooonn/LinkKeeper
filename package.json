@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "cron:local": "bash scripts/trigger-cron-local.sh"
+    "cron:local": "bash scripts/trigger-cron-local.sh",
+    "cron:local:watch": "bash scripts/cron-local-watch.sh",
+    "generate:supabase-cron": "bash scripts/generate-supabase-cron-sql.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
