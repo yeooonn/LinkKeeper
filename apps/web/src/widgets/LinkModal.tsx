@@ -1,0 +1,132 @@
+import { useState } from "react";
+import { FormProvider } from "react-hook-form";
+import z from "zod";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import LineStepper from "@/shared/components/atoms/LineStepper";
+import Modal from "@/shared/components/atoms/Modal";
+import Typography from "@/shared/components/atoms/Typography";
+import useLineStepper from "@/shared/hooks/useLineStepper";
+import { revalidateLink } from "@/shared/utils/actions";
+import { useQueryClient } from "@tanstack/react-query";
+import { linkFormSchema } from "@/shared/lib/linkForm.schema";
+import useLinkForm from "@/features/form-link/model/useLinkForm";
+import { AddLink } from "@/features/add-link/api/addLink.service";
+import { LinkFormButton, LinkFormUI } from "@/features/form-link/ui/LinkFormUI";
+import { LinkResponse } from "@/entites/link/model/types";
+import { UpdateLink } from "@/features/update-link/model/updateLink.service";
+import { useUser } from "@/shared/hooks/useUser";
+import { parseCustomAlertFromInput } from "@/shared/lib/customAlertDateTime";
+
+interface LinkModalProps {
+  closeModal: () => void;
+  mode: string;
+  initData?: LinkResponse[];
+}
+
+type FormData = z.infer<typeof linkFormSchema>;
+
+const LinkModal = ({ closeModal, mode, initData }: LinkModalProps) => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const lineCount = 3;
+  const {
+    step,
+    showNextButton,
+    showPrevButton,
+    showAddButton,
+    handleClickNextButton,
+    handleClickPrevButton,
+  } = useLineStepper({ lineCount: lineCount });
+  const { methods, initialFolder } = useLinkForm(mode, initData ?? []);
+  const [selectedItem, setSelectedItem] = useState<string>(initialFolder);
+  const [newFolderName, setNewFolderName] = useState<string>("");
+  const isCreate = mode === "create";
+  const isEdit = mode === "edit";
+  const { user } = useUser();
+
+  const onSubmit = async (data: FormData) => {
+    const customAlertDate =
+      data.alert === "CUSTOM"
+        ? parseCustomAlertFromInput(data.date, data.time)
+        : null;
+
+    const requestData = {
+      ...data,
+      tag: data.tags?.split(" "),
+      foldername: selectedItem.split("_")[0] || newFolderName,
+      alertType: data.alert,
+      customAlertDate,
+      isBookmark: false,
+      linkReads: [],
+      id: user!.id,
+    };
+
+    let response;
+    if (isCreate) response = await AddLink(requestData);
+    if (isEdit && initData)
+      response = await UpdateLink(requestData, initData[0].id);
+
+    if (response?.message) {
+      toast.warning(response?.message);
+      return;
+    }
+
+    if (response?.error) {
+      toast.error(
+        isCreate ? "링크 생성 실패했습니다." : "링크 수정 실패했습니다.",
+      );
+      return;
+    }
+
+    methods.reset();
+    closeModal();
+    toast.success(isCreate ? "추가되었습니다." : "수정되었습니다.");
+
+    await revalidateLink();
+    await queryClient.invalidateQueries({ queryKey: ["folders"] });
+    router.push("/links/전체");
+  };
+
+  const buttonProps = {
+    closeModal: closeModal,
+    handleClickPrevButton: handleClickPrevButton,
+    handleClickNextButton: handleClickNextButton,
+    onSubmit: onSubmit,
+    step: step,
+    selectedItem: selectedItem,
+    newFolderName: newFolderName,
+    showPrevButton: showPrevButton,
+    showNextButton: showNextButton,
+    showAddButton: showAddButton,
+    methods: methods,
+    mode: mode,
+  };
+
+  return (
+    <Modal onClose={closeModal}>
+      <Modal.Header onClose={closeModal}>
+        <Typography.P2 className="font-bold">
+          {mode === "create" ? "새 링크 추가" : "링크 수정"}
+        </Typography.P2>
+      </Modal.Header>
+      <Modal.Content>
+        <LineStepper lineCount={lineCount} step={step} />
+        <FormProvider {...methods}>
+          <LinkFormUI
+            step={step}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+            newFolderName={newFolderName}
+            setNewFolderName={setNewFolderName}
+          ></LinkFormUI>
+        </FormProvider>
+      </Modal.Content>
+      <Modal.Footer>
+        <LinkFormButton buttonProps={buttonProps} />
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
+export default LinkModal;

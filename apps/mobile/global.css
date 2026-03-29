@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * 웹과 동일 CSS 변수 (Expo Web에서 참조 가능)
+ */
+:root {
+  --background-primary: #f9fafb;
+  --background-secondary: #ffffff;
+  --background-hover: #f3f4f6;
+  --foreground-primary: #171717;
+  --foreground-secondary: #364153;
+  --foreground-trtiary: #99a1af;
+  --border-primary: #e5e7eb;
+}
+
+/*
+ * Expo Web: RN flex 레이아웃이 뷰포트 높이를 타지 않으면 flex-1 자식(특히 FlatList)이
+ * 높이 0으로 남는 경우가 많습니다.
+ */
+html,
+body {
+  height: 100%;
+}
+
+/* RN Web 루트 div는 id가 환경마다 달라 html/body + 레이아웃 flex로 보강 */
+#root {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 100%;
+}

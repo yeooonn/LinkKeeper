@@ -2,13 +2,14 @@
 
 ## 📌 프로젝트 개요
 
-**LinkKeeper**는 "나중에 읽기"로 저장한 콘텐츠(링크)를 관리하여, 사용자가 실제로 읽을 수 있도록 돕는 **링크 관리 서비스**입니다. 
+**LinkKeeper**는 "나중에 읽기"로 저장한 콘텐츠(링크)를 관리하여, 사용자가 실제로 읽을 수 있도록 돕는 **링크 관리 서비스**입니다.
 
 ---
 
 🚧 프로젝트 진행 현황
-- 현재 **진행 중(Work in Progress)** 인 프로젝트입니다.  
-- `main` 브랜치에 머지될 경우 **자동으로 배포**됩니다.  
+
+- 현재 **진행 중(Work in Progress)** 인 프로젝트입니다.
+- `main` 브랜치에 머지될 경우 **자동으로 배포**됩니다.
 
 - 🌐 배포 링크: 🔗 [https://link-keeper-mocha.vercel.app/](https://link-keeper-mocha.vercel.app/)
 
@@ -16,6 +17,7 @@
 
 ## 🛠️ 사용 기술
 
+- **모노레포**: `apps/web`(Next.js), `apps/mobile`(Expo / React Native), `packages/shared`(공유 타입·API·Zod)
 - **Next.js**(App Router 기반 SSR/CSR 혼합, API 라우트 사용)
 - **React 19**
 - **Prisma ORM**, **Supabase Auth** (DB 및 인증)
@@ -24,11 +26,20 @@
 - **React Hook Form, Zod**
 - **ESLint, TypeScript** (정적 타입, 품질/검사)
 
+### 모노레포 스크립트
+
+- **환경 변수**: `.env`는 리포 루트에 두어도 됩니다. Next(Turbopack) 미들웨어가 `apps/web`의 `.env*`를 읽는 경우가 있어, 최초 1회 `apps/web`에서 `ln -sf ../../.env .env.local` 로 루트 `.env`를 가리키면 Supabase 키가 안정적으로 로드됩니다.
+- 웹: 루트에서 `npm run dev` → `apps/web` Next 개발 서버
+- 모바일: `npm run mobile` → Expo (`apps/mobile`), 환경 변수는 `apps/mobile/.env.example` 참고
+
+Vercel 배포 시 **Root Directory**를 `apps/web`으로 설정합니다.
+
 ## 🗂️ src 폴더 구조와 역할
+
 ### 📂 폴더 구조
 
 ```
-src/
+apps/web/src/
 ├── app/              # 라우트, Layout, Providers
 ├── entites/          # 폴더·링크 등 도메인 모델별 계층
 ├── features/         # 기능 단위(로그인/추가/삭제/검색 등)
@@ -37,27 +48,23 @@ src/
 ```
 
 - **/app:**
-
   - Next.js 13+의 App Router 방식 사용
   - 페이지와 라우트(`route.ts`), 레이아웃(`layout.tsx`), 글로벌 스타일 및 Provider 컴포넌트 등 배치
   - API 라우트(서버 핸들러), 인증, 메인 페이지, 폴더/링크 상세 등 서버-클라이언트 통합 구조
 
 - **/entites:**
-
   - 도메인 별 엔티티(폴더, 링크, 유저, 메뉴 등) 관리
   - 각 엔티티별로 api, model(비즈니스로직, 타입, 커스텀훅), ui(컴포넌트)로 세분화
   - 예: `/entites/folder/`, `/entites/link/`, ...
   - SRP(단일책임 원칙) 기반, 재사용성 및 유지보수 고려
 
 - **/features:**
-
   - 독립적인 기능 단위의 폴더 구조
   - 예: 링크 추가, 삭제, 수정, 읽음처리, 북마크 토글, 로그인 등
   - 각 폴더마다 api·model·ui 형식 분리
   - 복수의 페이지 혹은 다른 엔티티(폴더/링크 등)에서 import해 사용
 
 - **/widgets:**
-
   - 상위 레이아웃, 섹션, 주요 UI 조각(GuestHome, Header, Sidebar 등)
   - 여러 엔티티와 상태를 조합한 박스형 UI 또는 Layout 컴포넌트
 

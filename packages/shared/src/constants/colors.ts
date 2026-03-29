@@ -1,0 +1,4 @@
+export const SELECTED_COLOR = "bg-blue-500 text-white";
+
+export const UNSELECTED_COLOR =
+  "bg-white hover:bg-background-hover bg-transparent";
